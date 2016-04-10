@@ -2,6 +2,16 @@
 <header>
 	<title>FA2RE-SE</title>
 	<script type="text/javascript" src="libs/vis/vis.min.js"></script>
+	<script type="text/javascript" src="libs/antlr4/index.js"></script>
+	 
+	<script type="text/javascript">
+	var input = "...what you want to feed into the parser...",
+	     cstream = new org.antlr.runtime.ANTLRStringStream(input),
+	     lexer = new TLexer(cstream),
+	     tstream = new org.antlr.runtime.CommonTokenStream(lexer),
+	     parser = new TParser(tstream);
+	parser.entry_rule();
+	</script>
 	<link href="libs/vis/vis.min.css" rel="stylesheet" type="text/css" />
 
 	<style type="text/css">
