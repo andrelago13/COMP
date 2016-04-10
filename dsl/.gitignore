@@ -7,3 +7,12 @@
 /HelloLexer.java
 /HelloListener.java
 /HelloParser.java
+/EliminationOrder.tokens
+/EliminationOrderBaseListener.java
+/EliminationOrderLexer.java
+/EliminationOrderLexer.tokens
+/EliminationOrderListener.java
+/EliminationOrderParser.java
+/EliminationOrderLexer.js
+/EliminationOrderListener.js
+/EliminationOrderParser.js
