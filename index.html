@@ -5,17 +5,17 @@
   <script src="libs/vis/vis.js"></script> 
   <script type="text/javascript" src="libs/require.js"></script>
   <script>
-    //var antlr4 = require('libs/antlr4/index');
+    var antlr4 = require('antlr4/index');
+    var HelloLexer = require('dsl/HelloLexer');
+    var HelloParser = require('dsl/HelloParser');
+   	var input = "hello world"
+   	var chars = new antlr4.InputStream(input);
+   	var lexer = new HelloLexer.HelloLexer(chars);
+   	var tokens  = new antlr4.CommonTokenStream(lexer);
+   	var parser = new HelloParser.HelloParser(tokens);
+   	parser.buildParseTrees = true;
+   	var tree = parser.r();
  </script>
-	 
-	<!--<script type="text/javascript">
-	var input = "...what you want to feed into the parser...",
-	     cstream = new org.antlr.runtime.ANTLRStringStream(input),
-	     lexer = new TLexer(cstream),
-	     tstream = new org.antlr.runtime.CommonTokenStream(lexer),
-	     parser = new TParser(tstream);
-	parser.entry_rule();
-	</script>-->
  	<link href="libs/vis/vis.css" rel="stylesheet" type="text/css" /> 
 </head>
 <body>
