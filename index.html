@@ -21,6 +21,9 @@
 <body>
 
 <input type='file' accept='text/plain' onchange='openFile(event)'><br>
+
+<input type='text' accept='text/plain' onchange='openDSL(event)'><br>
+
 <img id='output'>
 <div id="mynetwork" >
 
@@ -59,6 +62,18 @@
     };
     reader.readAsText(input.files[0]);
   };
+  
+  var openDSL = function(event) {
+	  
+	var input = event.srcElement.value;
+	var chars = new antlr4.InputStream(input);
+	var lexer = new EliminationOrderLexer.EliminationOrderLexer(chars);
+	var tokens  = new antlr4.CommonTokenStream(lexer);
+	var parser = new EliminationOrderParser.EliminationOrderParser(tokens);
+	parser.buildParseTrees = true;
+	var tree = parser.s();
+  }
+  
 </script>
 </div>
 </body>
