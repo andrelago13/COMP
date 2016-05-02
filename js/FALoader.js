@@ -12,6 +12,7 @@ FALoader.prototype.load = function() {
 			nodes: parsedData.nodes,
 			edges: parsedData.edges
 			}
+	console.log(data);
 	return data;
 }
 
