@@ -1,5 +1,6 @@
 digraph {
   rankdir=LR;
+  START;
   node [shape = doublecircle]; B C;
   node [shape = circle];
   START -> START[label=0.5];

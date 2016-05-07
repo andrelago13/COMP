@@ -29,8 +29,11 @@ FALoader.prototype.validateSingleStart = function(fa) {
 }
 
 FALoader.prototype.validateFinalExistence = function(fa) {
-	// TODO
-	return true;
+	for (var i = 0; i < fa.nodes.length; i++) {
+		if (fa.nodes[i].peripheries === 2 || fa.nodes[i].shape === "doublecircle")
+			return true;
+	}
+	return false;
 }
 
 FALoader.prototype.validateNoUnreachable = function(fa) {
