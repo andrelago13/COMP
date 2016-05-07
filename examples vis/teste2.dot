@@ -4,7 +4,7 @@ digraph {
   node [shape = doublecircle]; B C;
   node [shape = circle];
   START -> START[label=0.5];
-  B -> B[label=1.2];
+  START -> B[label=1.2];
   B -> C[label=0.7];
   C -> START;
   B -> D;
