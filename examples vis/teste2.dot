@@ -3,14 +3,13 @@ digraph {
   START;
   node [shape = doublecircle]; B C;
   node [shape = circle];
-  START -> START[label=0.5];
-  START -> B[label=1.2];
-  B -> C[label=0.7];
+  START -> START[label=z];
+  START -> B[label=x];
+  B -> C[label=y];
   C -> START;
   B -> D;
   D -> {B; C}
-  D -> E[label=0.2];
-  F -> F;
+  D -> E[label=x];
   
   B [
   	fontcolor=white,

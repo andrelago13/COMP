@@ -86,6 +86,11 @@ FALoader.prototype.validateNoUnreachable = function(fa) {
 }
 
 FALoader.prototype.validateTransitions = function(fa) {
-	// TODO
+	for (var i = 0; i < fa.edges.length; i++) {
+		if (typeof fa.edges[i].label == 'undefined')
+			continue; // epsilon transition
+		if ((fa.edges[i].label + "").length > 1)
+			return false;
+	}
 	return true;
 }
