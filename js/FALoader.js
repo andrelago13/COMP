@@ -13,19 +13,19 @@ FALoader.prototype.load = function() {
 			edges: parsedData.edges
 			}
 	console.log(data);
+	console.log("Validation result: " + this.validate(data));
 	return data;
 }
 
 FALoader.prototype.validate = function(fa) {
-	return validateSingleStart(fa)
-		&& validateFinalExistence(fa)
-		&& validateNoUnreachable(fa)
-		&& validateTransitions(fa);
+	return this.validateSingleStart(fa)
+		&& this.validateFinalExistence(fa)
+		&& this.validateNoUnreachable(fa)
+		&& this.validateTransitions(fa);
 }
 
 FALoader.prototype.validateSingleStart = function(fa) {
-	// TODO
-	return true;
+	return fa.nodes.length > 0;
 }
 
 FALoader.prototype.validateFinalExistence = function(fa) {

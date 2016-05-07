@@ -1,11 +1,19 @@
 digraph {
-  A -> A[label=0.5];
-  B -> B[label=1.2] -> C[label=0.7] -- A;
+  rankdir=LR;
+  node [shape = doublecircle]; B C;
+  node [shape = circle];
+  START -> START[label=0.5];
+  B -> B[label=1.2];
+  B -> C[label=0.7];
+  C -> START;
   B -> D;
   D -> {B; C}
   D -> E[label=0.2];
   F -> F;
-  A [
-    fontcolor=white,
-    color=red,
-  ] }
+  
+  B [
+  	fontcolor=white,
+  	color=green,
+  	peripheries=2
+  ];
+}
