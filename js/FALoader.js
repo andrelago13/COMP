@@ -55,7 +55,7 @@ FALoader.prototype.validateSingleStart = function(fa) {
 
 FALoader.prototype.validateFinalExistence = function(fa) {
 	for (var i = 0; i < fa.nodes.length; i++) {
-		if (fa.nodes[i].peripheries === 2 || fa.nodes[i].shape === "doublecircle")
+		if (isNodeFinal(fa.nodes[i]))
 			return true;
 	}
 	return false;

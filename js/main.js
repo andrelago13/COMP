@@ -10,7 +10,9 @@ var openFile = function (event) {
 		var text = reader.result;
 
 		var faLoader = new FALoader(text);
-		var data = faLoader.load();
+		var fa = faLoader.load();
+		var converter = new Converter(fa, null);
+		var data = converter.convert();
 
 		var options = data.options;
 
