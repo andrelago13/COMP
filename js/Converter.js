@@ -7,11 +7,9 @@ function Converter(fa, ast) {
 }
 
 Converter.prototype.convert = function() {
-	console.log(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
 	this.eliminateState(this.fa, 2);
-	console.log(this.fa);
 	return this.fa;
 	// TODO
 	// return regex;
@@ -30,12 +28,13 @@ Converter.prototype.fixStartingState = function() {
 		this.fa.edges.push({
 			arrows: "to",
 			from: this.fa.nodes[this.fa.nodes.length - 1].id,
-			fromID: length - 1,
-			id: (this.fa.edges.length - 1) + "",
+			fromID: this.fa.nodes.length - 1,
+			id: randomString(512),
 			label: EPSILON,
 			to: this.fa.nodes[oldStartID].id,
 			toID: oldStartID
 		})
+		this.fa.nodes[oldStartID].inEdges.push(this.fa.edges.length - 1);
 	}
 }
 

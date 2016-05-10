@@ -12,13 +12,16 @@ function findNodeByID(fa, id) {
 	console.error('Node "' + id + '" not found.');
 }
 
+function randomString(length) {
+	return Array(length+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, length);
+}
+
 function addEdge(fa, from, to, label) {
-	var idLength = 512;
 	var edge = {
 			arrows: "to",
 			from: fa.nodes[from].id,
 			fromID: from,
-			id: Array(idLength+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, idLength),
+			id: randomString(512),
 			to: fa.nodes[to].id,
 			toId: to
 	}
