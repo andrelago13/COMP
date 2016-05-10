@@ -13,33 +13,10 @@ FALoader.prototype.load = function() {
 			edges: parsedData.edges
 	}
 
-	this.addHelpfulInfoToNodesAndEdges(data);
+	addHelpfulInfoToNodesAndEdges(data);
 
-	console.log(data);
 	console.log("Validation result: " + this.validate(data));
 	return data;
-}
-
-FALoader.prototype.addHelpfulInfoToNodesAndEdges = function(data) {
-	for (var i = 0; i < data.nodes.length; i++) {
-		var id = data.nodes[i].id;
-		var inEdges = [];
-		var outEdges = [];
-		for (var j = 0; j < data.edges.length; j++) {
-			if (data.edges[j].arrows === "to") {
-				if (data.edges[j].from === id) {
-					outEdges.push(j);
-					data.edges[j].fromID = i;
-				}
-				if (data.edges[j].to === id) {
-					inEdges.push(j);
-					data.edges[j].toID = i;
-				}
-			}
-		}
-		data.nodes[i].inEdges = inEdges;
-		data.nodes[i].outEdges = outEdges;
-	}
 }
 
 FALoader.prototype.validate = function(fa) {
@@ -86,11 +63,11 @@ FALoader.prototype.validateNoUnreachable = function(fa) {
 }
 
 FALoader.prototype.validateTransitions = function(fa) {
-	for (var i = 0; i < fa.edges.length; i++) {
+	/*for (var i = 0; i < fa.edges.length; i++) {
 		if (typeof fa.edges[i].label == 'undefined')
 			continue; // epsilon transition
 		if ((fa.edges[i].label + "").length > 1)
 			return false;
-	}
+	}*/
 	return true;
 }

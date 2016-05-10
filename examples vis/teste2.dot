@@ -6,10 +6,10 @@ digraph {
   		peripheries = 2]; B C;
   node [shape = circle];
   A;
-  A -> A[label=z];
+  A -> A[label="z+x"];
   A -> B[label=x];
   B -> C[label=y];
-  C -> A;
+  C -> A[label=z];
   B -> D;
   D -> {B; C}
   D -> E[label=x];
