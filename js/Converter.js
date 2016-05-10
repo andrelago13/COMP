@@ -48,6 +48,8 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 		if (fa.edges[inEdgeID].fromID === stateID)
 			continue;
 		var beforeLabel = fa.edges[inEdgeID].label;
+		if (typeof beforeLabel == 'undefined')
+			beforeLabel = EPSILON;
 		
 		var loopLabel = "";
 		for (var j = 0; j < fa.nodes[stateID].outEdges.length; j++) {
@@ -58,23 +60,27 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 				loopLabel += fa.edges[outEdgeID].label + "";
 			}
 		}
-		if (loopLabel.length === 0) loopLabel = undefined;
+		if (loopLabel.length === 0) loopLabel = EPSILON;
 		
 		for (var j = 0; j < fa.nodes[stateID].outEdges.length; j++) {
 			var outEdgeID = fa.nodes[stateID].outEdges[j];
 			if (fa.edges[outEdgeID].toID === stateID)
 				continue;
 			var afterLabel = fa.edges[outEdgeID].label;
+			if (typeof afterLabel == 'undefined')
+				afterLabel = EPSILON;
 			
 			var label = "";
-			if (typeof beforeLabel != 'undefined')
+			if (beforeLabel != EPSILON)
 				label += "(" + beforeLabel + ")";
-			if (typeof loopLabel != 'undefined')
+			if (loopLabel != EPSILON)
 				label += "(" + loopLabel + ")*";
-			if (typeof afterLabel != 'undefined')
+			if (afterLabel != EPSILON)
 				label += "(" + afterLabel + ")";
+			if (label === "") label = EPSILON;
 			
-			addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? label : undefined);
+			if (label !== EPSILON || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
+				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? label : undefined);
 		}
 	}
 	removeNode(fa, stateID);
