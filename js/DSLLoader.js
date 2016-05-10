@@ -19,7 +19,9 @@ DSLLoader.prototype.load = function() {
 	var tree = parser.s();
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 	
-	
+
+	var EO_AST = require('dsl/ast/EO_AST');
+	var ast = new EO_AST.EO_AST();
 	
 	// TODO AST
 	// return ast;

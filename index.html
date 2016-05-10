@@ -18,7 +18,7 @@
 	<input type='file' accept='text/plain' onchange='openFile(event)'>
 	<br>
 
-	<input id='dsl_text' type='text' accept='text/plain' onchange='openDSL(event)'
+	<input id='dsl_text' type='text' accept='text/plain' 
 		value="static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl)">
 	<br>
 	<button type="button" onclick='parseDSL(event)'>Parse DSL</button>
