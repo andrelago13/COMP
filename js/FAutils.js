@@ -4,6 +4,14 @@ function isNodeFinal(node) {
 	return node.peripheries === 2 || node.shape === "doublecircle"
 }
 
+function findNodeByID(fa, id) {
+	for (var i = 0; i < fa.nodes.length; i++) {
+		if (fa.nodes[i].id === id)
+			return i;
+	}
+	console.error('Node "' + id + '" not found.');
+}
+
 function addEdge(fa, from, to, label) {
 	var idLength = 512;
 	var edge = {

@@ -18,7 +18,8 @@ Converter.prototype.convert = function() {
 }
 
 Converter.prototype.fixStartingState = function() {
-	if (isNodeFinal(this.fa.nodes[0]) || this.fa.nodes[0].inEdges.length > 0) {
+	var oldStartID = findNodeByID(this.fa, 0);
+	if (isNodeFinal(this.fa.nodes[oldStartID]) || this.fa.nodes[oldStartID].inEdges.length > 0) {
 		this.fa.nodes.push({
 			id: this.fa.nodes.length,
 			inEdges: [],
@@ -32,8 +33,8 @@ Converter.prototype.fixStartingState = function() {
 			fromID: length - 1,
 			id: (this.fa.edges.length - 1) + "",
 			label: EPSILON,
-			to: this.fa.nodes[0].id,
-			toID: 0
+			to: this.fa.nodes[oldStartID].id,
+			toID: oldStartID
 		})
 	}
 }

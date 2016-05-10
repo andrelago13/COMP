@@ -36,7 +36,12 @@ FALoader.prototype.validate = function(fa) {
 }
 
 FALoader.prototype.validateSingleStart = function(fa) {
-	return fa.nodes.length > 0;
+	var count = 0;
+	for (var i = 0; i < fa.nodes.length; i++) {
+		if (fa.nodes[i].id == 0)
+			count++;
+	}
+	return count === 1;
 }
 
 FALoader.prototype.validateFinalExistence = function(fa) {
