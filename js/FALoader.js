@@ -13,10 +13,19 @@ FALoader.prototype.load = function() {
 			edges: parsedData.edges
 	}
 
+	this.fixEmptyTransitions(data);
 	addHelpfulInfoToNodesAndEdges(data);
 
 	console.log("Validation result: " + this.validate(data));
 	return data;
+}
+
+FALoader.prototype.fixEmptyTransitions = function(fa) {
+	for (var i = 0; i < fa.edges.length; i++) {
+		if (typeof fa.edges[i].label == 'undefined')
+			fa.edges[i].label = EPSILON;
+	}
+	return fa;
 }
 
 FALoader.prototype.validate = function(fa) {

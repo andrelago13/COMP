@@ -31,6 +31,7 @@ Converter.prototype.fixStartingState = function() {
 			from: this.fa.nodes[this.fa.nodes.length - 1].id,
 			fromID: length - 1,
 			id: (this.fa.edges.length - 1) + "",
+			label: EPSILON,
 			to: this.fa.nodes[0].id,
 			toID: 0
 		})
