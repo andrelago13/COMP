@@ -7,13 +7,7 @@ function CustomListener() {
 	EliminationOrderListener.EliminationOrderListener.call(this);
 	this.ast = new EO_AST.EO_AST();
 	
-	this.tempNode = null;
 	this.stack = new Stack.Stack();
-	this.stack.push(1);
-	this.stack.push(2);
-	console.log(this.stack.array);
-	console.log(this.stack.pop());
-	console.log(this.stack.array);
 	
 	return this;
 }
@@ -32,68 +26,87 @@ CustomListener.prototype.exitS = function(ctx) {
 
 // Enter a parse tree produced by EliminationOrderParser#manual.
 CustomListener.prototype.enterManual = function(ctx) {
-	console.log("manual");
-	console.log(ctx);
-	this.tempNode = EO_AST_NodeManual.EO_AST_NodeManual();
-	this.ast.setRoot(this.tempNode);
+	console.log("Entering Manual");
+	var node = new EO_AST_NodeManual.EO_AST_NodeManual();
+	this.stack.push(node);
+	this.ast.setRoot(node);
+	
+	var children = ctx.children;
+	for(var i = 0; i < children.length; i += 2) {
+		console.log("" + '\t' + "Parsing integer \"" + parseInt(children[i].getText()) + "\"");
+		node.addChild(parseInt(children[i].getText()));
+	}
 };
 
 // Exit a parse tree produced by EliminationOrderParser#manual.
 CustomListener.prototype.exitManual = function(ctx) {
+	console.log("Exiting Manual");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#auto.
 CustomListener.prototype.enterAuto = function(ctx) {
+	console.log("Entering Auto");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#auto.
 CustomListener.prototype.exitAuto = function(ctx) {
+	console.log("Exiting Auto");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#type.
 CustomListener.prototype.enterType = function(ctx) {
+	console.log("Entering Type");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#type.
 CustomListener.prototype.exitType = function(ctx) {
+	console.log("Exiting Type");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#e.
 CustomListener.prototype.enterE = function(ctx) {
+	console.log("Entering E");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#e.
 CustomListener.prototype.exitE = function(ctx) {
+	console.log("Exiting E");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#e1.
 CustomListener.prototype.enterE1 = function(ctx) {
+	console.log("Entering E1");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#e1.
 CustomListener.prototype.exitE1 = function(ctx) {
+	console.log("Exiting E1");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#loop.
 CustomListener.prototype.enterLoop = function(ctx) {
+	console.log("Entering Loop");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#loop.
 CustomListener.prototype.exitLoop = function(ctx) {
+	console.log("Exiting Loop");
 };
 
 
 // Enter a parse tree produced by EliminationOrderParser#v.
 CustomListener.prototype.enterV = function(ctx) {
+	console.log("Entering V");
 };
 
 // Exit a parse tree produced by EliminationOrderParser#v.
 CustomListener.prototype.exitV = function(ctx) {
+	console.log("Exiting V");
 };
 
 
