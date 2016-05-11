@@ -1,4 +1,5 @@
-var EO_AST_NODE = require('dsl/ast/EO_AST_NODE');
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EO_AST_NodeM = require('dsl/ast/EO_AST_NodeManual');
 
 function EO_AST() {
 	this.allNodes = [];
