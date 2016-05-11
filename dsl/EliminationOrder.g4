@@ -7,7 +7,7 @@ type : STATIC | DYNAMIC;
 e : e1 ((PLUS | ASTERISK) e1)*;
 e1 : v | INT | REAL | loop | (OPEN1 e CLOSE1);
 loop : (SUM | MUL) OPEN1 IDENTIFIER COLON v CLOSE1 OPEN2 e CLOSE2;
-v : IDENTIFIER (DOT IDENTIFIER)*;
+v : IDENTIFIER (DOT IDENTIFIER)?;
 
 WHITESPACE  : [ \t\r\n]+ -> skip ;
 
