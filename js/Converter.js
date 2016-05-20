@@ -80,9 +80,36 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 			if (label === "") label = EPSILON;
 			
 			if (label !== EPSILON || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
-				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? label : undefined);
+				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryParenthesis(label) : undefined);
 		}
 	}
 	removeNode(fa, stateID);
 	//return newFA;
+}
+
+Converter.prototype.removeUnnecessaryParenthesis = function(s) {
+   // Tokenize the pattern
+   var pieces = s.split(/(\\.|\[(?:\\.|[^\]\\])+]|\((?:\?[:!=])?|\)(?:[*?+]\??|\{\d+,?\d*}\??)?)/g);
+   var stack = [];
+   for (var i = 0; i < pieces.length; i++) {
+      if (pieces[i].substr(0,1) == "(") {
+         // Opening parenthesis
+         stack.push(i);
+      } else if (pieces[i].substr(0,1) == ")") {
+         // Closing parenthesis
+         if (stack.length == 0) {
+            // Unbalanced; Just skip the next one.
+            continue;
+         }
+         var j = stack.pop();
+         if ((pieces[j] == "(" || pieces[j] == "(?:") && pieces[i] == ")") {
+             // If it is a capturing group, or a non-capturing group, and is
+             // not followed by a quantifier;
+             // Clear both the opening and closing pieces.
+             pieces[i] = "";
+             pieces[j] = "";
+         }
+      }
+   }
+   return pieces.join("");
 }
