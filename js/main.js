@@ -35,3 +35,9 @@ var openDSL = function (event) {
 	var dslLoader = new DSLLoader(input);
 	var ast = dslLoader.load();
 }
+
+var parseDSL = function(event) {
+	var input = $('#dsl_text')[0].value;
+	var dslLoader = new DSLLoader(input);
+	var ast = dslLoader.load();	
+}
