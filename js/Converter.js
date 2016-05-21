@@ -7,10 +7,10 @@ function Converter(fa, ast) {
 }
 
 Converter.prototype.convert = function() {
+	this.fa = FAClone(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
-	this.eliminateState(this.fa, 2);
-	return this.fa;
+	return this.eliminateState(this.fa, 2);
 	// TODO
 	// return regex;
 }
@@ -42,33 +42,38 @@ Converter.prototype.fixFinalState = function() {
 	
 }
 
+Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
+	var label = "";
+	for (var i = 0; i < fa.nodes[srcID].outEdges.length; i++) {
+		var edgeID = fa.nodes[srcID].outEdges[i];
+		if (fa.edges[edgeID].toID !== dstID)
+			continue;
+		if (label === "")
+			label = "(" + fa.edges[edgeID].label + ")";
+		else
+			label += " + (" + fa.edges[edgeID].label + ")";
+	}
+	if (label === "")
+		return EPSILON;
+	return this.removeUnnecessaryParenthesis(label).replace(/\s+/g, '');
+}
+
 Converter.prototype.eliminateState = function(fa, stateID) {
+	fa = FAClone(fa);
 	for (var i = 0; i < fa.nodes[stateID].inEdges.length; i++) {
 		var inEdgeID = fa.nodes[stateID].inEdges[i];
 		if (fa.edges[inEdgeID].fromID === stateID)
 			continue;
-		var beforeLabel = fa.edges[inEdgeID].label;
-		if (typeof beforeLabel == 'undefined')
-			beforeLabel = EPSILON;
-		
-		var loopLabel = "";
-		for (var j = 0; j < fa.nodes[stateID].outEdges.length; j++) {
-			var outEdgeID = fa.nodes[stateID].outEdges[j];
-			if (fa.edges[outEdgeID].toID === stateID) {
-				if (loopLabel.length > 0)
-					loopLabel += "+";
-				loopLabel += fa.edges[outEdgeID].label + "";
-			}
-		}
-		if (loopLabel.length === 0) loopLabel = EPSILON;
+
+		var beforeLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, stateID);
+
+		var loopLabel = this.getMergedTransitionsLabel(fa, stateID, stateID);
 		
 		for (var j = 0; j < fa.nodes[stateID].outEdges.length; j++) {
 			var outEdgeID = fa.nodes[stateID].outEdges[j];
 			if (fa.edges[outEdgeID].toID === stateID)
 				continue;
-			var afterLabel = fa.edges[outEdgeID].label;
-			if (typeof afterLabel == 'undefined')
-				afterLabel = EPSILON;
+			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
 			
 			var label = "";
 			if (beforeLabel != EPSILON)
@@ -84,7 +89,7 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 		}
 	}
 	removeNode(fa, stateID);
-	//return newFA;
+	return fa;
 }
 
 Converter.prototype.removeUnnecessaryParenthesis = function(s) {

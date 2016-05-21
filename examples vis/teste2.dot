@@ -7,10 +7,12 @@ digraph {
   node [shape = circle];
   0;
   0 -> 0[label="z+x"];
+  0 -> 0[label=a];
   0 -> B[label=x];
   B -> C[label=y];
   C -> 0[label=z];
   B -> D;
+  B -> D[label=x];
   D -> {B; C}
   D -> E[label=x];
 }
