@@ -7,6 +7,7 @@ var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE');
 var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1');
 var EliminationOrderParser = require('dsl/EliminationOrderParser');
 var EO_AST_NodeV = require('dsl/ast/EO_AST_NodeV');
+var EO_AST_NodeLoop = require('dsl/ast/EO_AST_NodeLoop');
 var Stack = require('js/Stack');
 
 function CustomListener(symbolicNames, ruleNames) {
@@ -164,12 +165,30 @@ CustomListener.prototype.exitE1 = function(ctx) {
 
 // Enter a parse tree produced by EliminationOrderParser#loop.
 CustomListener.prototype.enterLoop = function(ctx) {
-	//console.log(this.getTabbing() + "Entering Loop");
+	console.log(this.getTabbing() + "Entering Loop");
+	
+	var node = new EO_AST_NodeLoop.EO_AST_NodeLoop(this.stack.top());
+	this.stack.top().addChild(node);
+	this.stack.push(node);
+	
+	// SUM or MUL
+	var loopType = ctx.children[0].getText();
+	node.addChild(loopType);
+	console.log(this.getTabbing() + "Parsing loop type \"" + loopType + "\".");
+	
+	// IDENTIFIER
+	var loopIdentifier = ctx.children[2].getText();
+	node.addChild(loopIdentifier);
+	console.log(this.getTabbing() + "Parsing loop identifier \"" + loopIdentifier + "\".");	
+	
+	console.log(this.getTabbing() + "Parsing loop identifier \"v\" and \"e\" later...");	
 };
 
 // Exit a parse tree produced by EliminationOrderParser#loop.
 CustomListener.prototype.exitLoop = function(ctx) {
-	//console.log(this.getTabbing() + "Exiting Loop");
+	this.stack.pop();
+	
+	console.log(this.getTabbing() + "Exiting Loop");
 };
 
 
@@ -184,9 +203,11 @@ CustomListener.prototype.enterV = function(ctx) {
 		// MAJOR.MINOR
 		var minor = ctx.children[2].getText();
 		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major, minor);
+		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "." + minor + "\".");
 	} else {
 		// MAJOR
 		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major);		
+		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "\".");
 	}
 	
 	this.stack.top().addChild(node);

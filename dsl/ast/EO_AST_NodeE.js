@@ -1,5 +1,9 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
+/*
+ * Usage example:
+ */
+
 EO_AST_NodeE.PLUS = '+';
 EO_AST_NodeE.ASTERISK = '*';
 EO_AST_NodeE.MINUS = '-';

@@ -1,5 +1,13 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
+/*
+ * Usage example:
+ * 
+ * 		["TYPE", EO_AST_NodeE]
+ * 
+ * 	"TYPE" - one of EO_AST_NodeAuto.typeSTATIC, EO_AST_NodeAuto.typeDYNAMIC
+ */
+
 EO_AST_NodeAuto.typeSTATIC = 'static';
 EO_AST_NodeAuto.typeDYNAMIC = 'dynamic';
 
