@@ -4,6 +4,11 @@ function isNodeFinal(node) {
 	return node.peripheries === 2 || node.shape === "doublecircle"
 }
 
+function makeNodeNotFinal(node) {
+	node.peripheries = 1;
+	node.shape = "circle";
+}
+
 function findNodeByID(fa, id) {
 	for (var i = 0; i < fa.nodes.length; i++) {
 		if (fa.nodes[i].id === id)

@@ -1,16 +1,14 @@
 digraph {
   rankdir=LR;
   node [shape = doublecircle,
-  		fontcolor=white,
-  		color = green,
   		peripheries = 2]; B C;
   node [shape = circle];
-  0;
-  0 -> 0[label="z+x"];
-  0 -> 0[label=a];
-  0 -> B[label=x];
+  START[label=A];
+  START -> START[label="z+x"];
+  START -> START[label=a];
+  START -> B[label=x];
   B -> C[label=y];
-  C -> 0[label=z];
+  C -> START[label=z];
   B -> D;
   B -> D[label=x];
   D -> {B; C}
