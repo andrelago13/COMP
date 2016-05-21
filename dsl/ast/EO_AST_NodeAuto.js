@@ -1,5 +1,8 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
+EO_AST_NodeAuto.typeSTATIC = 'static';
+EO_AST_NodeAuto.typeDYNAMIC = 'dynamic';
+
 function EO_AST_NodeAuto(father) {
 	EO_AST_Node.EO_AST_Node.call(this, father);
 	return this;

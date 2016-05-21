@@ -10,7 +10,7 @@ Stack.prototype.push = function(element) {
 	this.array.push(element);
 }
 
-Stack.prototype.front = function() {
+Stack.prototype.top = function() {
 	return this.array[this.array.length - 1];
 }
 
