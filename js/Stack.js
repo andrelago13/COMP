@@ -15,9 +15,15 @@ Stack.prototype.top = function() {
 }
 
 Stack.prototype.pop = function() {
-	var ret = this.front();
+	var ret = this.top();
 	this.array = this.array.slice(0, -1);
 	return ret;
 }
+
+Stack.prototype.size = function() {
+	return this.array.length;
+}
+
+
 
 exports.Stack = Stack;
