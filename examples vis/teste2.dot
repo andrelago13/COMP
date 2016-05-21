@@ -1,8 +1,6 @@
 digraph {
   rankdir=LR;
   node [shape = doublecircle,
-  		fontcolor=white,
-  		color = green,
   		peripheries = 2]; B C;
   node [shape = circle];
   START[label=A];

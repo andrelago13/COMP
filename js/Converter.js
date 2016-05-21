@@ -52,14 +52,14 @@ Converter.prototype.fixFinalState = function() {
 	var finalIDs = [];
 	for (var i = 0; i < this.fa.nodes.length; i++) {
 		if (isNodeFinal(this.fa.nodes[i]))
-			finalIDs = i;
+			finalIDs.push(i);
 	}
 	
 	// Create new final state
 	var newID = this.fa.nodes.length;
 	this.fa.nodes.push({
 		id: newID,
-		inEdges: [finalIDs],
+		inEdges: [],
 		label: "FINAL",
 		outEdges: [],
 		shape: "doublecircle",
@@ -67,6 +67,7 @@ Converter.prototype.fixFinalState = function() {
 	});
 	
 	// Create new edges
+	console.log(finalIDs);
 	for (var i = 0; i < finalIDs.length; i++) {
 		var node = this.fa.nodes[finalIDs[i]];
 		var edgeID = this.fa.edges.length;
@@ -80,6 +81,7 @@ Converter.prototype.fixFinalState = function() {
 			toID: newID
 		});
 		node.outEdges.push(edgeID);
+		this.fa.nodes[newID].inEdges.push(edgeID);
 	}
 }
 
