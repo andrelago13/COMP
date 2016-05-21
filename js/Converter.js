@@ -67,7 +67,6 @@ Converter.prototype.fixFinalState = function() {
 	});
 	
 	// Create new edges
-	console.log(finalIDs);
 	for (var i = 0; i < finalIDs.length; i++) {
 		var node = this.fa.nodes[finalIDs[i]];
 		var edgeID = this.fa.edges.length;
