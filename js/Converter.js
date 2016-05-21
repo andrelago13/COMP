@@ -16,7 +16,7 @@ Converter.prototype.convert = function() {
 }
 
 Converter.prototype.fixStartingState = function() {
-	var oldStartID = findNodeByID(this.fa, 0);
+	var oldStartID = findNodeByID(this.fa, "START");
 	if (isNodeFinal(this.fa.nodes[oldStartID]) || this.fa.nodes[oldStartID].inEdges.length > 0) {
 		this.fa.nodes.push({
 			id: this.fa.nodes.length,
@@ -39,7 +39,14 @@ Converter.prototype.fixStartingState = function() {
 }
 
 Converter.prototype.fixFinalState = function() {
-	
+	// Count number of final states
+	var nFinal = 0;
+	for (var i = 0; i < this.fa.nodes.length; i++) {
+		if (isNodeFinal(this.fa.nodes[i]))
+			nFinal++;
+	}
+
+	// TODO
 }
 
 Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
