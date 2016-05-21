@@ -5,13 +5,18 @@ var EO_AST_NodeManual = require('dsl/ast/EO_AST_NodeManual');
 var EO_AST_NodeAuto = require('dsl/ast/EO_AST_NodeAuto');
 var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE');
 var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1');
+var EliminationOrderParser = require('dsl/EliminationOrderParser');
+var EO_AST_NodeV = require('dsl/ast/EO_AST_NodeV');
 var Stack = require('js/Stack');
 
-function CustomListener() {
+function CustomListener(symbolicNames, ruleNames) {
 	EliminationOrderListener.EliminationOrderListener.call(this);
 	this.ast = new EO_AST.EO_AST();
 	var root = new EO_AST_Node.EO_AST_Node();
 	this.ast.setRoot(root);
+	
+	this.symbolicNames = symbolicNames;
+	this.ruleNames = ruleNames;
 	
 	this.stack = new Stack.Stack();
 	this.stack.push(root);
@@ -34,7 +39,7 @@ CustomListener.prototype.exitS = function(ctx) {
 // Enter a parse tree produced by EliminationOrderParser#manual.
 CustomListener.prototype.enterManual = function(ctx) {
 	console.log(this.getTabbing() + "Entering Manual");
-	var node = new EO_AST_NodeManual.EO_AST_NodeManual();
+	var node = new EO_AST_NodeManual.EO_AST_NodeManual(this.stack.top());
 	this.stack.top().addChild(node);
 	this.stack.push(node);
 	
@@ -56,7 +61,7 @@ CustomListener.prototype.exitManual = function(ctx) {
 // Enter a parse tree produced by EliminationOrderParser#auto.
 CustomListener.prototype.enterAuto = function(ctx) {
 	console.log(this.getTabbing() + "Entering Auto");
-	var node = new EO_AST_NodeAuto.EO_AST_NodeAuto();
+	var node = new EO_AST_NodeAuto.EO_AST_NodeAuto(this.stack.top());
 	this.stack.top().addChild(node);
 	this.stack.push(node);
 };
@@ -88,7 +93,7 @@ CustomListener.prototype.exitType = function(ctx) {
 CustomListener.prototype.enterE = function(ctx) {
 	console.log(this.getTabbing() + "Entering E");
 	
-	var node = new EO_AST_NodeE.EO_AST_NodeE();
+	var node = new EO_AST_NodeE.EO_AST_NodeE(this.stack.top());
 	this.stack.top().addChild(node);
 	this.stack.push(node);
 	
@@ -112,9 +117,41 @@ CustomListener.prototype.exitE = function(ctx) {
 CustomListener.prototype.enterE1 = function(ctx) {
 	console.log(this.getTabbing() + "Entering E1");
 	
-	var node = new EO_AST_NodeE1.EO_AST_NodeE1();
+	var node = new EO_AST_NodeE1.EO_AST_NodeE1(this.stack.top());
 	this.stack.top().addChild(node);
 	this.stack.push(node);
+	
+	var children = ctx.children;
+	var first_child = children[0];
+	var first_child_rule = first_child.ruleIndex;
+	
+	if(typeof first_child_rule == 'undefined') {
+		// INT, REAL, OPEN1
+		var child_type = this.symbolicNames[first_child.getSymbol().type];
+		
+		if(child_type === 'INT') {
+			var value = parseInt(first_child.getText());
+			console.log(this.getTabbing() + "Parsing INT \"" + value + "\"");
+			node.addChild(value);
+		} else if(child_type === 'REAL') {
+			var value = parseFloat(first_child.getText());
+			console.log(this.getTabbing() + "Parsing REAL \"" + value + "\"");
+			node.addChild(value);			
+		} if(child_type === 'OPEN1') {
+			console.log(this.getTabbing() + "Parsing OPEN1 \"" + first_child.getText() + "\"");
+			console.log(this.getTabbing() + "Parsing E later...");
+			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");			
+		}
+		
+		//console.log("=> " + this.symbolicNames[first_child.getSymbol().type]);
+	} else {
+		var ruleName = this.ruleNames[first_child_rule];
+		if(ruleName === 'v' || ruleName === 'loop') {
+			return;
+		}
+	}
+	//console.log(this.ruleNames[first_child.ruleIndex]);
+	//console.log(ctx.children[0] instanceof EliminationOrderParser.VContext);
 };
 
 // Exit a parse tree produced by EliminationOrderParser#e1.
@@ -138,12 +175,26 @@ CustomListener.prototype.exitLoop = function(ctx) {
 
 // Enter a parse tree produced by EliminationOrderParser#v.
 CustomListener.prototype.enterV = function(ctx) {
-	//console.log(this.getTabbing() + "Entering V");
+	console.log(this.getTabbing() + "Entering V");
+	
+	var node;
+	
+	var major = ctx.children[0].getText();
+	if(ctx.children.length > 1) {
+		// MAJOR.MINOR
+		var minor = ctx.children[2].getText();
+		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major, minor);
+	} else {
+		// MAJOR
+		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major);		
+	}
+	
+	this.stack.top().addChild(node);
 };
 
 // Exit a parse tree produced by EliminationOrderParser#v.
 CustomListener.prototype.exitV = function(ctx) {
-	//console.log(this.getTabbing() + "Exiting V");
+	console.log(this.getTabbing() + "Exiting V");
 };
 
 CustomListener.prototype.getTabbing = function() {

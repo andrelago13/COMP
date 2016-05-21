@@ -14,13 +14,12 @@ DSLLoader.prototype.load = function() {
 	var lexer = new EliminationOrderLexer.EliminationOrderLexer(chars);
 	var tokens  = new antlr4.CommonTokenStream(lexer);
 	var parser = new EliminationOrderParser.EliminationOrderParser(tokens);
-	var listener = new CustomListener.CustomListener();
+	var listener = new CustomListener.CustomListener(parser.symbolicNames, parser.ruleNames);
 	parser.buildParseTrees = true;
 	
 	// if the next line gives errors run "java -jar antlr-4.5.3-complete.jar dsl/EliminationOrder.g4 -o dsl -listener -Dlanguage=JavaScript" on root folder
 	var tree = parser.s();
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-	
 
 	var EO_AST = require('dsl/ast/EO_AST');
 	var ast = listener.ast;
