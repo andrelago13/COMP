@@ -1,6 +1,6 @@
 grammar EliminationOrder;
 
-s : manual | auto;
+s : (manual SEMICOLON) | (auto SEMICOLON (s)? );
 manual : INT (COMMA INT)*;
 auto : type e;
 type : STATIC | DYNAMIC;
