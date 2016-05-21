@@ -41,7 +41,11 @@ FALoader.prototype.validateSingleStart = function(fa) {
 		if (fa.nodes[i].id === "START")
 			count++;
 	}
-	return count === 1;
+	if (count === 1)
+		return true;
+	
+	console.error("Error parsing FA. Expected 1 node with ID 'START' but found " + count + ".");
+	return false;
 }
 
 FALoader.prototype.validateFinalExistence = function(fa) {
