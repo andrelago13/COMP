@@ -20,4 +20,10 @@ Stack.prototype.pop = function() {
 	return ret;
 }
 
+Stack.prototype.size = function() {
+	return this.array.length;
+}
+
+
+
 exports.Stack = Stack;
