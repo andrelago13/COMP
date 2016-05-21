@@ -61,3 +61,7 @@ function addHelpfulInfoToNodesAndEdges(data) {
 		data.nodes[i].outEdges = outEdges;
 	}
 }
+
+function FAClone(fa) {
+	return jQuery.extend(true, {}, fa);
+}

@@ -7,6 +7,7 @@ function Converter(fa, ast) {
 }
 
 Converter.prototype.convert = function() {
+	this.fa = FAClone(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
 	this.eliminateState(this.fa, 2);

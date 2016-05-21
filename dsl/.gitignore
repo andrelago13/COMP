@@ -16,3 +16,4 @@
 /EliminationOrderLexer.js
 /EliminationOrderListener.js
 /EliminationOrderParser.js
+/EliminationOrderVisitor.js
