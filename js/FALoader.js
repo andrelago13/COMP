@@ -38,7 +38,7 @@ FALoader.prototype.validate = function(fa) {
 FALoader.prototype.validateSingleStart = function(fa) {
 	var count = 0;
 	for (var i = 0; i < fa.nodes.length; i++) {
-		if (fa.nodes[i].id == 0)
+		if (fa.nodes[i].id === "START")
 			count++;
 	}
 	return count === 1;
