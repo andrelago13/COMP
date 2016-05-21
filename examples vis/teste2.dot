@@ -5,7 +5,7 @@ digraph {
   		color = green,
   		peripheries = 2]; B C;
   node [shape = circle];
-  START;
+  START[label=A];
   START -> START[label="z+x"];
   START -> START[label=a];
   START -> B[label=x];

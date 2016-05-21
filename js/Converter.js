@@ -10,7 +10,9 @@ Converter.prototype.convert = function() {
 	this.fa = FAClone(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
+	console.log(this.fa);
 	return this.eliminateState(this.fa, 2);
+	//return this.fa;
 	// TODO
 	// return regex;
 }
@@ -18,6 +20,13 @@ Converter.prototype.convert = function() {
 Converter.prototype.fixStartingState = function() {
 	var oldStartID = findNodeByID(this.fa, "START");
 	if (isNodeFinal(this.fa.nodes[oldStartID]) || this.fa.nodes[oldStartID].inEdges.length > 0) {
+		this.fa.nodes[oldStartID].id = "START'";
+		for (var i = 0; i < this.fa.edges.length; i++) {
+			if (this.fa.edges[i].from === "START")
+				this.fa.edges[i].from = this.fa.nodes[oldStartID].id;
+			if (this.fa.edges[i].to === "START")
+				this.fa.edges[i].to = this.fa.nodes[oldStartID].id;
+		}
 		this.fa.nodes.push({
 			id: this.fa.nodes.length,
 			inEdges: [],
@@ -40,13 +49,38 @@ Converter.prototype.fixStartingState = function() {
 
 Converter.prototype.fixFinalState = function() {
 	// Count number of final states
-	var nFinal = 0;
+	var finalIDs = [];
 	for (var i = 0; i < this.fa.nodes.length; i++) {
 		if (isNodeFinal(this.fa.nodes[i]))
-			nFinal++;
+			finalIDs = i;
 	}
-
-	// TODO
+	
+	// Create new final state
+	var newID = this.fa.nodes.length;
+	this.fa.nodes.push({
+		id: newID,
+		inEdges: [finalIDs],
+		label: "FINAL",
+		outEdges: [],
+		shape: "doublecircle",
+		peripheries: 2
+	});
+	
+	// Create new edges
+	for (var i = 0; i < finalIDs.length; i++) {
+		var node = this.fa.nodes[finalIDs[i]];
+		var edgeID = this.fa.edges.length;
+		this.fa.edges.push({
+			arrows: "to",
+			from: node.id,
+			fromID: finalIDs[i],
+			id: randomString(512),
+			label: EPSILON,
+			to: newID,
+			toID: newID
+		});
+		node.outEdges.push(edgeID);
+	}
 }
 
 Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
