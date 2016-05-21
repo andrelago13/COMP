@@ -1,14 +1,19 @@
 var EliminationOrderListener = require('dsl/EliminationOrderListener');
 var EO_AST = require('dsl/ast/EO_AST');
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 var EO_AST_NodeManual = require('dsl/ast/EO_AST_NodeManual');
 var EO_AST_NodeAuto = require('dsl/ast/EO_AST_NodeAuto');
+var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE');
 var Stack = require('js/Stack');
 
 function CustomListener() {
 	EliminationOrderListener.EliminationOrderListener.call(this);
 	this.ast = new EO_AST.EO_AST();
+	var root = new EO_AST_Node.EO_AST_Node();
+	this.ast.setRoot(root);
 	
 	this.stack = new Stack.Stack();
+	this.stack.push(root);
 	
 	return this;
 }
@@ -29,8 +34,8 @@ CustomListener.prototype.exitS = function(ctx) {
 CustomListener.prototype.enterManual = function(ctx) {
 	console.log("Entering Manual");
 	var node = new EO_AST_NodeManual.EO_AST_NodeManual();
+	this.stack.top().addChild(node);
 	this.stack.push(node);
-	this.ast.setRoot(node);
 	
 	var children = ctx.children;
 	for(var i = 0; i < children.length; i += 2) {
@@ -42,6 +47,7 @@ CustomListener.prototype.enterManual = function(ctx) {
 // Exit a parse tree produced by EliminationOrderParser#manual.
 CustomListener.prototype.exitManual = function(ctx) {
 	console.log("Exiting Manual");
+	this.stack.pop();
 };
 
 
@@ -49,13 +55,14 @@ CustomListener.prototype.exitManual = function(ctx) {
 CustomListener.prototype.enterAuto = function(ctx) {
 	console.log("Entering Auto");
 	var node = new EO_AST_NodeAuto.EO_AST_NodeAuto();
+	this.stack.top().addChild(node);
 	this.stack.push(node);
-	this.ast.setRoot(node);
 };
 
 // Exit a parse tree produced by EliminationOrderParser#auto.
 CustomListener.prototype.exitAuto = function(ctx) {
 	console.log("Exiting Auto");
+	this.stack.pop();
 };
 
 
@@ -76,12 +83,17 @@ CustomListener.prototype.exitType = function(ctx) {
 
 // Enter a parse tree produced by EliminationOrderParser#e.
 CustomListener.prototype.enterE = function(ctx) {
-	//console.log("Entering E");
+	console.log("Entering E");
+	
+	var node = new EO_AST_NodeE.EO_AST_NodeE();
+	this.stack.top().addChild(node);
+	this.stack.push(node);
 };
 
 // Exit a parse tree produced by EliminationOrderParser#e.
 CustomListener.prototype.exitE = function(ctx) {
-	//console.log("Exiting E");
+	console.log("Exiting E");
+	this.stack.pop();
 };
 
 

@@ -16,6 +16,8 @@ DSLLoader.prototype.load = function() {
 	var parser = new EliminationOrderParser.EliminationOrderParser(tokens);
 	var listener = new CustomListener.CustomListener();
 	parser.buildParseTrees = true;
+	
+	// if the next line gives errors run "java -jar antlr-4.5.3-complete.jar dsl/EliminationOrder.g4 -o dsl -listener -Dlanguage=JavaScript" on root folder
 	var tree = parser.s();
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 	
