@@ -10,8 +10,8 @@ Converter.prototype.convert = function() {
 	this.fa = FAClone(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
-	this.fa = this.eliminateState(this.fa, 3);
-	this.fa = this.eliminateState(this.fa, 2);
+	//this.fa = this.eliminateState(this.fa, 3);
+	//this.fa = this.eliminateState(this.fa, 2);
 	console.log(this.fa);
 	return this.fa;
 	// TODO

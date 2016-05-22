@@ -3,6 +3,7 @@ FALoader.prototype.constructor = FALoader;
 
 function FALoader(dotString) {
 	this.dotString = dotString;
+	this.startNodeID = -1;
 }
 
 FALoader.prototype.load = function() {
@@ -38,8 +39,10 @@ FALoader.prototype.validate = function(fa) {
 FALoader.prototype.validateSingleStart = function(fa) {
 	var count = 0;
 	for (var i = 0; i < fa.nodes.length; i++) {
-		if (fa.nodes[i].id === "START")
+		if (fa.nodes[i].id === "START") {
 			count++;
+			this.startNodeID = i;
+		}
 	}
 	if (count === 1)
 		return true;
@@ -53,6 +56,7 @@ FALoader.prototype.validateFinalExistence = function(fa) {
 		if (isNodeFinal(fa.nodes[i]))
 			return true;
 	}
+	console.error("No final state found in the graph, it should have at least one final state.");
 	return false;
 }
 
@@ -61,7 +65,8 @@ FALoader.prototype.validateNoUnreachable = function(fa) {
 	for (var i = 0; i < fa.nodes.length; i++) {
 		visited.push(false);
 	}
-	var stack = [0];
+	var stack = [this.startNodeID];
+	visited[this.startNodeID] = true;
 	while (stack.length > 0) {
 		var top = stack.pop();
 		
@@ -74,18 +79,22 @@ FALoader.prototype.validateNoUnreachable = function(fa) {
 		}
 	}
 	for (var i = 0; i < visited.length; i++) {
-		if (!visited[i])
+		if (!visited[i]) {
+			console.error("State with id '" + fa.nodes[i].id + "' and label '" + fa.nodes[i].label + "' is unreachable.");
 			return false;
+		}
 	}
 	return true;
 }
 
 FALoader.prototype.validateTransitions = function(fa) {
-	/*for (var i = 0; i < fa.edges.length; i++) {
+	for (var i = 0; i < fa.edges.length; i++) {
 		if (typeof fa.edges[i].label == 'undefined')
 			continue; // epsilon transition
-		if ((fa.edges[i].label + "").length > 1)
+		if ((fa.edges[i].label + "").length !== 1) {
+			console.error("Invalid transition label '" + (fa.edges[i].label + "") + "'.");
 			return false;
-	}*/
+		}
+	}
 	return true;
 }
