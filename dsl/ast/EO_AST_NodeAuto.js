@@ -19,4 +19,8 @@ function EO_AST_NodeAuto(father) {
 EO_AST_NodeAuto.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeAuto.prototype.constructor = EO_AST_NodeAuto;
 
+EO_AST_NodeAuto.prototype.eval = function(graph) {
+	// TODO implement
+}
+
 exports.EO_AST_NodeAuto = EO_AST_NodeAuto;
