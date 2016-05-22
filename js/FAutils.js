@@ -22,6 +22,12 @@ function randomString(length) {
 }
 
 function addEdge(fa, from, to, label) {
+	for (var i = 0; i < fa.edges.length; i++) {
+		if (fa.edges[i].fromID === from && fa.edges[i].toID === to) {
+			fa.edges[i].label = Converter.prototype.removeUnnecessaryParenthesis(fa.edges[i].label + "+" + "(" + label + ")");
+			return;
+		}
+	}
 	var edge = {
 			arrows: "to",
 			from: fa.nodes[from].id,

@@ -11,7 +11,7 @@ Converter.prototype.convert = function() {
 	this.fixStartingState();
 	this.fixFinalState();
 	console.log(this.fa);
-	return this.eliminateState(this.fa, 2);
+	return this.eliminateState(this.fa, 1);
 	//return this.fa;
 	// TODO
 	// return regex;
