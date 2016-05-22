@@ -43,14 +43,10 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 }
 
 // MUST BE OVERRIDEN BY EVERY NODE
-EO_AST_Node.prototype.eval = function(graph) {
-	var scores = [];
-	
+EO_AST_Node.prototype.eval = function(graph, result) {
 	for(var i = 0; i < this.children.length; ++i) {
-		scores.push(this.children[i].eval(graph));
+		this.children[i].eval(graph, result);
 	}
-	
-	return scores;
 }
 
 
