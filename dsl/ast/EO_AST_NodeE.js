@@ -2,6 +2,10 @@ var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
 /*
  * Usage example:
+ * 
+ * 		[ EO_AST_NodeT ( , EO_AST_NodeE1 ) ]
+ * 
+ * 	If EO_AST_NodeE1 does not exist, replaces itself by EO_AST_NodeT
  */
 
 function EO_AST_NodeE(father) {
