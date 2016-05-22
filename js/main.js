@@ -16,6 +16,8 @@ $( document ).ready(function() {
 	require('js/Stack');
 });
 
+var fa_graph;
+
 var openFile = function (event) {
 	var input = event.target;
 
@@ -27,7 +29,9 @@ var openFile = function (event) {
 		var fa = faLoader.load();
 		var converter = new Converter(fa, null);
 		var data = converter.convert();
-
+		
+		fa_graph = data;
+		
 		var options = data.options;
 
 		// you can extend the options like a normal JSON variable:
@@ -53,5 +57,6 @@ var openDSL = function (event) {
 var parseDSL = function(event) {
 	var input = $('#dsl_text')[0].value;
 	var dslLoader = new DSLLoader(input);
-	var ast = dslLoader.load();	
+	var ast = dslLoader.load();
+	console.log(ast.eval(fa_graph));
 }

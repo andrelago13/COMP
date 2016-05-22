@@ -23,8 +23,8 @@ DSLLoader.prototype.load = function() {
 
 	var EO_AST = require('dsl/ast/EO_AST');
 	var ast = listener.ast;
+	console.log("AST:");
 	console.log(ast);
 	
-	// TODO AST
-	// return ast;
+	return ast;
 }
