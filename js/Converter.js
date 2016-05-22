@@ -121,9 +121,6 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 				continue;
 			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
 
-			if (fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
-				var directLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID);
-
 			var label = "";
 			if (typeof beforeLabel != 'undefined')
 				label += "(" + beforeLabel + ")";
@@ -131,17 +128,9 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 				label += "(" + loopLabel + ")*";
 			if (typeof afterLabel != 'undefined')
 				label += "(" + afterLabel + ")";
-			/*if (typeof directLabel != 'undefined') {
-				if (label === "")
-					label = directLabel;
-				else
-					label += "+(" + directLabel +")";
-			}*/
 			label = this.removeUnnecessaryStuff(label);
 
 			if (label === "") label = undefined;
-
-			console.log(beforeLabel, "-", loopLabel, "-", afterLabel, "-", directLabel, "=", label.slice(0), label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
 
 			if (typeof label != 'undefined' || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
 				edgesToAdd.push([fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined]);
