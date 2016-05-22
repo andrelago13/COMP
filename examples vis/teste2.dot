@@ -1,14 +1,13 @@
 digraph {
   rankdir=LR;
   node [shape = doublecircle,
-  		peripheries = 2]; B C;
+  		peripheries = 2]; q3;
   node [shape = circle];
-  START[label=A];
-  START -> START[label="z+x"];
-  START -> START[label=a];
-  START -> C[label=w];
-  B -> C[label=y];
-  C -> START[label=z];
-  C -> C[label=l];
-  B -> D[label=x];
+  START[label=q0];
+  START -> q1 [label=a];
+  START -> q2 [label=b];
+  q1 -> q2 [label=b];
+  q1 -> q3 [label=a];
+  q2 -> q1 [label=a];
+  q2 -> q3 [label=b];
 }

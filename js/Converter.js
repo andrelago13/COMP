@@ -10,8 +10,9 @@ Converter.prototype.convert = function() {
 	this.fa = FAClone(this.fa);
 	this.fixStartingState();
 	this.fixFinalState();
+	this.fa = this.eliminateState(this.fa, 3);
+	this.fa = this.eliminateState(this.fa, 2);
 	console.log(this.fa);
-	return this.eliminateState(this.fa, 1);
 	return this.fa;
 	// TODO
 	// return regex;
@@ -54,6 +55,8 @@ Converter.prototype.fixFinalState = function() {
 		if (isNodeFinal(this.fa.nodes[i]))
 			finalIDs.push(i);
 	}
+	if (finalIDs.length === 1)
+		return;
 
 	// Create new final state
 	var newID = this.fa.nodes.length;
@@ -128,11 +131,17 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 				label += "(" + loopLabel + ")*";
 			if (typeof afterLabel != 'undefined')
 				label += "(" + afterLabel + ")";
+			/*if (typeof directLabel != 'undefined') {
+				if (label === "")
+					label = directLabel;
+				else
+					label += "+(" + directLabel +")";
+			}*/
 			label = this.removeUnnecessaryStuff(label);
 
 			if (label === "") label = undefined;
 
-			console.log(beforeLabel, "-", loopLabel, "-",afterLabel, "=", label.slice(0), label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
+			console.log(beforeLabel, "-", loopLabel, "-", afterLabel, "-", directLabel, "=", label.slice(0), label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
 
 			if (typeof label != 'undefined' || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
 				edgesToAdd.push([fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined]);
