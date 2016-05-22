@@ -94,9 +94,9 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 		if (fa.edges[edgeID].toID !== dstID)
 			continue;
 		if (label === "")
-			label = "(" + fa.edges[edgeID].label + ")";
+			label = fa.edges[edgeID].label;
 		else
-			label += " + (" + fa.edges[edgeID].label + ")";
+			label += "+" + fa.edges[edgeID].label;
 	}
 	if (label === "")
 		return undefined;
@@ -122,12 +122,24 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
 			
 			var label = "";
-			if (typeof beforeLabel != 'undefined')
-				label += "(" + beforeLabel + ")";
-			if (typeof loopLabel != 'undefined')
-				label += "(" + loopLabel + ")*";
-			if (typeof afterLabel != 'undefined')
-				label += "(" + afterLabel + ")";
+			if (typeof beforeLabel != 'undefined') {
+				if (this.needsParenthesis(beforeLabel))
+					label += "(" + beforeLabel + ")";
+				else
+					label += beforeLabel;
+			}
+			if (typeof loopLabel != 'undefined') {
+				if (loopLabel.length > 1)
+					label += "(" + loopLabel + ")*";
+				else
+					label += loopLabel + "*";
+			}
+			if (typeof afterLabel != 'undefined') {
+				if (this.needsParenthesis(afterLabel))
+					label += "(" + afterLabel + ")";
+				else
+					label += afterLabel;
+			}
 			label = this.removeUnnecessaryStuff(label);
 
 			if (label === "") label = undefined;
@@ -142,11 +154,28 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 	return fa;
 }
 
+Converter.prototype.needsParenthesis = function(s) {
+	for (var i = 0; i < s.length; i++) {
+		if (s[i] === '+')
+			return true;
+		if (s[i] === '(')
+			break;
+	}
+	for (var i = s.length - 1; i >= 0; i--) {
+		if (s[i] === '+')
+			return true;
+		if (s[i] === ')')
+			break;
+	}
+	return false;
+}
+
 Converter.prototype.removeUnnecessaryStuff = function(s) {
 	return this.removeUnnecessaryEpsilons(this.removeUnnecessaryParenthesis(s));
 }
 
 Converter.prototype.removeUnnecessaryParenthesis = function(str) {
+	return str;
 	console.log("a", str.slice(0));
 	var i=0;
 	var str = (function recur(s, b) {
