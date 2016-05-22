@@ -1,5 +1,4 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EO_AST_NodeM = require('dsl/ast/EO_AST_NodeManual');
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 
 function EO_AST() {
 	this.root = null;
@@ -23,7 +22,11 @@ EO_AST.prototype.addChild = function(father, son) {
 
 // Returns an object with the type (static/dynamic) and the evaluated order for nodes to be removed
 EO_AST.prototype.eval = function(graph) {
+	var result = new EvalResult();
 	
+	result.setType(EvalResult.Type.STATIC);
+	
+	return result;
 };
 
 exports.EO_AST = EO_AST;

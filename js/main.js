@@ -1,18 +1,19 @@
 $( document ).ready(function() {
+	require('dsl/EliminationOrderLexer');
+	require('dsl/EliminationOrderParser');
+	require('dsl/CustomListener');
 	require('dsl/ast/EO_AST');
 	require('dsl/ast/EO_AST_Node');
 	require('dsl/ast/EO_AST_NodeManual');
 	require('dsl/ast/EO_AST_NodeAuto');
 	require('dsl/ast/EO_AST_NodeE');
 	require('dsl/ast/EO_AST_NodeE1');
-	require('dsl/EliminationOrderParser');
 	require('dsl/ast/EO_AST_NodeV');
 	require('dsl/ast/EO_AST_NodeLoop');
 	require('dsl/ast/EO_AST_NodeF');
 	require('dsl/ast/EO_AST_NodeT');
 	require('dsl/ast/EO_AST_NodeT1');
-	require('dsl/EliminationOrderLexer');
-	require('dsl/CustomListener');
+	require('dsl/ast/EvalResult');
 	require('js/Stack');
 });
 
