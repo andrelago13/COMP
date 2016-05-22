@@ -12,7 +12,7 @@ Converter.prototype.convert = function() {
 	this.fixFinalState();
 	console.log(this.fa);
 	return this.eliminateState(this.fa, 1);
-	//return this.fa;
+	return this.fa;
 	// TODO
 	// return regex;
 }
@@ -54,7 +54,7 @@ Converter.prototype.fixFinalState = function() {
 		if (isNodeFinal(this.fa.nodes[i]))
 			finalIDs.push(i);
 	}
-	
+
 	// Create new final state
 	var newID = this.fa.nodes.length;
 	this.fa.nodes.push({
@@ -65,7 +65,7 @@ Converter.prototype.fixFinalState = function() {
 		shape: "doublecircle",
 		peripheries: 2
 	});
-	
+
 	// Create new edges
 	for (var i = 0; i < finalIDs.length; i++) {
 		var node = this.fa.nodes[finalIDs[i]];
@@ -102,6 +102,7 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 
 Converter.prototype.eliminateState = function(fa, stateID) {
 	fa = FAClone(fa);
+	var edgesToAdd = [];
 	for (var i = 0; i < fa.nodes[stateID].inEdges.length; i++) {
 		var inEdgeID = fa.nodes[stateID].inEdges[i];
 		if (fa.edges[inEdgeID].fromID === stateID)
@@ -110,31 +111,35 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 		var beforeLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, stateID);
 
 		var loopLabel = this.getMergedTransitionsLabel(fa, stateID, stateID);
-		
+
 		for (var j = 0; j < fa.nodes[stateID].outEdges.length; j++) {
 			var outEdgeID = fa.nodes[stateID].outEdges[j];
 			if (fa.edges[outEdgeID].toID === stateID)
 				continue;
 			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
-			
-			var directLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID);
-			
-		
+
+			if (fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
+				var directLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID);
+
 			var label = "";
-			//if (directLabel != EPSILON)
-			//	label += "(" + directLabel + ")";
 			if (typeof beforeLabel != 'undefined')
 				label += "(" + beforeLabel + ")";
 			if (typeof loopLabel != 'undefined')
 				label += "(" + loopLabel + ")*";
 			if (typeof afterLabel != 'undefined')
 				label += "(" + afterLabel + ")";
+			label = this.removeUnnecessaryStuff(label);
+
 			if (label === "") label = undefined;
-			
+
+			console.log(beforeLabel, "-", loopLabel, "-",afterLabel, "=", label.slice(0), label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
+
 			if (typeof label != 'undefined' || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
-				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
+				edgesToAdd.push([fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined]);
 		}
 	}
+	for (var i = 0; i < edgesToAdd.length; i++)
+		addEdge(edgesToAdd[i][0], edgesToAdd[i][1], edgesToAdd[i][2], edgesToAdd[i][3]);
 	removeNode(fa, stateID);
 	return fa;
 }
@@ -144,36 +149,26 @@ Converter.prototype.removeUnnecessaryStuff = function(s) {
 }
 
 Converter.prototype.removeUnnecessaryParenthesis = function(s) {
-   // Tokenize the pattern
-   var pieces = s.split(/(\\.|\[(?:\\.|[^\]\\])+]|\((?:\?[:!=])?|\)(?:[*?+]\??|\{\d+,?\d*}\??)?)/g);
-   var stack = [];
-   for (var i = 0; i < pieces.length; i++) {
-      if (pieces[i].substr(0,1) == "(") {
-         // Opening parenthesis
-         stack.push(i);
-      } else if (pieces[i].substr(0,1) == ")") {
-         // Closing parenthesis
-         if (stack.length == 0) {
-            // Unbalanced; Just skip the next one.
-            continue;
-         }
-         var j = stack.pop();
-         if ((pieces[j] == "(" || pieces[j] == "(?:") && pieces[i] == ")") {
-             // If it is a capturing group, or a non-capturing group, and is
-             // not followed by a quantifier;
-             // Clear both the opening and closing pieces.
-             pieces[i] = "";
-             pieces[j] = "";
-         }
-      }
-   }
-   return pieces.join("");
+	// http://codegolf.stackexchange.com/a/79440
+	for(t=[],b='';
+	s!=b;
+	s=b.replace(/\(([^()]*)\)(?=(.?))/,(x,y,z,p)=>y.indexOf('+')<0?y:-t.push(b[p-1]=='*'|z=='*'?x:y)))
+		b=s;
+	for(b=0;
+	s!=b;
+	s=b.replace(/-\d+/,x=>t[~x]))
+		b=s;
+	return s;
 }
 
 Converter.prototype.removeUnnecessaryEpsilons = function(s) {
-	if (s.length > 1 && s[0] === EPSILON && s[1] !== '*')
+	if (s.length <= 1)
+		return s;
+	if (s[0] === EPSILON && s[1] !== '+')
 		s = s.substring(1);
-	if (s[s.length - 1] === EPSILON)
+	if (s.length <= 1)
+		return s;
+	if (s[s.length - 1] === EPSILON && s[s.length - 2] !== '+')
 		s = s.substring(0, s.length - 1);
 	return s;
 }

@@ -24,20 +24,27 @@ function randomString(length) {
 function addEdge(fa, from, to, label) {
 	for (var i = 0; i < fa.edges.length; i++) {
 		if (fa.edges[i].fromID === from && fa.edges[i].toID === to) {
-			fa.edges[i].label = Converter.prototype.removeUnnecessaryParenthesis(fa.edges[i].label + "+" + "(" + label + ")");
-			return;
+			label += "+(" + fa.edges[i].label + ")";
+			removeEdge(fa, i);
+			i--;
 		}
 	}
+	label = Converter.prototype.removeUnnecessaryStuff(label);
 	var edge = {
 			arrows: "to",
 			from: fa.nodes[from].id,
 			fromID: from,
+			label: label,
 			id: randomString(512),
 			to: fa.nodes[to].id,
 			toId: to
 	}
-	if (label) edge.label = label;
 	fa.edges.push(edge);
+}
+
+function removeEdge(fa, edgeID) {
+	fa.edges.splice(edgeID, 1);
+	addHelpfulInfoToNodesAndEdges(fa);
 }
 
 function removeNode(fa, nodeID) {

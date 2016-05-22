@@ -6,13 +6,9 @@ digraph {
   START[label=A];
   START -> START[label="z+x"];
   START -> START[label=a];
-  START -> B[label=x];
   START -> C[label=w];
   B -> C[label=y];
-  C -> B[label=y];
   C -> START[label=z];
-  B -> D;
+  C -> C[label=l];
   B -> D[label=x];
-  D -> {B; C}
-  D -> E[label=x];
 }
