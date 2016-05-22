@@ -96,8 +96,8 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 			label += " + (" + fa.edges[edgeID].label + ")";
 	}
 	if (label === "")
-		return EPSILON;
-	return this.removeUnnecessaryParenthesis(label).replace(/\s+/g, '');
+		return undefined;
+	return this.removeUnnecessaryStuff(label).replace(/\s+/g, '');
 }
 
 Converter.prototype.eliminateState = function(fa, stateID) {
@@ -117,21 +117,30 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 				continue;
 			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
 			
-			var label = "";
-			if (beforeLabel != EPSILON)
-				label += "(" + beforeLabel + ")";
-			if (loopLabel != EPSILON)
-				label += "(" + loopLabel + ")*";
-			if (afterLabel != EPSILON)
-				label += "(" + afterLabel + ")";
-			if (label === "") label = EPSILON;
+			var directLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID);
 			
-			if (label !== EPSILON || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
-				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryParenthesis(label) : undefined);
+		
+			var label = "";
+			//if (directLabel != EPSILON)
+			//	label += "(" + directLabel + ")";
+			if (typeof beforeLabel != 'undefined')
+				label += "(" + beforeLabel + ")";
+			if (typeof loopLabel != 'undefined')
+				label += "(" + loopLabel + ")*";
+			if (typeof afterLabel != 'undefined')
+				label += "(" + afterLabel + ")";
+			if (label === "") label = undefined;
+			
+			if (typeof label != 'undefined' || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
+				addEdge(fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length > 0 ? this.removeUnnecessaryStuff(label) : undefined);
 		}
 	}
 	removeNode(fa, stateID);
 	return fa;
+}
+
+Converter.prototype.removeUnnecessaryStuff = function(s) {
+	return this.removeUnnecessaryEpsilons(this.removeUnnecessaryParenthesis(s));
 }
 
 Converter.prototype.removeUnnecessaryParenthesis = function(s) {
@@ -159,4 +168,12 @@ Converter.prototype.removeUnnecessaryParenthesis = function(s) {
       }
    }
    return pieces.join("");
+}
+
+Converter.prototype.removeUnnecessaryEpsilons = function(s) {
+	if (s.length > 1 && s[0] === EPSILON && s[1] !== '*')
+		s = s.substring(1);
+	if (s[s.length - 1] === EPSILON)
+		s = s.substring(0, s.length - 1);
+	return s;
 }

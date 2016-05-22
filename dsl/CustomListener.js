@@ -98,7 +98,7 @@ CustomListener.prototype.enterE = function(ctx) {
 	this.stack.top().addChild(node);
 	this.stack.push(node);
 	
-	var children = ctx.children
+	var children = ctx.children;
 	
 	for(var i = 1; i < children.length; i+=2) {
 		node.addOperator(children[i].getText());

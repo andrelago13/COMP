@@ -7,7 +7,9 @@ digraph {
   START -> START[label="z+x"];
   START -> START[label=a];
   START -> B[label=x];
+  START -> C[label=w];
   B -> C[label=y];
+  C -> B[label=y];
   C -> START[label=z];
   B -> D;
   B -> D[label=x];
