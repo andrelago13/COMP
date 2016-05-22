@@ -16,4 +16,8 @@ function EO_AST_NodeT(father) {
 EO_AST_NodeT.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeT.prototype.constructor = EO_AST_NodeT;
 
+EO_AST_NodeT.prototype.eval = function(graph) {
+	// TODO implement
+}
+
 exports.EO_AST_NodeT = EO_AST_NodeT;

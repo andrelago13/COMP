@@ -42,5 +42,16 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 	}
 }
 
+// MUST BE OVERRIDEN BY EVERY NODE
+EO_AST_Node.prototype.eval = function(graph) {
+	var scores = [];
+	
+	for(var i = 0; i < this.children.length; ++i) {
+		scores.push(this.children[i].eval(graph));
+	}
+	
+	return scores;
+}
+
 
 exports.EO_AST_Node = EO_AST_Node;

@@ -21,4 +21,9 @@ EO_AST.prototype.addChild = function(father, son) {
 	father.addChild(son);
 };
 
+// Returns an object with the type (static/dynamic) and the evaluated order for nodes to be removed
+EO_AST.prototype.eval = function(graph) {
+	
+};
+
 exports.EO_AST = EO_AST;
