@@ -24,7 +24,7 @@ function randomString(length) {
 function addEdge(fa, from, to, label) {
 	for (var i = 0; i < fa.edges.length; i++) {
 		if (fa.edges[i].fromID === from && fa.edges[i].toID === to) {
-			label += "+(" + fa.edges[i].label + ")";
+			label += "+" + fa.edges[i].label;
 			removeEdge(fa, i);
 			i--;
 		}
