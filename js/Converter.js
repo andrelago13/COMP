@@ -120,7 +120,7 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 			if (fa.edges[outEdgeID].toID === stateID)
 				continue;
 			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
-
+			
 			var label = "";
 			if (typeof beforeLabel != 'undefined')
 				label += "(" + beforeLabel + ")";
@@ -146,17 +146,21 @@ Converter.prototype.removeUnnecessaryStuff = function(s) {
 	return this.removeUnnecessaryEpsilons(this.removeUnnecessaryParenthesis(s));
 }
 
-Converter.prototype.removeUnnecessaryParenthesis = function(s) {
-	// http://codegolf.stackexchange.com/a/79440
-	for(t=[],b='';
-	s!=b;
-	s=b.replace(/\(([^()]*)\)(?=(.?))/,(x,y,z,p)=>y.indexOf('+')<0?y:-t.push(b[p-1]=='*'|z=='*'?x:y)))
-		b=s;
-	for(b=0;
-	s!=b;
-	s=b.replace(/-\d+/,x=>t[~x]))
-		b=s;
-	return s;
+Converter.prototype.removeUnnecessaryParenthesis = function(str) {
+	console.log("a", str.slice(0));
+	var i=0;
+	var str = (function recur(s, b) {
+		var c = str.charAt(i++);      // Get next char    
+		if(!c || c == ')') return s;  // End of string or end of inner part
+		if(c == '(') {
+			var s1 = recur('', true), // Get inner part
+			s2 = recur('');       // Get following part
+			return s + (!b || s2 ? '('+s1+')' : s1) + s2;
+		}
+		return recur(s+c);            // Continue to next char
+	})('');
+	console.log("b", str.slice(0));
+	return str;
 }
 
 Converter.prototype.removeUnnecessaryEpsilons = function(s) {
