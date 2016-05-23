@@ -65,7 +65,9 @@ EO_AST_Node.prototype.eval = function(graph, result) {
 			
 			this.solveTies(result.scores, result.order, temp_result.getScores(), temp_result.getOrder());
 			
-			
+			if(!this.hasTie(result.scores)) {
+				return;
+			}
 		}
 	}
 }
