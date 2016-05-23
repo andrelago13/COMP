@@ -29,7 +29,7 @@ EO_AST_NodeE1.prototype.eval = function(graph, result) {
 	temp_result.init(graph.nodes.length);
 	this.children[2].eval(temp_result);
 	
-	var type = this.children[1].children[0];
+	var type = this.children[2].children[0];
 	switch(type) {
 	case EO_AST_NodeE1.PLUS:
 		result.operation(temp_result.getScores(), EvalResult.Operation.ADD);

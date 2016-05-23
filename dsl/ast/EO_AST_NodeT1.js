@@ -20,7 +20,24 @@ EO_AST_NodeT1.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeT1.prototype.constructor = EO_AST_NodeT1;
 
 EO_AST_NodeT1.prototype.eval = function(graph, result) {
-	// TODO implement
+	this.children[1].eval(graph, result);
+	if(this.children.length === 2) {	// EO_AST_NodeT1 not present
+		return;
+	}
+	
+	var temp_result = new EvalResult();
+	temp_result.init(graph.nodes.length);
+	this.children[2].eval(temp_result);
+	
+	var type = this.children[2].children[0];
+	switch(type) {
+	case EO_AST_NodeT1.ASTERISK:
+		result.operation(temp_result.getScores(), EvalResult.Operation.MUL);
+		break;
+	case EO_AST_NodeT1.SLASH:
+		result.operation(temp_result.getScores(), EvalResult.Operation.DIV);
+		break;
+	}
 }
 
 exports.EO_AST_NodeT1 = EO_AST_NodeT1;

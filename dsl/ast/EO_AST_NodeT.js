@@ -4,7 +4,7 @@ var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1').EO_AST_NodeT1;
 /*
  * Usage example:
  * 
- * 		[ EO_AST_NodeF ( , EO_AST_NodeT )]
+ * 		[ EO_AST_NodeF ( , EO_AST_NodeT1 )]
  * 
  * 	If no NodeT exists, replaces itself by EO_AST_NodeF
  */
@@ -19,7 +19,7 @@ EO_AST_NodeT.prototype.constructor = EO_AST_NodeT;
 
 EO_AST_NodeT.prototype.eval = function(graph, result) {
 	this.children[0].eval(graph, result);
-	if(this.children.length === 1) {	// EO_AST_NodeT not present
+	if(this.children.length === 1) {	// EO_AST_NodeT1 not present
 		return;
 	}
 	
