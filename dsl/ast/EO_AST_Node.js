@@ -235,7 +235,7 @@ EO_AST_Node.prototype.merge = function(values_left, values_right, orders_left, o
         } else if (rightIndex >= values_right.length) {
         	new_values[targetIndex] = values_left[leftIndex];
         	new_orders[targetIndex] = orders_left[leftIndex++];
-        } else if (values_left[leftIndex] < values_right[rightIndex]) {
+        } else if (values_left[leftIndex] <= values_right[rightIndex]) {
         	new_values[targetIndex] = values_left[leftIndex];
         	new_orders[targetIndex] = orders_left[leftIndex++];
         } else {
