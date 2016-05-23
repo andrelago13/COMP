@@ -24,7 +24,6 @@ EO_AST.prototype.addChild = function(father, son) {
 EO_AST.prototype.eval = function(graph) {
 	var result = new EvalResult();
 	
-	result.setType(EvalResult.Type.STATIC);
 	this.root.eval(graph, result);
 	
 	return result;

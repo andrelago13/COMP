@@ -20,6 +20,7 @@ EO_AST_NodeManual.prototype.constructor = EO_AST_NodeManual;
 EO_AST_NodeManual.prototype.eval = function(graph, result) {
 	result.setType(EvalResult.Type.STATIC);
 	result.setOrder(this.children);
+	result.setScores(this.children);
 }
 
 exports.EO_AST_NodeManual = EO_AST_NodeManual;
