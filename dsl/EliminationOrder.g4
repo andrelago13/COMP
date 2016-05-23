@@ -7,7 +7,7 @@ auto : type e;
 type : STATIC | DYNAMIC;
 e : t e1;
 e1 : ((PLUS | MINUS) t e1)?;
-t : f t1;
+t : f t1;thi
 t1 : ((ASTERISK | SLASH) f t1)?;
 f : v | INT | REAL | loop | (OPEN1 e CLOSE1);
 loop : (SUM | MUL) OPEN1 IDENTIFIER COLON v CLOSE1 OPEN2 e CLOSE2;

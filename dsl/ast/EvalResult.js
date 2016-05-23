@@ -7,9 +7,17 @@ EvalResult.Type = {
     DYNAMIC : 'DYNAMIC'
 }
 
+EvalResult.Operation = {
+	ADD : 0,
+	SUB : 1,
+	MUL : 2,
+	DIV : 3
+}
+
 function EvalResult() {
 	this.type = null;
 	this.order = [];
+	this.scores = [];
 	
 	return this;
 }
@@ -30,6 +38,50 @@ EvalResult.prototype.getOrder = function() {
 
 EvalResult.prototype.setOrder = function(order) {
 	this.order = order;
+}
+
+EvalResult.prototype.getScores = function() {
+	return this.scores;
+}
+
+EvalResult.prototype.setScores = function(scores) {
+	this.scores = scores;
+}
+
+EvalResult.prototype.init = function(size) {
+	for(var i = 0; i < size; ++i) {
+		this.scores.push(0);
+		this.order.push(i);
+	}
+}
+
+/*
+ * operation is one of EvalResult.Operation
+ */
+EvalResult.prototype.operation = function(new_values, operation) {
+	switch(operation) {
+	case EvalResult.Operation.ADD:
+	case EvalResult.Operation.SUB:
+		var signal = 1;
+		if(operation === EvalResult.Operation.SUB) {
+			signal = -1;
+		}
+
+		for(var i = 0; i < new_values.length; ++i) {
+			this.scores[i] += signal * new_values[i];
+		}
+		break;
+	case EvalResult.Operation.MUL:
+		for(var i = 0; i < new_values.length; ++i) {
+			this.order[i] = this.order[i]*new_values[i];
+		}
+		break;
+	case EvalResult.Operation.DIV:
+		for(var i = 0; i < new_values.length; ++i) {
+			this.order[i] = this.order[i]/new_values[i];
+		}
+		break;
+	}
 }
 
 exports.EvalResult = EvalResult;

@@ -1,9 +1,10 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1').EO_AST_NodeT1;
 
 /*
  * Usage example:
  * 
- * 		[ EO_AST_NodeF ( , EO_AST_NodeT )]
+ * 		[ EO_AST_NodeF ( , EO_AST_NodeT1 )]
  * 
  * 	If no NodeT exists, replaces itself by EO_AST_NodeF
  */
@@ -16,8 +17,25 @@ function EO_AST_NodeT(father) {
 EO_AST_NodeT.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeT.prototype.constructor = EO_AST_NodeT;
 
-EO_AST_NodeT.prototype.eval = function(graph) {
-	// TODO implement
+EO_AST_NodeT.prototype.eval = function(graph, result) {
+	this.children[0].eval(graph, result);
+	if(this.children.length === 1) {	// EO_AST_NodeT1 not present
+		return;
+	}
+	
+	var temp_result = new EvalResult();
+	temp_result.init(graph.nodes.length);
+	this.children[1].eval(temp_result);
+	
+	var type = this.children[1].children[0];
+	switch(type) {
+	case EO_AST_NodeT1.ASTERISK:
+		result.operation(temp_result.getScores(), EvalResult.Operation.MUL);
+		break;
+	case EO_AST_NodeT1.SLASH:
+		result.operation(temp_result.getScores(), EvalResult.Operation.DIV);
+		break;
+	}
 }
 
 exports.EO_AST_NodeT = EO_AST_NodeT;

@@ -1,34 +1,34 @@
-var EliminationOrderListener = require('dsl/EliminationOrderListener');
-var EO_AST = require('dsl/ast/EO_AST');
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EO_AST_NodeManual = require('dsl/ast/EO_AST_NodeManual');
-var EO_AST_NodeAuto = require('dsl/ast/EO_AST_NodeAuto');
-var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE');
-var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1');
-var EliminationOrderParser = require('dsl/EliminationOrderParser');
-var EO_AST_NodeV = require('dsl/ast/EO_AST_NodeV');
-var EO_AST_NodeLoop = require('dsl/ast/EO_AST_NodeLoop');
-var EO_AST_NodeF = require('dsl/ast/EO_AST_NodeF');
-var EO_AST_NodeT = require('dsl/ast/EO_AST_NodeT');
-var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1');
-var Stack = require('js/Stack');
+var EliminationOrderListener = require('dsl/EliminationOrderListener').EliminationOrderListener;
+var EO_AST = require('dsl/ast/EO_AST').EO_AST;
+var EO_AST_Node = require('dsl/ast/EO_AST_Node').EO_AST_Node;
+var EO_AST_NodeManual = require('dsl/ast/EO_AST_NodeManual').EO_AST_NodeManual;
+var EO_AST_NodeAuto = require('dsl/ast/EO_AST_NodeAuto').EO_AST_NodeAuto;
+var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE').EO_AST_NodeE;
+var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1').EO_AST_NodeE1;
+var EliminationOrderParser = require('dsl/EliminationOrderParser').EliminationOrderParser;
+var EO_AST_NodeV = require('dsl/ast/EO_AST_NodeV').EO_AST_NodeV;
+var EO_AST_NodeLoop = require('dsl/ast/EO_AST_NodeLoop').EO_AST_NodeLoop;
+var EO_AST_NodeF = require('dsl/ast/EO_AST_NodeF').EO_AST_NodeF;
+var EO_AST_NodeT = require('dsl/ast/EO_AST_NodeT').EO_AST_NodeT;
+var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1').EO_AST_NodeT1;
+var Stack = require('js/Stack').Stack;
 
 function CustomListener(symbolicNames, ruleNames) {
-	EliminationOrderListener.EliminationOrderListener.call(this);
-	this.ast = new EO_AST.EO_AST();
-	var root = new EO_AST_Node.EO_AST_Node();
+	EliminationOrderListener.call(this);
+	this.ast = new EO_AST();
+	var root = new EO_AST_Node();
 	this.ast.setRoot(root);
 	
 	this.symbolicNames = symbolicNames;
 	this.ruleNames = ruleNames;
 	
-	this.stack = new Stack.Stack();
+	this.stack = new Stack();
 	this.stack.push(root);
 	
 	return this;
 }
 
-CustomListener.prototype = Object.create(EliminationOrderListener.EliminationOrderListener.prototype);
+CustomListener.prototype = Object.create(EliminationOrderListener.prototype);
 CustomListener.prototype.constructor = CustomListener;
 
 // Enter a parse tree produced by EliminationOrderParser#s.
@@ -43,7 +43,7 @@ CustomListener.prototype.exitS = function(ctx) {
 // Enter a parse tree produced by EliminationOrderParser#manual.
 CustomListener.prototype.enterManual = function(ctx) {
 	console.log(this.getTabbing() + "Entering Manual");
-	var node = new EO_AST_NodeManual.EO_AST_NodeManual(this.stack.top());
+	var node = new EO_AST_NodeManual(this.stack.top());
 	this.stack.push(node);
 	
 	var children = ctx.children;
@@ -64,7 +64,7 @@ CustomListener.prototype.exitManual = function(ctx) {
 // Enter a parse tree produced by EliminationOrderParser#auto.
 CustomListener.prototype.enterAuto = function(ctx) {
 	console.log(this.getTabbing() + "Entering Auto");
-	var node = new EO_AST_NodeAuto.EO_AST_NodeAuto(this.stack.top());
+	var node = new EO_AST_NodeAuto(this.stack.top());
 	this.stack.push(node);
 };
 
@@ -95,7 +95,7 @@ CustomListener.prototype.exitType = function(ctx) {
 CustomListener.prototype.enterE = function(ctx) {
 	console.log(this.getTabbing() + "Entering E");
 	
-	var node = new EO_AST_NodeE.EO_AST_NodeE(this.stack.top());
+	var node = new EO_AST_NodeE(this.stack.top());
 	this.stack.push(node);
 };
 
@@ -123,7 +123,7 @@ CustomListener.prototype.enterE1 = function(ctx) {
 		return;
 	}
 	
-	var node = new EO_AST_NodeE1.EO_AST_NodeE1(this.stack.top());
+	var node = new EO_AST_NodeE1(this.stack.top());
 	this.stack.push(node);
 	
 	var op = ctx.children[0].getText();
@@ -144,7 +144,7 @@ CustomListener.prototype.exitE1 = function(ctx) {
 CustomListener.prototype.enterT = function(ctx) {
 	console.log(this.getTabbing() + "Entering T");
 	
-	var node = new EO_AST_NodeT.EO_AST_NodeT(this.stack.top());
+	var node = new EO_AST_NodeT(this.stack.top());
 	this.stack.push(node);
 };
 
@@ -172,7 +172,7 @@ CustomListener.prototype.enterT1 = function(ctx) {
 		return;		
 	}
 	
-	var node = new EO_AST_NodeT1.EO_AST_NodeT1(this.stack.top());
+	var node = new EO_AST_NodeT1(this.stack.top());
 	this.stack.push(node);
 	
 	var op = ctx.children[0].getText();
@@ -194,7 +194,7 @@ CustomListener.prototype.exitT1 = function(ctx) {
 CustomListener.prototype.enterF = function(ctx) {
 	console.log(this.getTabbing() + "Entering F");
 	
-	var node = new EO_AST_NodeF.EO_AST_NodeF(this.stack.top());
+	var node = new EO_AST_NodeF(this.stack.top());
 	
 	var children = ctx.children;
 	var first_child = children[0];
@@ -241,7 +241,7 @@ CustomListener.prototype.exitF = function(ctx) {
 CustomListener.prototype.enterLoop = function(ctx) {
 	console.log(this.getTabbing() + "Entering Loop");
 	
-	var node = new EO_AST_NodeLoop.EO_AST_NodeLoop(this.stack.top());
+	var node = new EO_AST_NodeLoop(this.stack.top());
 	this.stack.push(node);
 	
 	// SUM or MUL
@@ -275,11 +275,11 @@ CustomListener.prototype.enterV = function(ctx) {
 	if(ctx.children.length > 1) {
 		// MAJOR.MINOR
 		var minor = ctx.children[2].getText();
-		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major, minor);
+		node = new EO_AST_NodeV(this.stack.top(), major, minor);
 		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "." + minor + "\".");
 	} else {
 		// MAJOR
-		node = new EO_AST_NodeV.EO_AST_NodeV(this.stack.top(), major);		
+		node = new EO_AST_NodeV(this.stack.top(), major);		
 		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "\".");
 	}
 };
