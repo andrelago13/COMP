@@ -31,7 +31,7 @@ EO_AST_NodeE1.prototype.eval = function(graph, result) {
 	
 	var type = this.children[1].children[0];
 	switch(type) {
-	case EO_AST_NodeE1.Type.PLUS:
+	case EO_AST_NodeE1.PLUS:
 		result.operation(temp_result.getScores(), EvalResult.Operation.ADD);
 		break;
 	case EO_AST_NodeE1.MINUS:
