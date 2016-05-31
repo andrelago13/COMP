@@ -9,7 +9,7 @@ e : t e1;
 e1 : ((PLUS | MINUS) t e1)?;
 t : f t1;
 t1 : ((ASTERISK | SLASH) f t1)?;
-f : v | INT | REAL | loop | (OPEN1 e CLOSE1);
+f : v | RESERVED | INT | REAL | loop | (OPEN1 e CLOSE1);
 loop : (SUM | MUL) OPEN1 IDENTIFIER COLON RESERVED CLOSE1 OPEN2 e CLOSE2;
 v : IDENTIFIER (DOT IDENTIFIER)?;
 
