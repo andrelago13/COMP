@@ -13,7 +13,7 @@ f : v | RESERVED | INT | REAL | loop | (OPEN1 e CLOSE1);
 loop : (SUM | MUL) OPEN1 IDENTIFIER COLON RESERVED CLOSE1 OPEN2 e CLOSE2;
 v : IDENTIFIER (DOT IDENTIFIER)?;
 
-WHITESPACE  : [ \t\r\n]+ -> skip ;
+WHITESPACE  : [ \t\r\n]+ -> skip;
 
 STATIC 		: 'static';
 DYNAMIC 	: 'dynamic';
