@@ -17,13 +17,20 @@
 	display:none;
 }
 
-#menu-toggle2{
-	
+#about {
+	display:none;
+}
+
+#menu-toggle2{	
 	margin-top: 20px;
 }
 
 #menu-toggle3 {
 	margin-top: 20px;
+}
+
+#menu-toggle5 {
+	margin-top: 40px;
 }
 
 #result1Button{
@@ -41,4 +48,29 @@
 	position:absolute;
 	left:735px;
 	top:165px;
+}
+
+#aboutbutton1{
+	position:absolute;
+	left:140px;
+	top:142px;
+}
+
+#aboutbutton2{
+	position:absolute;
+	left:230px;
+	top:142px;
+}
+
+#grammar{
+	display: none;
+}
+
+#grammar.toggled {
+	display: block;
+}
+
+#grammar p {
+	position: relative;
+	top: 50px;
 }

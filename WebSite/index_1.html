@@ -29,22 +29,33 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#intro" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('intro').style.display='block';">
+                    <a href="#intro" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; 
+document.getElementById('intro').style.display='none'; document.getElementById('about').style.display='none'; 
+document.getElementById('dotFile').style.display='none'; document.getElementById('parseDSL').style.display='none'; 
+document.getElementById('intro').style.display='block';">
                         FA2RE-SE
                     </a>
                 </li>
                 <li>
-                  <a href="#dotFile" onclick="document.getElementById('results').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('dotFile').style.display='block';">Load Dot</a>
+                  <a href="#dotFile" onclick="document.getElementById('results').style.display='none'; document.getElementById('intro').style.display='none'; 
+document.getElementById('parseDSL').style.display='none'; document.getElementById('about').style.display='none'; 
+document.getElementById('dotFile').style.display='block';">Load Dot</a>
                 </li>
                 <li>
-                    <a href="#parseDSL" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='block';">DSL</a>
+                    <a href="#parseDSL" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; 
+document.getElementById('intro').style.display='none'; document.getElementById('about').style.display='none'; 
+document.getElementById('parseDSL').style.display='block';">DSL</a>
                 </li>
                 <li>
-                    <a href="#results" onclick="document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='block';">Results</a>
+                    <a href="#results" onclick="document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; 
+document.getElementById('parseDSL').style.display='none'; document.getElementById('about').style.display='none'; 
+document.getElementById('results').style.display='block';">Results</a>
                 </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
+				<li>
+                    <a href="#about" onclick="document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; 
+document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='none'; 
+document.getElementById('about').style.display='block';">About</a>
+                </li>                
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -75,7 +86,8 @@
 						<h3> Prepare to parse Dsl... </h3>
 						<br>
 						<input id='dsl_text' type='text' accept='text/plain' 
-						value="static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);">
+						value="static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * 
+#outdeg_nl);">
 						<br>
 						<h6> <strong> Note: </strong> Please choose a valid dsl!! </h6>
 						<button type="button"  id = 'dslButton'onclick='parseDSL(event)'>Parse DSL</button>
@@ -95,6 +107,51 @@
 						<button type="button"  id = 'result1Button' >Step-by-Step</button>
 						<button type="button"  id = 'result2Button' >Final FA</button>
 	                 </div>
+					 <div class="col-lg-12" id="about">
+						<h1>About</h1>
+						<p>FA2RE-SE transforms finite automata into regular expressions by the state elimination method.</p>
+						<button type="button"  id = 'aboutbutton1' >Grammar</button>
+						<button type="button"  id = 'aboutbutton2' >More Info</button>
+						<div id="grammar">
+							<p>DSL:</p>
+								<p>s : (manual SEMICOLON) | (auto SEMICOLON s1 );</p>
+								<p>s1 : EOF|s;</p>
+								<p>manual : INT (COMMA INT)*;</p>
+								<p>auto : type e;</p>
+								<p>type : STATIC | DYNAMIC;</p>
+								<p>e : t e1;</p>
+								<p>e1 : ((PLUS | MINUS) t e1)?;</p>
+								<p>t : f t1;thi</p>
+								<p>t1 : ((ASTERISK | SLASH) f t1)?;</p>
+								<p>f : v | INT | REAL | loop | (OPEN1 e CLOSE1);</p>
+								<p>loop : (SUM | MUL) OPEN1 IDENTIFIER COLON v CLOSE1 OPEN2 e CLOSE2;</p>
+								<p>v : IDENTIFIER (DOT IDENTIFIER)?;</p>
+
+								<p>WHITESPACE  : [ \t\r\n]+ -> skip ;</p>
+
+								<p>STATIC 		: 'static';</p>
+								<p>DYNAMIC 	: 'dynamic';</p>
+								<p>SUM 		: 'sum';</p>
+								<p>MUL 		: 'mul';</p>
+								<p>OPEN1 		: '(';</p>
+								<p>CLOSE1 		: ')';</p>
+								<p>OPEN2 		: '{';</p>
+								<p>CLOSE2 		: '}';</p>
+								<p>COMMA 		: ',';</p>
+								<p>COLON 		: ':';</p>
+								<p>SEMICOLON 	: ';';</p>
+								<p>DOT			: '.';</p>
+								<p>PLUS		: '+';</p>
+								<p>MINUS		: '-';</p>
+								<p>ASTERISK	: '*';</p>
+								<p>SLASH		: '/';</p>
+								<p>INT			: [0-9]+;</p>
+								<p>REAL		: [0-9]* '.' [0-9]+;</p>
+								<p>IDENTIFIER 	: '#'? [a-zA-Z_]+ [a-zA-Z_0-9]*;</p>
+
+						</div>
+						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle5">Toggle Menu</a>
+					 </div>
 		
                 </div>
             </div>	
