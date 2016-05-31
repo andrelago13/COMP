@@ -32,7 +32,7 @@ EO_AST_NodeAuto.prototype.eval = function(graph, result) {
 		break;
 	}
 	
-	this.result.init(graph.nodes.length);
+	result.init(graph.nodes.length);
 	this.children[0].eval(graph, result);
 }
 
