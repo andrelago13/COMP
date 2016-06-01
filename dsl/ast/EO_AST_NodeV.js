@@ -35,7 +35,7 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	var minor = this.children[1];
 	
 	// TODO must be fixed
-	var major_var = vars.getVar(major);
+	/*var major_var = vars.getVar(major);
 	
 	if(typeof major_var == 'undefined') {
 		console.log("Variable \"" + major + "\" is undefined.");
@@ -53,7 +53,7 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 		return 0;
 	}
 	
-	return minor_var;
+	return minor_var;*/
 }
 
 exports.EO_AST_NodeV = EO_AST_NodeV;

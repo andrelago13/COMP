@@ -29,7 +29,6 @@ EO_AST_NodeF.prototype.eval = function(graph, result, vars) {
 		child.eval(graph, result, vars);
 	} else {
 		var score = [];
-		console.log(this);
 		for(var i = 0; i < graph.nodes.length; ++i) {
 			score.push(child);
 		}

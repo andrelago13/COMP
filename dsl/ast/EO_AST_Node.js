@@ -47,11 +47,15 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 
 // MUST BE OVERRIDEN BY EVERY NODE
 EO_AST_Node.prototype.eval = function(graph, result) {
-	var vars = new VarMap();
+	var var_maps = [];
+	var n_nodes = graph.nodes.length;
+	for(var i = 0; i < n_nodes; ++i) {
+		var_maps.push(new VarMap());
+	}
 	
 	for(var i = 0; i < this.children.length; ++i) {
 		if(i === 0) {	// First child
-			this.children[i].eval(graph, result, vars);
+			this.children[i].eval(graph, result, var_maps);
 			
 			var sorted = this.sort(result.getScores(), result.getOrder());
 			result.setScores(sorted[0]);
@@ -64,7 +68,7 @@ EO_AST_Node.prototype.eval = function(graph, result) {
 			var temp_result = new EvalResult();
 			temp_result.init(graph.nodes.length);
 			
-			this.children[i].eval(graph, temp_result, vars);
+			this.children[i].eval(graph, temp_result, var_maps);
 			
 			this.solveTies(result.scores, result.order, temp_result.getScores(), temp_result.getOrder());
 			
@@ -72,7 +76,7 @@ EO_AST_Node.prototype.eval = function(graph, result) {
 				return;
 			}
 		}
-		vars.clear();
+		VarMap.clearSet(var_maps);
 	}
 }
 
