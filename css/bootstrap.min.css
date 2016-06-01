@@ -39,5 +39,9 @@
 
 
 #dsl_text{
-	width:600px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
 }
