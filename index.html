@@ -76,7 +76,7 @@
 						<br>
 						<h6> <strong> Note: </strong> Please choose a valid dsl!! </h6>
 						<textarea id='dsl_text' type='text' accept='text/plain' 
-						>static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);"> </textarea>
+						>static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);</textarea>
 						<br>
 						<button type="button"  id = 'dslButton'onclick='parseDSL(event)'>Parse DSL</button>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle3">Toggle Menu</a>
