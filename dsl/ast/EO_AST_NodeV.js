@@ -34,6 +34,7 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	var major = this.children[0];
 	var minor = this.children[1];
 	
+	// TODO must be fixed
 	var major_var = vars.getVar(major);
 	
 	if(typeof major_var == 'undefined') {
