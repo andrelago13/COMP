@@ -202,21 +202,35 @@ CustomListener.prototype.enterF = function(ctx) {
 	var first_child_rule = first_child.ruleIndex;
 	
 	if(typeof first_child_rule == 'undefined') {
-		// INT, REAL, OPEN1
+		// INT, REAL, OPEN1, RESERVED
 		var child_type = this.symbolicNames[first_child.getSymbol().type];
 		
-		if(child_type === 'INT') {
+		switch (child_type) {
+		case 'INT': {
 			var value = parseInt(first_child.getText());
 			console.log(this.getTabbing() + "Parsing INT \"" + value + "\"");
 			node.addChild(value);
-		} else if(child_type === 'REAL') {
+			break;
+		}
+		case 'REAL': {
 			var value = parseFloat(first_child.getText());
 			console.log(this.getTabbing() + "Parsing REAL \"" + value + "\"");
-			node.addChild(value);			
-		} if(child_type === 'OPEN1') {
+			node.addChild(value);
+			break;
+		}
+		case 'OPEN1': {
 			console.log(this.getTabbing() + "Parsing OPEN1 \"" + first_child.getText() + "\"");
 			console.log(this.getTabbing() + "Parsing E later...");
-			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");			
+			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");
+			break;
+		}
+		case 'RESERVED': {
+			// TODO
+			break;
+		}
+		default: {
+			console.error("Unknown node type '" + child_type + "'.");
+		}
 		}
 	} else {
 		var ruleName = this.ruleNames[first_child_rule];
