@@ -27,7 +27,7 @@ EO_AST_NodeE.prototype.eval = function(graph, result) {
 	
 	var temp_result = new EvalResult();
 	temp_result.init(graph.nodes.length);
-	this.children[1].eval(temp_result);
+	this.children[1].eval(graph, temp_result);
 	
 	var type = this.children[1].children[0];
 	switch(type) {

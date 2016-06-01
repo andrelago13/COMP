@@ -96,6 +96,7 @@ CustomListener.prototype.enterE = function(ctx) {
 	console.log(this.getTabbing() + "Entering E");
 	
 	var node = new EO_AST_NodeE(this.stack.top());
+	console.log(this.stack.top());
 	this.stack.push(node);
 };
 
