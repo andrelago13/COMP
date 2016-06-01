@@ -57,14 +57,14 @@
                         <h1>FA2RE-SE</h1>
                         <p><strong> Objective: </strong>Develop a framework that transforms FAs into Regular Expressions using the state elimination state.</p>
                         <p>It is possible to Load a dot file to check his states.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle1">Toggle Menu</a>
                     </div>
 					 <div class="col-lg-12" id ="dotFile">
                         <h1>FA2RE-SE</h1>
 						<br>
 						<h3> Prepare to load dot file... </h3>
 						<br>
-						<input type='file' accept='text/plain' onchange='openFile(event)'>
+						<input type='file' accept='text/plain,.dot' onchange='openFile(event)'>
 						<h6> <strong> Note: </strong> Please choose a valid file! </h6>
                         <div id="mynetwork"></div>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle2">Toggle Menu</a>
@@ -75,8 +75,8 @@
 						<h3> Prepare to parse DSL... </h3>
 						<br>
 						<h6> <strong> Note: </strong> Please choose a valid dsl!! </h6>
-						<input id='dsl_text' type='text' accept='text/plain' 
-						value="static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);">
+						<textarea id='dsl_text' type='text' accept='text/plain' 
+						>static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);"> </textarea>
 						<br>
 						<button type="button"  id = 'dslButton'onclick='parseDSL(event)'>Parse DSL</button>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle3">Toggle Menu</a>

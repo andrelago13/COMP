@@ -202,27 +202,39 @@ CustomListener.prototype.enterF = function(ctx) {
 	var first_child_rule = first_child.ruleIndex;
 	
 	if(typeof first_child_rule == 'undefined') {
-		// INT, REAL, RESERVED, OPEN1
+		// INT, REAL, OPEN1, RESERVED
 		var child_type = this.symbolicNames[first_child.getSymbol().type];
 		
-		if(child_type === 'INT') {
+		switch (child_type) {
+		case 'INT': {
 			var node = new EO_AST_NodeF(this.stack.top());
 			var value = parseInt(first_child.getText());
 			console.log(this.getTabbing() + "Parsing INT \"" + value + "\"");
 			node.addChild(new EO_AST_NodeTerminal(node, "INT", value));
-		} else if(child_type === 'REAL') {
+			break;
+		}
+		case 'REAL': {
 			var node = new EO_AST_NodeF(this.stack.top());
 			var value = parseFloat(first_child.getText());
 			console.log(this.getTabbing() + "Parsing REAL \"" + value + "\"");
 			node.addChild(new EO_AST_NodeTerminal(node, "REAL", value));
-		} else if(child_type === 'RESERVED') {
-			var node = new EO_AST_NodeF(this.stack.top());
-			node.addChild(new EO_AST_NodeReserved(node, first_child.getText()));
-		} if(child_type === 'OPEN1') {
+			break;
+		}
+		case 'OPEN1': {
 			var node = new EO_AST_NodeF(this.stack.top());
 			console.log(this.getTabbing() + "Parsing OPEN1 \"" + first_child.getText() + "\"");
 			console.log(this.getTabbing() + "Parsing E later...");
-			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");			
+			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");
+			break;
+		}
+		case 'RESERVED': {
+			var node = new EO_AST_NodeF(this.stack.top());
+			node.addChild(new EO_AST_NodeReserved(node, first_child.getText()));
+			break;
+		}
+		default: {
+			console.error("Unknown node type \"" + child_type + "\".");
+		}
 		}
 	} else {
 		var ruleName = this.ruleNames[first_child_rule];
