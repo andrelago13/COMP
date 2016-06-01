@@ -2,6 +2,7 @@ $( document ).ready(function() {
 	require('dsl/EliminationOrderLexer');
 	require('dsl/EliminationOrderParser');
 	require('dsl/CustomListener');
+	require('dsl/ast/VarMap');
 	require('dsl/ast/EO_AST');
 	require('dsl/ast/EO_AST_Node');
 	require('dsl/ast/EO_AST_NodeManual');

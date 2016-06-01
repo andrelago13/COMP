@@ -19,8 +19,8 @@ function EO_AST_NodeE(father) {
 EO_AST_NodeE.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeE.prototype.constructor = EO_AST_NodeE;
 
-EO_AST_NodeE.prototype.eval = function(graph, result) {
-	this.children[0].eval(graph, result);
+EO_AST_NodeE.prototype.eval = function(graph, result, vars) {
+	this.children[0].eval(graph, result, vars);
 	if(this.children.length === 1) {	// EO_AST_NodeE1 not present
 		return;
 	}

@@ -1,4 +1,5 @@
 var EvalResult = require('dsl/ast/EvalResult').EvalResult;
+var VarMap = require('dsl/ast/VarMap').VarMap;
 
 function EO_AST_Node(father) {
 	this.children = [];
@@ -46,9 +47,11 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 
 // MUST BE OVERRIDEN BY EVERY NODE
 EO_AST_Node.prototype.eval = function(graph, result) {
+	var vars = new VarMap();
+	
 	for(var i = 0; i < this.children.length; ++i) {
 		if(i === 0) {	// First child
-			this.children[i].eval(graph, result);
+			this.children[i].eval(graph, result, vars);
 			
 			var sorted = this.sort(result.getScores(), result.getOrder());
 			result.setScores(sorted[0]);
@@ -61,7 +64,7 @@ EO_AST_Node.prototype.eval = function(graph, result) {
 			var temp_result = new EvalResult();
 			temp_result.init(graph.nodes.length);
 			
-			this.children[i].eval(graph, temp_result);
+			this.children[i].eval(graph, temp_result, vars);
 			
 			this.solveTies(result.scores, result.order, temp_result.getScores(), temp_result.getOrder());
 			

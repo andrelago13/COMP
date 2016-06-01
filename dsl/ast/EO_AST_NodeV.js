@@ -30,7 +30,7 @@ EO_AST_NodeV.prototype.minor = function() {
 	return this.children[1];
 }
 
-EO_AST_NodeV.prototype.eval = function(graph, result) {
+EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	// TODO implement
 }
 

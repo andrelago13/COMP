@@ -20,7 +20,7 @@ function EO_AST_NodeLoop(father) {
 EO_AST_NodeLoop.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeLoop.prototype.constructor = EO_AST_NodeLoop;
 
-EO_AST_NodeLoop.prototype.eval = function(graph, result) {
+EO_AST_NodeLoop.prototype.eval = function(graph, result, vars) {
 	// TODO implement
 }
 
