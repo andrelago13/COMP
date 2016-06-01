@@ -72,6 +72,7 @@ EO_AST_Node.prototype.eval = function(graph, result) {
 				return;
 			}
 		}
+		vars.clear();
 	}
 }
 
