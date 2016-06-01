@@ -22,7 +22,8 @@ EO_AST_NodeF.prototype.constructor = EO_AST_NodeF;
 EO_AST_NodeF.prototype.eval = function(graph, result, vars) {
 	// TODO se for int ou real, retorna valor, se for reserved tem de ver se é um valor, não pode ser array
 	
-	var child = this.children[0];
+	console.error("Unexcepted F eval called.");
+	/*var child = this.children[0];
 	if(child instanceof EO_AST_NodeV) {
 		child.eval(graph, result, vars);
 	} else if(child instanceof EO_AST_NodeLoop) {
@@ -35,7 +36,7 @@ EO_AST_NodeF.prototype.eval = function(graph, result, vars) {
 			score.push(child);
 		}
 		result.setScores(score);
-	}
+	}*/
 }
 
 exports.EO_AST_NodeF = EO_AST_NodeF;

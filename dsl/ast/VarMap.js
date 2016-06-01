@@ -39,4 +39,14 @@ VarMap.clearSet = function(set) {
 	}
 }
 
+VarMap.cloneSet = function(set) {
+	var result = [];
+	
+	for(var i = 0; i < set.length; ++i) {
+		result.push(set[i].clone());
+	}
+	
+	return result;
+}
+
 exports.VarMap = VarMap;
