@@ -1,5 +1,5 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 /*
  * Usage example:
  * 

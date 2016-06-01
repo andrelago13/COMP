@@ -1,6 +1,6 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1').EO_AST_NodeT1;
-
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 /*
  * Usage example:
  * 
