@@ -32,6 +32,28 @@ EO_AST_NodeV.prototype.minor = function() {
 
 EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	// TODO implement
+	var major = this.children[0];
+	var minor = this.children[1];
+	
+	var major_var = vars.getVar(major);
+	
+	if(typeof major_var == 'undefined') {
+		console.log("Variable \"" + major + "\" is undefined.");
+		return 0;
+	}
+	
+	if(typeof minor == 'undefined') {
+		return major_var;
+	}
+	
+	var minor_var = major_var.getVar(minor);
+	
+	if(typeof minor_var == 'undefined') {
+		console.log("Variable \"" + major + "." + minor + "\" is undefined.");
+		return 0;
+	}
+	
+	return minor_var;
 }
 
 exports.EO_AST_NodeV = EO_AST_NodeV;

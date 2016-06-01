@@ -33,7 +33,7 @@ EO_AST_NodeAuto.prototype.eval = function(graph, result, vars) {
 	}
 	
 	result.init(graph.nodes.length);
-	this.children[0].eval(graph, result, vars);
+	this.children[1].eval(graph, result, vars);
 }
 
 exports.EO_AST_NodeAuto = EO_AST_NodeAuto;

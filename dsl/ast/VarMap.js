@@ -29,5 +29,8 @@ VarMap.prototype.addVar = function(key, value) {
 	this.map[key] = value;
 }
 
+VarMap.prototype.clear = function() {
+	this.map = [];
+}
 
 exports.VarMap = VarMap;
