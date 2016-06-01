@@ -73,12 +73,12 @@ EvalResult.prototype.operation = function(new_values, operation) {
 		break;
 	case EvalResult.Operation.MUL:
 		for(var i = 0; i < new_values.length; ++i) {
-			this.order[i] = this.order[i]*new_values[i];
+			this.scores[i] = this.scores[i]*new_values[i];
 		}
 		break;
 	case EvalResult.Operation.DIV:
 		for(var i = 0; i < new_values.length; ++i) {
-			this.order[i] = this.order[i]/new_values[i];
+			this.scores[i] = this.scores[i]/new_values[i];
 		}
 		break;
 	}

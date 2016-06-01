@@ -20,6 +20,10 @@ EO_AST_NodeTerminal.prototype.constructor = EO_AST_NodeTerminal;
 
 EO_AST_NodeTerminal.prototype.eval = function(graph, result, vars) {
 	// TODO implementar
+	var scores = result.getScores();
+	for(var i = 0; i < scores.length; ++i) {
+		scores[i] = this.value;
+	}
 }
 
 exports.EO_AST_NodeTerminal = EO_AST_NodeTerminal;
