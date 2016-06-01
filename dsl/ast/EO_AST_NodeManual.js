@@ -17,7 +17,7 @@ function EO_AST_NodeManual(father) {
 EO_AST_NodeManual.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeManual.prototype.constructor = EO_AST_NodeManual;
 
-EO_AST_NodeManual.prototype.eval = function(graph, result) {
+EO_AST_NodeManual.prototype.eval = function(graph, result, vars) {
 	result.init(graph.nodes.length);
 	result.setType(EvalResult.Type.STATIC);
 	result.setOrder(this.children);

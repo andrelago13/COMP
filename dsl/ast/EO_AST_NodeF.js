@@ -19,14 +19,14 @@ function EO_AST_NodeF(father) {
 EO_AST_NodeF.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeF.prototype.constructor = EO_AST_NodeF;
 
-EO_AST_NodeF.prototype.eval = function(graph, result) {
+EO_AST_NodeF.prototype.eval = function(graph, result, vars) {
 	var child = this.children[0];
 	if(child instanceof EO_AST_NodeV) {
-		child.eval(graph, result);
+		child.eval(graph, result, vars);
 	} else if(child instanceof EO_AST_NodeLoop) {
-		child.eval(graph, result);
+		child.eval(graph, result, vars);
 	} else if(child instanceof EO_AST_NodeE) {
-		child.eval(graph, result);
+		child.eval(graph, result, vars);
 	} else {
 		var score = [];
 		for(var i = 0; i < graph.nodes.length; ++i) {

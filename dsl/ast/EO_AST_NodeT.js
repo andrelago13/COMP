@@ -17,15 +17,15 @@ function EO_AST_NodeT(father) {
 EO_AST_NodeT.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeT.prototype.constructor = EO_AST_NodeT;
 
-EO_AST_NodeT.prototype.eval = function(graph, result) {
-	this.children[0].eval(graph, result);
+EO_AST_NodeT.prototype.eval = function(graph, result, vars) {
+	this.children[0].eval(graph, result, vars);
 	if(this.children.length === 1) {	// EO_AST_NodeT1 not present
 		return;
 	}
 	
 	var temp_result = new EvalResult();
 	temp_result.init(graph.nodes.length);
-	this.children[1].eval(temp_result);
+	this.children[1].eval(graph, temp_result, vars);
 	
 	var type = this.children[1].children[0];
 	switch(type) {
