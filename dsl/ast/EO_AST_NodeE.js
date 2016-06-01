@@ -1,6 +1,7 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1').EO_AST_NodeE1;
+var VarMap = require('dsl/ast/VarMap').VarMap;
 
 /*
  * Usage example:
@@ -20,7 +21,16 @@ EO_AST_NodeE.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeE.prototype.constructor = EO_AST_NodeE;
 
 EO_AST_NodeE.prototype.eval = function(graph, result, vars) {
-	var clonevars = VarMap.cloneSet(vars);
+	var tempvars = VarMap.cloneSet(vars);
+	this.children[0].eval(graph, result, tempvars);
+	if(this.children.length === 1) {	// EO_AST_NodeE1 not present
+		return;
+	}
+
+	tempvars = VarMap.cloneSet(vars);
+	this.children[1].eval(graph, result, tempvars);
+	
+	/*var clonevars = VarMap.cloneSet(vars);
 	var clonevars2 = VarMap.cloneSet(vars);
 	
 	this.children[0].eval(graph, result, clonevars);
@@ -40,7 +50,7 @@ EO_AST_NodeE.prototype.eval = function(graph, result, vars) {
 	case EO_AST_NodeE1.MINUS:
 		result.operation(temp_result.getScores(), EvalResult.Operation.SUB);
 		break;
-	}
+	}*/
 }
 
 exports.EO_AST_NodeE = EO_AST_NodeE;
