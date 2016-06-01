@@ -60,7 +60,7 @@ var parseDSL = function(event) {
 	var input = $('#dsl_text')[0].value;
 	var dslLoader = new DSLLoader(input);
 	var ast = dslLoader.load();
-	console.log(ast.eval(fa_graph));
+	//console.log(ast.eval(fa_graph));
 	
 	/*var N = require('dsl/ast/EO_AST_Node').EO_AST_Node;
 	var temp = new N();

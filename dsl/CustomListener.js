@@ -96,7 +96,7 @@ CustomListener.prototype.enterE = function(ctx) {
 	console.log(this.getTabbing() + "Entering E");
 	
 	var node = new EO_AST_NodeE(this.stack.top());
-	console.log(this.stack.top());
+	this.stack.top();
 	this.stack.push(node);
 };
 
@@ -213,9 +213,11 @@ CustomListener.prototype.enterF = function(ctx) {
 			var value = parseFloat(first_child.getText());
 			console.log(this.getTabbing() + "Parsing REAL \"" + value + "\"");
 			node.addChild(value);			
+		} else if(child_type === 'RESERVED') {
+			// TODO fazer			
 		} if(child_type === 'OPEN1') {
 			console.log(this.getTabbing() + "Parsing OPEN1 \"" + first_child.getText() + "\"");
-			console.log(this.getTabbing() + "Parsing E later...");
+			console.log(this.getTabbing() + "Parsing E, LOOP or V later...");
 			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");			
 		}
 	} else {
