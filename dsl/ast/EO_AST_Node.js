@@ -250,5 +250,12 @@ EO_AST_Node.prototype.merge = function(values_left, values_right, orders_left, o
     return [new_values, new_orders];
 }
 
+EO_AST_Node.prototype.getVar = function(varName) {
+	if (!this.father)
+		return null;
+	
+	return this.father.getVar(varName);
+}
+
 
 exports.EO_AST_Node = EO_AST_Node;
