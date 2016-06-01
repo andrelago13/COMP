@@ -31,7 +31,6 @@ EO_AST_NodeV.prototype.minor = function() {
 }
 
 EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
-	// TODO implement
 	var major = this.children[0];
 	var minor = this.children[1];
 	
