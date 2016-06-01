@@ -6,8 +6,12 @@ var EO_AST_Node = require('dsl/ast/EO_AST_Node');
  * 		["NAME"]
  */
 
-function EO_AST_NodeTerminal(father) {
+function EO_AST_NodeTerminal(father, name, value) {
 	EO_AST_Node.EO_AST_Node.call(this, father);
+	
+	this.name = name;
+	this.value = value;
+	
 	return this;
 }
 

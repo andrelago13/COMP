@@ -11,6 +11,8 @@ var EO_AST_NodeLoop = require('dsl/ast/EO_AST_NodeLoop').EO_AST_NodeLoop;
 var EO_AST_NodeF = require('dsl/ast/EO_AST_NodeF').EO_AST_NodeF;
 var EO_AST_NodeT = require('dsl/ast/EO_AST_NodeT').EO_AST_NodeT;
 var EO_AST_NodeT1 = require('dsl/ast/EO_AST_NodeT1').EO_AST_NodeT1;
+var EO_AST_NodeTerminal = require('dsl/ast/EO_AST_NodeTerminal').EO_AST_NodeTerminal;
+var EO_AST_NodeReserved = require('dsl/ast/EO_AST_NodeReserved').EO_AST_NodeReserved;
 var Stack = require('js/Stack').Stack;
 
 function CustomListener(symbolicNames, ruleNames) {
@@ -195,29 +197,31 @@ CustomListener.prototype.exitT1 = function(ctx) {
 CustomListener.prototype.enterF = function(ctx) {
 	console.log(this.getTabbing() + "Entering F");
 	
-	var node = new EO_AST_NodeF(this.stack.top());
-	
 	var children = ctx.children;
 	var first_child = children[0];
 	var first_child_rule = first_child.ruleIndex;
 	
 	if(typeof first_child_rule == 'undefined') {
-		// INT, REAL, OPEN1
+		// INT, REAL, RESERVED, OPEN1
 		var child_type = this.symbolicNames[first_child.getSymbol().type];
 		
 		if(child_type === 'INT') {
+			var node = new EO_AST_NodeF(this.stack.top());
 			var value = parseInt(first_child.getText());
 			console.log(this.getTabbing() + "Parsing INT \"" + value + "\"");
-			node.addChild(value);
+			node.addChild(new EO_AST_NodeTerminal(node, "INT", value));
 		} else if(child_type === 'REAL') {
+			var node = new EO_AST_NodeF(this.stack.top());
 			var value = parseFloat(first_child.getText());
 			console.log(this.getTabbing() + "Parsing REAL \"" + value + "\"");
-			node.addChild(value);			
+			node.addChild(new EO_AST_NodeTerminal(node, "REAL", value));
 		} else if(child_type === 'RESERVED') {
-			// TODO fazer			
+			var node = new EO_AST_NodeF(this.stack.top());
+			node.addChild(new EO_AST_NodeReserved(node, first_child.getText()));
 		} if(child_type === 'OPEN1') {
+			var node = new EO_AST_NodeF(this.stack.top());
 			console.log(this.getTabbing() + "Parsing OPEN1 \"" + first_child.getText() + "\"");
-			console.log(this.getTabbing() + "Parsing E, LOOP or V later...");
+			console.log(this.getTabbing() + "Parsing E later...");
 			console.log(this.getTabbing() + "Parsing CLOSE1 \"" + children[2].getText() + "\"");			
 		}
 	} else {
@@ -257,7 +261,11 @@ CustomListener.prototype.enterLoop = function(ctx) {
 	node.addChild(loopIdentifier);
 	console.log(this.getTabbing() + "Parsing loop identifier \"" + loopIdentifier + "\".");	
 	
-	console.log(this.getTabbing() + "Parsing loop identifier \"v\" and \"e\" later...");	
+	// RESERVED
+	var reserved_name = ctx.children[4].getText();
+	node.addChild(new EO_AST_NodeReserved(node, reserved_name));
+	
+	console.log(this.getTabbing() + "Parsing loop -> \"e\" later...");	
 };
 
 // Exit a parse tree produced by EliminationOrderParser#loop.

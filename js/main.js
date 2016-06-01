@@ -14,6 +14,8 @@ $( document ).ready(function() {
 	require('dsl/ast/EO_AST_NodeF');
 	require('dsl/ast/EO_AST_NodeT');
 	require('dsl/ast/EO_AST_NodeT1');
+	require('dsl/ast/EO_AST_NodeTerminal');
+	require('dsl/ast/EO_AST_NodeReserved');
 	require('dsl/ast/EvalResult');
 	require('js/Stack');
 });

@@ -4,10 +4,15 @@ var EO_AST_Node = require('dsl/ast/EO_AST_Node');
  * Usage example:
  * 
  * 		["NAME"]
+ * 
+ * For example "in"
  */
 
-function EO_AST_NodeReserved(father) {
+function EO_AST_NodeReserved(father, name) {
 	EO_AST_Node.EO_AST_Node.call(this, father);
+	
+	this.name = name;
+	
 	return this;
 }
 
