@@ -33,4 +33,10 @@ VarMap.prototype.clear = function() {
 	this.map = [];
 }
 
+VarMap.clearSet = function(set) {
+	for(var i = 0; i < set.length; ++i) {
+		set[i].clear();
+	}
+}
+
 exports.VarMap = VarMap;
