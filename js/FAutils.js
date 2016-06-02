@@ -1,7 +1,8 @@
 var EPSILON = '\u03B5';
 
 Metrics = {
-	numSymbols : 0
+	numSymbols : 0,
+	length : 1
 }
 
 function isNodeFinal(node) {
@@ -144,6 +145,18 @@ function calculateWeight(regex, metric) {
 	
 	switch(metric) {
 	case Metrics.numSymbols:
+		var count = 0;
+		
+		for(var i = 0; i < regex.length; ++i) {
+			var code = regex.charCodeAt(i);
+			// must be a-b,A-B,0-9,'-'
+			if((code >= 97 && code <= 122) || (code >= 65 && code <= 90) || (code >= 48 && code <= 57) || (code === 45)) {
+				++count;
+			}
+		}
+		
+		return count;
+	case Metrics.length:
 		return regex.length;
 	default:
 		return 1;
