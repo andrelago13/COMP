@@ -63,13 +63,30 @@ function addHelpfulInfoToNodesAndEdges(data) {
 		var id = data.nodes[i].id;
 		var inEdges = [];
 		var outEdges = [];
+		
+		// ins, outs, ins_nl, outs_nl
+		var ins = [];
+		var outs = [];
+		var ins_nl = [];
+		var outs_nl = [];
+		
 		for (var j = 0; j < data.edges.length; j++) {
 			if (data.edges[j].arrows === "to") {
 				if (data.edges[j].from === id) {
+					outs.push(data.edges[j]);
+					if(data.edges[j].to !== id) {
+						outs_nl.push(data.edges[j]);
+					}
+					
 					outEdges.push(j);
 					data.edges[j].fromID = i;
 				}
 				if (data.edges[j].to === id) {
+					ins.push(data.edges[j]);
+					if(data.edges[j].from !== id) {
+						ins_nl.push(data.edges[j]);
+					}
+					
 					inEdges.push(j);
 					data.edges[j].toID = i;
 				}
@@ -77,11 +94,40 @@ function addHelpfulInfoToNodesAndEdges(data) {
 		}
 		data.nodes[i].inEdges = inEdges;
 		data.nodes[i].outEdges = outEdges;
+		data.nodes[i].ins = ins;
+		data.nodes[i].outs = outs;
+		data.nodes[i].ins_nl = ins_nl;
+		data.nodes[i].outs_nl = outs_nl;
 		
 		
-		// ins, outs
-		data.nodes[i].indeg = data.nodes[i].inEdges.length;
-		data.nodes[i].outdeg = data.nodes[i].outEdges.length;
+		// indeg, outdeg
+		var indeg = ins.length;
+		var outdeg = outs.length;
+		data.nodes[i].indeg = indeg;
+		data.nodes[i].outdeg = outdeg;
+		
+		// nloops
+		var loop_edges = [];
+		for(var k = 0; k < inEdges.length; ++k) {
+			if(data.edges[inEdges[k]].from === id) {
+				loop_edges.push(inEdges[k]);
+			}
+		}
+		for(var k = 0; k < outEdges.length; ++k) {
+			if(data.edges[outEdges[k]].toID === id) {
+				if(loop_edges.indexOf(outEdges[k]) == -1) {
+					loop_edges.push(outEdges[k]);
+				}
+			}
+		}
+		var nloops = loop_edges.length;
+		data.nodes[i].nloops = nloops;
+		
+		// indeg_nl, outdeg_nl
+		data.nodes[i].indeg_nl = ins_nl.length;
+		data.nodes[i].outdeg_nl = outs_nl.length;
+		
+		
 		// TODO acabar
 	}
 }
