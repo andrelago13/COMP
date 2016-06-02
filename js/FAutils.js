@@ -1,5 +1,9 @@
 var EPSILON = '\u03B5';
 
+Metrics = {
+	numSymbols : 0
+}
+
 function isNodeFinal(node) {
 	return node.peripheries === 2 || node.shape === "doublecircle"
 }
@@ -134,4 +138,17 @@ function addHelpfulInfoToNodesAndEdges(data) {
 
 function FAClone(fa) {
 	return jQuery.extend(true, {}, fa);
+}
+
+function calculateWeight(regex, metric) {
+	if(typeof metric == 'undefined') {
+		metric = Metrics.numSymbols;
+	}
+	
+	switch(metric) {
+	case Metrics.numSymbols:
+		return regex.length;
+	default:
+		return 1;
+	}	
 }
