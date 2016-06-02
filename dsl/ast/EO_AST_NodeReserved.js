@@ -98,27 +98,71 @@ EO_AST_NodeReserved.prototype.isArray = function() {
 }
 
 EO_AST_NodeReserved.prototype.eval = function(graph, result, vars) {
-	// TODO implementar
-	
 	switch(this.type) {
 	case EO_AST_NodeReserved.Type.INS:
-		break;
+		var result_list = [];
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			result_list.push(graph.nodes[i].ins);
+		}
+		return result_list;
 	case EO_AST_NodeReserved.Type.OUTS:
-		break;
+		var result = [];
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			result.push(graph.nodes[i].outs);
+		}
+		return result;
 	case EO_AST_NodeReserved.Type.INDEG:
-		break;
+		var scores = result.getScores();
+		
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			scores[i] = graph.nodes[i].indeg;
+		}
+		
+		return;
 	case EO_AST_NodeReserved.Type.OUTDEG:
-		break;
+		var scores = result.getScores();
+		
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			scores[i] = graph.nodes[i].outdeg;
+		}
+		
+		return;
 	case EO_AST_NodeReserved.Type.INDEG_NL:
-		break;
+		var scores = result.getScores();
+		
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			scores[i] = graph.nodes[i].indeg_nl;
+		}
+		
+		return;
 	case EO_AST_NodeReserved.Type.OUTDEG_NL:
-		break;
+		var scores = result.getScores();
+		
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			scores[i] = graph.nodes[i].outdeg_nl;
+		}
+		
+		return;
 	case EO_AST_NodeReserved.Type.NLOOPS:
-		break;
+		var scores = result.getScores();
+		
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			scores[i] = graph.nodes[i].nloops;
+		}
+		
+		return;
 	case EO_AST_NodeReserved.Type.INS_NL:
-		break;
+		var result_list = [];
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			result_list.push(graph.nodes[i].ins_nl);
+		}
+		return result_list;
 	case EO_AST_NodeReserved.Type.OUTS_NL:
-		break;
+		var result_list = [];
+		for(var i = 0; i < graph.nodes.length; ++i) {
+			result_list.push(graph.nodes[i].outs_nl);
+		}
+		return result_list;
 	}
 }
 
