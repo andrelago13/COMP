@@ -10,5 +10,4 @@ digraph {
   q1 -> q3 [label=a];
   q2 -> q1 [label=a];
   q2 -> q3 [label=b];
-  q1 -> q1 [label=c];
 }

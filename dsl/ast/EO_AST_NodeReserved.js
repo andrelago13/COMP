@@ -48,7 +48,7 @@ function EO_AST_NodeReserved(father, name) {
 	case '#outdeg_nl':
 		this.type = EO_AST_NodeReserved.Type.OUTDEG_NL;
 		break;
-	case '#n_loops':
+	case '#nloops':
 		this.type = EO_AST_NodeReserved.Type.NLOOPS;
 		break;
 	case '#ins_nl':
