@@ -130,9 +130,6 @@ function addHelpfulInfoToNodesAndEdges(data) {
 		// indeg_nl, outdeg_nl
 		data.nodes[i].indeg_nl = ins_nl.length;
 		data.nodes[i].outdeg_nl = outs_nl.length;
-		
-		
-		// TODO acabar
 	}
 }
 

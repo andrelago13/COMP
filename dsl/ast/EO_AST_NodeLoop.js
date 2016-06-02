@@ -24,9 +24,6 @@ EO_AST_NodeLoop.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeLoop.prototype.constructor = EO_AST_NodeLoop;
 
 EO_AST_NodeLoop.prototype.eval = function(graph, result, vars) {
-	// TODO implement
-	// verifica se Reserved é um array, de forma a percorrê-lo com identifier
-	
 	if(this.children.length != 4) {
 		console.error("EO_AST_NodeLoop: expected 4 children, has " + this.children.length + ". Results may differ from expected.");
 	}

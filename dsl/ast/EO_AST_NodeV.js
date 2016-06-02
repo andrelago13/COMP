@@ -1,4 +1,5 @@
 var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var FAutils = require('js/FAutils');
 
 /*
  * Usage example:
@@ -7,6 +8,10 @@ var EO_AST_Node = require('dsl/ast/EO_AST_Node');
  * 
  * 	As identifier is either MAJOR or MAJOR.MINOR
  */
+
+EO_AST_NodeV.MinorType = {
+	WEIGHT : "weight"
+};
 
 function EO_AST_NodeV(father, major, minor) {
 	EO_AST_Node.EO_AST_Node.call(this, father);
@@ -33,27 +38,32 @@ EO_AST_NodeV.prototype.minor = function() {
 EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	var major = this.children[0];
 	var minor = this.children[1];
+
+	var scores = result.getScores();
 	
-	// TODO must be fixed
-	/*var major_var = vars.getVar(major);
-	
-	if(typeof major_var == 'undefined') {
-		console.log("Variable \"" + major + "\" is undefined.");
-		return 0;
+	if(typeof minor == 'undefined') {	// MAJOR
+		for(var i = 0; i < vars.length; ++i) {
+			var value = vars[i].getVar(major);
+			if(typeof value != 'undefined') {
+				scores[i] = value;
+			}
+		}
+	} else {							// MAJOR.MINOR
+		for(var i = 0; i < vars.length; ++i) {
+			var value = vars[i].getVar(major);
+			if(typeof value != 'undefined') {
+				switch(minor) {
+				case EO_AST_NodeV.MinorType.WEIGHT:
+					var weight = calculateWeight(value.label);
+					scores[i] = weight;
+					break;
+				default:
+					console.error("Unexpected MINOR value at: " + major + "." + minor + " .");
+					break;
+				}
+			}
+		}
 	}
-	
-	if(typeof minor == 'undefined') {
-		return major_var;
-	}
-	
-	var minor_var = major_var.getVar(minor);
-	
-	if(typeof minor_var == 'undefined') {
-		console.log("Variable \"" + major + "." + minor + "\" is undefined.");
-		return 0;
-	}
-	
-	return minor_var;*/
 }
 
 exports.EO_AST_NodeV = EO_AST_NodeV;

@@ -20,7 +20,6 @@ EO_AST_NodeF.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype);
 EO_AST_NodeF.prototype.constructor = EO_AST_NodeF;
 
 EO_AST_NodeF.prototype.eval = function(graph, result, vars) {
-	// TODO se for int ou real, retorna valor, se for reserved tem de ver se é um valor, não pode ser array
 	
 	console.error("Unexcepted F eval called.");
 	/*var child = this.children[0];
