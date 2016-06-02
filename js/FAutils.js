@@ -77,6 +77,12 @@ function addHelpfulInfoToNodesAndEdges(data) {
 		}
 		data.nodes[i].inEdges = inEdges;
 		data.nodes[i].outEdges = outEdges;
+		
+		
+		// ins, outs
+		data.nodes[i].indeg = data.nodes[i].inEdges.length;
+		data.nodes[i].outdeg = data.nodes[i].outEdges.length;
+		// TODO acabar
 	}
 }
 

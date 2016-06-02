@@ -48,6 +48,8 @@ var openFile = function (event) {
 		// create a network
 		var container = document.getElementById('mynetwork');
 		var network = new vis.Network(container, data, options);	
+		
+		console.log(fa_graph.nodes[0]);
 	};
 	reader.readAsText(input.files[0]);
 };
