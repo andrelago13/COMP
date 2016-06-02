@@ -66,7 +66,7 @@ EO_AST_NodeReserved.prototype = Object.create(EO_AST_Node.EO_AST_Node.prototype)
 EO_AST_NodeReserved.prototype.constructor = EO_AST_NodeReserved;
 
 EO_AST_NodeReserved.prototype.isValue = function() {
-	switch(name) {
+	switch(this.type) {
 	case EO_AST_NodeReserved.Type.INDEG:
 		return true;
 	case EO_AST_NodeReserved.Type.OUTDEG:
@@ -83,7 +83,7 @@ EO_AST_NodeReserved.prototype.isValue = function() {
 }
 
 EO_AST_NodeReserved.prototype.isArray = function() {
-	switch(name) {
+	switch(this.type) {
 	case EO_AST_NodeReserved.Type.INS:
 		return true;
 	case EO_AST_NodeReserved.Type.OUTS:

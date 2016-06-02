@@ -300,6 +300,9 @@ CustomListener.prototype.enterV = function(ctx) {
 		var minor = ctx.children[2].getText();
 		node = new EO_AST_NodeV(this.stack.top(), major, minor);
 		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "." + minor + "\".");
+		if(minor != "weight") {
+			console.error("Unexpected MINOR atribute \"" + minor + "\".");
+		}
 	} else {
 		// MAJOR
 		node = new EO_AST_NodeV(this.stack.top(), major);		
