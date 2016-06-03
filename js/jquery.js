@@ -28,5 +28,6 @@ $(document).ready(function() {
 	$("#aboutbutton1").click(function(e) {
       e.preventDefault();
       $("#grammar").toggleClass("toggled");
+	  $("#aboutbutton1").hide();
     });
 });

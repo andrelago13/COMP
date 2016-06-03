@@ -26,24 +26,24 @@
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper">	
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#intro" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('intro').style.display='block';">
+                    <a href="#intro" onclick=" document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('intro').style.display='block';">
                         FA2RE-SE
                     </a>
                 </li>
                 <li>
-                  <a href="#dotFile" onclick="document.getElementById('results').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('dotFile').style.display='block';">Load Dot</a>
+                  <a href="#dotFile" onclick="document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('dotFile').style.display='block';">Load Dot</a>
                 </li>
                 <li>
-                    <a href="#parseDSL" onclick="document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='block';">DSL</a>
+                    <a href="#parseDSL" onclick="document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='block';">DSL</a>
                 </li>
                 <li>
-                    <a href="#results" onclick="document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='block';">Results</a>
+                    <a href="#results" onclick="document.getElementById('about').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='block';">Results</a>
                 </li>
                 <li>
-                    <a href="#about" onclick="document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('about').style.display='block';">About</a>
+                    <a href="#about" onclick="document.getElementById('about').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('about').style.display='block';">About</a>
                 </li>
             </ul>
         </div>
@@ -99,9 +99,8 @@
 						<h1>About</h1>
 						<p>FA2RE-SE transforms finite automata into regular expressions by the state elimination method.</p>
 						<button type="button"  id = 'aboutbutton1' >Grammar</button>
-						<button type="button"  id = 'aboutbutton2' >More Info</button>
 						<div id="grammar">
-							<p>DSL:</p>
+							<p><strong>DSL used:</strong></p>
 								<p>s : (manual SEMICOLON) | (auto SEMICOLON s1 );</p>
 								<p>s1 : EOF|s;</p>
 								<p>manual : INT (COMMA INT)*;</p>
@@ -136,7 +135,7 @@
 								<p>INT			: [0-9]+;</p>
 								<p>REAL		: [0-9]* '.' [0-9]+;</p>
 								<p>IDENTIFIER 	: '#'? [a-zA-Z_]+ [a-zA-Z_0-9]*;</p>
-
+								<br>
 						</div>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle5">Toggle Menu</a>
 					 </div>
