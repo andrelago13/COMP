@@ -20,4 +20,13 @@ $(document).ready(function() {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+	$("#menu-toggle5").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+	});
+	
+	$("#aboutbutton1").click(function(e) {
+      e.preventDefault();
+      $("#grammar").toggleClass("toggled");
+    });
 });
