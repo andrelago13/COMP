@@ -1,3 +1,4 @@
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 Converter.prototype = Object.create(Converter.prototype);
 Converter.prototype.constructor = Converter;
 
@@ -7,60 +8,87 @@ function Converter(fa, ast) {
 }
 
 Converter.prototype.convert = function() {
-	this.fa = FAClone(this.fa);
-	this.fixStartingState();
-	this.fixFinalState();
-	//this.fa = this.eliminateState(this.fa, 3);
-	//this.fa = this.eliminateState(this.fa, 2);
-	console.log(this.fa);
-	return this.fa;
+	var faHistory = [];
+	
+	faHistory.push(this.fixStartingState(this.fa));
+	faHistory.push(this.fixFinalState(faHistory.slice(-1)[0]));
+	var result = this.ast.eval(faHistory.slice(-1)[0]);
+	var order = result.getOrder();
+	var type = result.getType();
+	while (faHistory.slice(-1)[0].nodes.length > 2)
+	{
+		if (result.getType() == EvalResult.Type.DYNAMIC) {
+			order = this.ast.eval(faHistory.slice(-1)[0]).getOrder();
+		}
+		else {
+			
+		}
+		var stateID = order.shift();		
+		faHistory.push(this.eliminateState(faHistory.slice(-1)[0], stateID));
+	
+		// Fix IDs
+		for (var i = 0; i < order.length; i++) {
+			if (order[i] > stateID) order[i]--;
+		}
+	}
+	
+	console.log(faHistory);
+	return faHistory;
 	// TODO
 	// return regex;
 }
 
-Converter.prototype.fixStartingState = function() {
-	var oldStartID = findNodeByID(this.fa, "START");
-	if (isNodeFinal(this.fa.nodes[oldStartID]) || this.fa.nodes[oldStartID].inEdges.length > 0) {
-		this.fa.nodes[oldStartID].id = "START'";
-		for (var i = 0; i < this.fa.edges.length; i++) {
-			if (this.fa.edges[i].from === "START")
-				this.fa.edges[i].from = this.fa.nodes[oldStartID].id;
-			if (this.fa.edges[i].to === "START")
-				this.fa.edges[i].to = this.fa.nodes[oldStartID].id;
-		}
-		this.fa.nodes.push({
-			id: this.fa.nodes.length,
-			inEdges: [],
-			label: "START",
-			outEdges: [this.fa.edges.length],
-			shape: "circle"
-		});
-		this.fa.edges.push({
-			arrows: "to",
-			from: this.fa.nodes[this.fa.nodes.length - 1].id,
-			fromID: this.fa.nodes.length - 1,
-			id: randomString(512),
-			label: EPSILON,
-			to: this.fa.nodes[oldStartID].id,
-			toID: oldStartID
-		})
-		this.fa.nodes[oldStartID].inEdges.push(this.fa.edges.length - 1);
+Converter.prototype.convertNodeIDArrayToNodeArrayIndex = function(oldArray) {
+	var newArray = [];
+	for (var i = 0; i < array1.length; i++) {
+		newArray.push(this.fa.nodes[i].id);
 	}
+	return newArray;
 }
 
-Converter.prototype.fixFinalState = function() {
-	// Count number of final states
+Converter.prototype.fixStartingState = function(fa) {
+	var newFa = FAClone(fa);
+	var oldStartID = findNodeByID(newFa, "START");
+	for (var i = 0; i < newFa.edges.length; i++) {
+		if (newFa.edges[i].from === "START")
+			newFa.edges[i].from = newFa.nodes[oldStartID].id;
+		if (newFa.edges[i].to === "START")
+			newFa.edges[i].to = newFa.nodes[oldStartID].id;
+	}
+	newFa.nodes.push({
+		id: randomString(512),
+		inEdges: [],
+		label: "START",
+		outEdges: [newFa.edges.length],
+		shape: "circle"
+	});
+	newFa.edges.push({
+		arrows: "to",
+		from: newFa.nodes[newFa.nodes.length - 1].id,
+		fromID: newFa.nodes.length - 1,
+		id: randomString(512),
+		label: EPSILON,
+		to: newFa.nodes[oldStartID].id,
+		toID: oldStartID
+	})
+	newFa.nodes[oldStartID].inEdges.push(newFa.edges.length - 1);
+	newFa.startID = newFa.nodes.length - 1;
+	return newFa;
+}
+
+Converter.prototype.fixFinalState = function(fa) {
+	var newFa = FAClone(fa);
+	
+	// Push final states
 	var finalIDs = [];
-	for (var i = 0; i < this.fa.nodes.length; i++) {
-		if (isNodeFinal(this.fa.nodes[i]))
+	for (var i = 0; i < newFa.nodes.length; i++) {
+		if (isNodeFinal(newFa.nodes[i]))
 			finalIDs.push(i);
 	}
-	if (finalIDs.length === 1)
-		return;
 
 	// Create new final state
-	var newID = this.fa.nodes.length;
-	this.fa.nodes.push({
+	var newID = newFa.nodes.length;
+	newFa.nodes.push({
 		id: newID,
 		inEdges: [],
 		label: "FINAL",
@@ -71,9 +99,9 @@ Converter.prototype.fixFinalState = function() {
 
 	// Create new edges
 	for (var i = 0; i < finalIDs.length; i++) {
-		var node = this.fa.nodes[finalIDs[i]];
-		var edgeID = this.fa.edges.length;
-		this.fa.edges.push({
+		var node = newFa.nodes[finalIDs[i]];
+		var edgeID = newFa.edges.length;
+		newFa.edges.push({
 			arrows: "to",
 			from: node.id,
 			fromID: finalIDs[i],
@@ -83,8 +111,9 @@ Converter.prototype.fixFinalState = function() {
 			toID: newID
 		});
 		node.outEdges.push(edgeID);
-		this.fa.nodes[newID].inEdges.push(edgeID);
+		newFa.nodes[newID].inEdges.push(edgeID);
 	}
+	return newFa;
 }
 
 Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
@@ -104,6 +133,7 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 }
 
 Converter.prototype.eliminateState = function(fa, stateID) {
+	console.log(fa, stateID);
 	fa = FAClone(fa);
 	var edgesToAdd = [];
 	for (var i = 0; i < fa.nodes[stateID].inEdges.length; i++) {

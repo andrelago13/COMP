@@ -20,7 +20,8 @@ $( document ).ready(function() {
 	require('js/Stack');
 });
 
-var fa_graph;
+var fa;
+var ast;
 
 var openFile = function (event) {
 	var input = event.target;
@@ -30,13 +31,8 @@ var openFile = function (event) {
 		var text = reader.result;
 
 		var faLoader = new FALoader(text);
-		var fa = faLoader.load();
-		var converter = new Converter(fa, null);
-		var data = converter.convert();
-		
-		fa_graph = data;
-		
-		var options = data.options;
+		fa = faLoader.load();
+		tryStartingConverter();
 
 		// you can extend the options like a normal JSON variable:
 		var options = {
@@ -47,7 +43,7 @@ var openFile = function (event) {
 		}
 		// create a network
 		var container = document.getElementById('mynetwork');
-		var network = new vis.Network(container, data, options);
+		var network = new vis.Network(container, fa, options);
 	};
 	reader.readAsText(input.files[0]);
 };
@@ -55,14 +51,16 @@ var openFile = function (event) {
 var openDSL = function (event) {
 	var input = event.srcElement.value;
 	var dslLoader = new DSLLoader(input);
-	var ast = dslLoader.load();
+	ast = dslLoader.load();
+	tryStartingConverter();
 }
 
 var parseDSL = function(event) {
 	var input = $('#dsl_text')[0].value;
 	var dslLoader = new DSLLoader(input);
-	var ast = dslLoader.load();
-	console.log(ast.eval(fa_graph));
+	ast = dslLoader.load();
+	tryStartingConverter();
+	console.log(ast.eval(fa));
 	
 	
 	/*var N = require('dsl/ast/EO_AST_Node').EO_AST_Node;
@@ -72,4 +70,12 @@ var parseDSL = function(event) {
 	var res = temp.solveTies(a1, a2, [3,1,2,3,3,3], ['a','b','c','d','x','y']);
 	console.log(a1);
 	console.log(a2);*/
+}
+
+var tryStartingConverter = function() {
+	if (!fa || !ast) return;
+	var converter = new Converter(fa, ast);
+	var steps = converter.convert();
+	var regex = steps.slice(-1)[0].edges[0].label;
+	console.log(regex);
 }
