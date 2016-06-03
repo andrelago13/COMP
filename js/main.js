@@ -78,4 +78,16 @@ var tryStartingConverter = function() {
 	var steps = converter.convert();
 	var regex = steps.slice(-1)[0].edges[0].label;
 	console.log(regex);
+	fa = steps[steps.length - 1];
+	
+	// you can extend the options like a normal JSON variable:
+	var options = {
+			nodes:{
+				color: 'grey',
+				shadow: true
+			}
+	}
+	// create a network
+	var container = document.getElementById('mynetwork');
+	var network = new vis.Network(container, fa, options);
 }

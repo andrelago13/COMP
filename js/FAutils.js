@@ -60,6 +60,7 @@ function removeNode(fa, nodeID) {
 			i--;
 		}
 	}
+	if (nodeID > fa.startID) fa.startID--;
 	addHelpfulInfoToNodesAndEdges(fa);
 }
 

@@ -19,12 +19,16 @@ Converter.prototype.convert = function() {
 	{
 		if (result.getType() == EvalResult.Type.DYNAMIC) {
 			order = this.ast.eval(faHistory.slice(-1)[0]).getOrder();
+		} else {
+			order = this.ast.eval(faHistory[0]).getOrder();
 		}
-		else {
-			
-		}
-		var stateID = order.shift();		
-		faHistory.push(this.eliminateState(faHistory.slice(-1)[0], stateID));
+		
+		var stateID;
+		var lastFa = faHistory.slice(-1)[0];
+		do {
+			stateID = order.shift();
+		} while (stateID == lastFa.startID || isNodeFinal(lastFa.nodes[stateID]));
+		faHistory.push(this.eliminateState(lastFa, stateID));
 	
 		// Fix IDs
 		for (var i = 0; i < order.length; i++) {
@@ -79,11 +83,13 @@ Converter.prototype.fixStartingState = function(fa) {
 Converter.prototype.fixFinalState = function(fa) {
 	var newFa = FAClone(fa);
 	
-	// Push final states
+	// Push final states and make them non-final
 	var finalIDs = [];
 	for (var i = 0; i < newFa.nodes.length; i++) {
-		if (isNodeFinal(newFa.nodes[i]))
+		if (isNodeFinal(newFa.nodes[i])) {
 			finalIDs.push(i);
+			makeNodeNotFinal(newFa.nodes[i]);
+		}
 	}
 
 	// Create new final state
