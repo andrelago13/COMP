@@ -17,6 +17,7 @@ $( document ).ready(function() {
 	require('dsl/ast/EO_AST_NodeTerminal');
 	require('dsl/ast/EO_AST_NodeReserved');
 	require('dsl/ast/EvalResult');
+	require('dsl/CustomErrorListener');
 	require('js/Stack');
 });
 
@@ -59,6 +60,10 @@ var parseDSL = function(event) {
 	var input = $('#dsl_text')[0].value;
 	var dslLoader = new DSLLoader(input);
 	ast = dslLoader.load();
+	if(ast == null) {
+		console.error("No ast returned.");
+		return;
+	}
 	tryStartingConverter();
 	console.log(ast.eval(fa));
 }	

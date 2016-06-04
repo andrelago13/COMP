@@ -17,8 +17,18 @@ DSLLoader.prototype.load = function() {
 	var listener = new CustomListener.CustomListener(parser.symbolicNames, parser.ruleNames);
 	parser.buildParseTrees = true;
 	
+	var CustomErrorListener = require('dsl/CustomErrorListener').CustomErrorListener;
+	var err_listener = new CustomErrorListener();
+	parser._listeners = [];
+	parser._listeners.push(err_listener);
+	
 	// if the next line gives errors run "java -jar antlr-4.5.3-complete.jar dsl/EliminationOrder.g4 -o dsl -listener -Dlanguage=JavaScript" on root folder
 	var tree = parser.s();
+
+	if(err_listener.hasError) {
+		return null;
+	}
+	
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
 	var EO_AST = require('dsl/ast/EO_AST');
