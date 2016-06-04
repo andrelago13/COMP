@@ -33,16 +33,41 @@
 #menu-toggle5 {
 	margin-top: 40px;
 }
-
-#result1Button{
+#final{
 	position:absolute;
-	left:140px;
-	top:304px;
+	left:110px;
+	top:770px;
 }
-#result2Button{
+
+#stepbystep{
 	position:absolute;
-	top:304px;
-	left:250px;
+	left:190px;
+	top:770px;
+}
+
+#next{
+	position:absolute;
+	left:440px;
+	top:770px;
+}
+
+#steps{
+	position:absolute;
+	left:400px;
+	top:775px;
+}
+#previous{
+	position:absolute;
+	left:310px;
+	top:770px;
+}
+
+#next{
+	display: none;
+}
+
+#previous {
+	display: none;
 }
 
 #aboutbutton1{

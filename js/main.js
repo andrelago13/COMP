@@ -23,6 +23,8 @@ $( document ).ready(function() {
 
 var fa;
 var ast;
+var stepsNumber;
+var currStep = 0;
 
 var openFile = function (event) {
 	var input = event.target;
@@ -75,7 +77,7 @@ var tryStartingConverter = function() {
 	var steps = result.steps;
 	var regex = result.regex;
 	console.log(regex);
-	fa = steps[steps.length - 1];
+	stepsNumber = steps.length;
 	
 	// you can extend the options like a normal JSON variable:
 	var options = {
@@ -84,8 +86,74 @@ var tryStartingConverter = function() {
 				shadow: true
 			}
 	}
-	// create a network
-	var container = document.getElementById('mynetwork');
-	var network = new vis.Network(container, fa, options);
-	$("#resultsre").val(regex);
+	
+	
+	$(document).ready(function() {	
+		$("#resultsre").text("Regex: " + regex);
+		$("#resultsre").css("font-weight", "bold");
+		
+		$("#stepbystep").click(function(e) {
+			e.preventDefault();
+			$("#previous").css("display", "inline");
+			$("#next").css("display", "inline");
+			$("#stepbystep").hide();
+			$("#final").hide();
+			
+			fa =  steps[currStep];
+			
+			// create a network
+			var container = document.getElementById('mynetwork2');
+			var network = new vis.Network(container, fa, options);
+		
+			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
+		});
+		
+		$("#final").click(function(e) {
+			e.preventDefault();
+			$("#next").hide();
+			$("#previous").hide();
+			
+			// Final fa
+			fa = steps[steps.length - 1];
+			
+			// create a network
+			var container = document.getElementById('mynetwork2');
+			var network = new vis.Network(container, fa, options);
+		});
+		
+		$("#next").click(function(e) {
+			e.preventDefault();
+			
+			if(currStep < stepsNumber - 1)
+			{
+				currStep++;
+				
+				// Current fa
+				fa =  steps[currStep];
+			
+				// create a network
+				var container = document.getElementById('mynetwork2');
+				var network = new vis.Network(container, fa, options);
+			}
+			
+			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
+		});
+		
+		$("#previous").click(function(e) {
+			e.preventDefault();
+			
+			if(currStep > 0)
+			{
+				// Current fa
+				fa =  steps[currStep-1];
+			
+				// create a network
+				var container = document.getElementById('mynetwork2');
+				var network = new vis.Network(container, fa, options);
+				currStep--;
+			}
+			
+			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
+		});
+});
 }
