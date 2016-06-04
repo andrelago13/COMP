@@ -70,7 +70,7 @@ Converter.prototype.fixStartingState = function(fa) {
 			newFa.edges[i].to = newFa.nodes[oldStartID].id;
 	}
 	newFa.nodes.push({
-		id: randomString(512),
+		id: randomString(32),
 		inEdges: [],
 		label: "START",
 		outEdges: [newFa.edges.length],
@@ -80,7 +80,7 @@ Converter.prototype.fixStartingState = function(fa) {
 		arrows: "to",
 		from: newFa.nodes[newFa.nodes.length - 1].id,
 		fromID: newFa.nodes.length - 1,
-		id: randomString(512),
+		id: randomString(32),
 		label: EPSILON,
 		to: newFa.nodes[oldStartID].id,
 		toID: oldStartID
@@ -121,7 +121,7 @@ Converter.prototype.fixFinalState = function(fa) {
 			arrows: "to",
 			from: node.id,
 			fromID: finalIDs[i],
-			id: randomString(512),
+			id: randomString(32),
 			label: EPSILON,
 			to: newID,
 			toID: newID

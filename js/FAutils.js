@@ -40,7 +40,7 @@ function addEdge(fa, from, to, label) {
 			from: fa.nodes[from].id,
 			fromID: from,
 			label: label,
-			id: randomString(512),
+			id: randomString(32),
 			to: fa.nodes[to].id,
 			toId: to
 	}
