@@ -37,7 +37,7 @@ Converter.prototype.convert = function() {
 	}
 	
 	console.log(faHistory);
-	return faHistory;
+	return { steps: faHistory, regex: faHistory.slice(-1)[0].edges[0].label };
 	// TODO
 	// return regex;
 }

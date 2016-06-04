@@ -71,7 +71,7 @@ var parseDSL = function(event) {
 var tryStartingConverter = function() {
 	if (!fa || !ast) return;
 	var converter = new Converter(fa, ast);
-	var steps = converter.convert();
+	var steps = converter.convert().steps;
 	var regex = steps.slice(-1)[0].edges[0].label;
 	console.log(regex);
 	fa = steps[steps.length - 1];
