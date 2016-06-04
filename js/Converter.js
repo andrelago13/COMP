@@ -26,16 +26,15 @@ Converter.prototype.convert = function() {
 	var type = result.getType();
 	while (faHistory.slice(-1)[0].fa.nodes.length > 2)
 	{
+		console.log(order.slice(0));
 		if (result.getType() == EvalResult.Type.DYNAMIC) {
 			order = this.ast.eval(faHistory.slice(-1)[0].fa).getOrder();
 		} else {
-			order = this.ast.eval(faHistory[0].fa).getOrder();
 		}
-		
 		var stateID;
 		var lastFa = faHistory.slice(-1)[0].fa;
 		do {
-			stateID = order.shift();
+			stateID = order.pop();
 		} while (stateID == lastFa.startID || isNodeFinal(lastFa.nodes[stateID]));
 		faHistory.push({
 			fa: this.eliminateState(lastFa, stateID),
@@ -43,9 +42,11 @@ Converter.prototype.convert = function() {
 		});
 	
 		// Fix IDs
+		console.log("a", order.slice(0));
 		for (var i = 0; i < order.length; i++) {
 			if (order[i] > stateID) order[i]--;
 		}
+		console.log("b", order.slice(0));
 	}
 	
 	console.log(faHistory);
