@@ -37,41 +37,21 @@
 #menu-toggle5 {
 	margin-top: 40px;
 }
-#final{
-	position:absolute;
-	left:110px;
-	top:770px;
-}
 
-#stepbystep{
-	position:absolute;
-	left:190px;
-	top:770px;
+#step-control {
+	width: 100%;
+	margin-left: 50px;
+	text-align: center;
 }
-
-#next{
-	position:absolute;
-	left:440px;
-	top:770px;
-}
-
 #steps{
-	position:absolute;
-	left:400px;
-	top:775px;
+	display: inline-block;
 }
 #previous{
-	position:absolute;
-	left:310px;
-	top:770px;
+	display: inline-block;
 }
 
 #next{
-	display: inline;
-}
-
-#previous {
-	display: inline;
+	display: inline-block;
 }
 
 #aboutbutton1{
@@ -104,4 +84,28 @@
 #dslButton {
 	display: block;
 	margin-top: 10px;
+}
+
+#explanation {
+	width: 100%;
+	background-color: #EEE;
+	padding: 1em;
+	min-height: 3em;
+}
+#step-by-step-wrapper {
+	margin-left: 5rem;
+	width: 700px;
+}
+#mynetwork {
+    margin-top: 30px;
+    margin-left: 15px;
+    width: 600px;
+    height: 400px;
+    border: 1px solid lightgray;
+}
+#mynetwork2 {
+    margin-top: 30px;
+    height: 400px;
+    border: 1px solid lightgray;
+	position: static;
 }

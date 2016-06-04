@@ -96,6 +96,7 @@ function displayStep(steps, currStep) {
 	var container = document.getElementById('mynetwork2');
 	var network = new vis.Network(container, steps[currStep].fa, options);
 	$('#steps').text(currStep + "/" + (steps.length - 1));	
+	$('#explanation').text(steps[currStep].explanation);
 }
 
 $(document).ready(function() {	
