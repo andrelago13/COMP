@@ -61,16 +61,7 @@ var parseDSL = function(event) {
 	ast = dslLoader.load();
 	tryStartingConverter();
 	console.log(ast.eval(fa));
-	
-	
-	/*var N = require('dsl/ast/EO_AST_Node').EO_AST_Node;
-	var temp = new N();
-	var a1 = [null, 1, 1,1,5,5];
-	var a2 = ['c','a','b','d','x','y'];
-	var res = temp.solveTies(a1, a2, [3,1,2,3,3,3], ['a','b','c','d','x','y']);
-	console.log(a1);
-	console.log(a2);*/
-}
+}	
 
 var tryStartingConverter = function() {
 	if (!fa || !ast) return;

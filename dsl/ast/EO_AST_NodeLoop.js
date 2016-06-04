@@ -49,21 +49,23 @@ EO_AST_NodeLoop.prototype.eval = function(graph, result, vars) {
 			node_result.getScores()[node] = 1;
 		}
 		
-		for(var edge = 0; edge < reserved_arrays[node].length; ++edge) {
-			var new_vars = VarMap.cloneSet(vars);
-			new_vars[node].addVar(identifier, reserved_arrays[node][edge]);
-			var temp_result = new EvalResult();
-			temp_result.init(num_nodes);
-			
-			expr.eval(graph, temp_result, new_vars);
-			
-			switch(type) {
-			case EO_AST_NodeLoop.SUM:
-				node_result.operation(temp_result.getScores(), EvalResult.Operation.ADD);
-				break;
-			case EO_AST_NodeLoop.MUL:
-				node_result.operation(temp_result.getScores(), EvalResult.Operation.MUL);
-				break;
+		if(typeof reserved_arrays[node] != 'undefined') {
+			for(var edge = 0; edge < reserved_arrays[node].length; ++edge) {
+				var new_vars = VarMap.cloneSet(vars);
+				new_vars[node].addVar(identifier, reserved_arrays[node][edge]);
+				var temp_result = new EvalResult();
+				temp_result.init(num_nodes);
+				
+				expr.eval(graph, temp_result, new_vars);
+				
+				switch(type) {
+				case EO_AST_NodeLoop.SUM:
+					node_result.operation(temp_result.getScores(), EvalResult.Operation.ADD);
+					break;
+				case EO_AST_NodeLoop.MUL:
+					node_result.operation(temp_result.getScores(), EvalResult.Operation.MUL);
+					break;
+				}
 			}
 		}
 		
