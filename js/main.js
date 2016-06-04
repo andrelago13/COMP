@@ -99,7 +99,7 @@ var tryStartingConverter = function() {
 			$("#stepbystep").hide();
 			$("#final").hide();
 			
-			fa =  steps[currStep];
+			fa = steps[currStep].fa;
 			
 			// create a network
 			var container = document.getElementById('mynetwork2');
@@ -129,7 +129,7 @@ var tryStartingConverter = function() {
 				currStep++;
 				
 				// Current fa
-				fa =  steps[currStep];
+				fa = steps[currStep].fa;
 			
 				// create a network
 				var container = document.getElementById('mynetwork2');
@@ -145,7 +145,7 @@ var tryStartingConverter = function() {
 			if(currStep > 0)
 			{
 				// Current fa
-				fa =  steps[currStep-1];
+				fa = steps[currStep-1].fa;
 			
 				// create a network
 				var container = document.getElementById('mynetwork2');

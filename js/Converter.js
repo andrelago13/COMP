@@ -8,27 +8,39 @@ function Converter(fa, ast) {
 }
 
 Converter.prototype.convert = function() {
-	var faHistory = [];
+	var faHistory = [{
+		fa: FAClone(this.fa),
+		explanation: "Initial FA."
+	}];
 	
-	faHistory.push(this.fixStartingState(this.fa));
-	faHistory.push(this.fixFinalState(faHistory.slice(-1)[0]));
-	var result = this.ast.eval(faHistory.slice(-1)[0]);
+	faHistory.push({
+		fa: this.fixStartingState(faHistory.slice(-1)[0].fa),
+		explanation: "Inserted auxiliary starting state."
+	});
+	faHistory.push({
+		fa: this.fixFinalState(faHistory.slice(-1)[0].fa),
+		explanation: "Inserted auxiliary final state."
+	});
+	var result = this.ast.eval(faHistory.slice(-1)[0].fa);
 	var order = result.getOrder();
 	var type = result.getType();
-	while (faHistory.slice(-1)[0].nodes.length > 2)
+	while (faHistory.slice(-1)[0].fa.nodes.length > 2)
 	{
 		if (result.getType() == EvalResult.Type.DYNAMIC) {
-			order = this.ast.eval(faHistory.slice(-1)[0]).getOrder();
+			order = this.ast.eval(faHistory.slice(-1)[0].fa).getOrder();
 		} else {
-			order = this.ast.eval(faHistory[0]).getOrder();
+			order = this.ast.eval(faHistory[0].fa).getOrder();
 		}
 		
 		var stateID;
-		var lastFa = faHistory.slice(-1)[0];
+		var lastFa = faHistory.slice(-1)[0].fa;
 		do {
 			stateID = order.shift();
 		} while (stateID == lastFa.startID || isNodeFinal(lastFa.nodes[stateID]));
-		faHistory.push(this.eliminateState(lastFa, stateID));
+		faHistory.push({
+			fa: this.eliminateState(lastFa, stateID),
+			explanation: "Eliminated state '" + lastFa.nodes[stateID].label + "' (ID: '" + lastFa.nodes[stateID].id + "')."
+		});
 	
 		// Fix IDs
 		for (var i = 0; i < order.length; i++) {
@@ -37,9 +49,7 @@ Converter.prototype.convert = function() {
 	}
 	
 	console.log(faHistory);
-	return { steps: faHistory, regex: faHistory.slice(-1)[0].edges[0].label };
-	// TODO
-	// return regex;
+	return { steps: faHistory, regex: faHistory.slice(-1)[0].fa.edges[0].label };
 }
 
 Converter.prototype.convertNodeIDArrayToNodeArrayIndex = function(oldArray) {
