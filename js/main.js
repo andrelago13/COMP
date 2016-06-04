@@ -25,6 +25,8 @@ var fa;
 var ast;
 var stepsNumber;
 var currStep = 0;
+var steps;
+var regex;
 
 var openFile = function (event) {
 	var input = event.target;
@@ -74,86 +76,42 @@ var tryStartingConverter = function() {
 	if (!fa || !ast) return;
 	var converter = new Converter(fa, ast);
 	var result = converter.convert();
-	var steps = result.steps;
-	var regex = result.regex;
+	steps = result.steps;
+	regex = result.regex;
 	console.log(regex);
-	stepsNumber = steps.length;
 	
-	// you can extend the options like a normal JSON variable:
+	currStep = 0;
+	
+	$("#resultsre").text("Regex: " + regex);
+	displayStep(steps, currStep);
+}
+
+function displayStep(steps, currStep) {
 	var options = {
 			nodes:{
 				color: 'grey',
 				shadow: true
 			}
-	}
-	
-	
-	$(document).ready(function() {	
-		$("#resultsre").text("Regex: " + regex);
-		$("#resultsre").css("font-weight", "bold");
-		
-		$("#stepbystep").click(function(e) {
-			e.preventDefault();
-			$("#previous").css("display", "inline");
-			$("#next").css("display", "inline");
-			$("#stepbystep").hide();
-			$("#final").hide();
-			
-			fa = steps[currStep].fa;
-			
-			// create a network
-			var container = document.getElementById('mynetwork2');
-			var network = new vis.Network(container, fa, options);
-		
-			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
-		});
-		
-		$("#final").click(function(e) {
-			e.preventDefault();
-			$("#next").hide();
-			$("#previous").hide();
-			
-			// Final fa
-			fa = steps[steps.length - 1];
-			
-			// create a network
-			var container = document.getElementById('mynetwork2');
-			var network = new vis.Network(container, fa, options);
-		});
-		
-		$("#next").click(function(e) {
-			e.preventDefault();
-			
-			if(currStep < stepsNumber - 1)
-			{
-				currStep++;
-				
-				// Current fa
-				fa = steps[currStep].fa;
-			
-				// create a network
-				var container = document.getElementById('mynetwork2');
-				var network = new vis.Network(container, fa, options);
-			}
-			
-			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
-		});
-		
-		$("#previous").click(function(e) {
-			e.preventDefault();
-			
-			if(currStep > 0)
-			{
-				// Current fa
-				fa = steps[currStep-1].fa;
-			
-				// create a network
-				var container = document.getElementById('mynetwork2');
-				var network = new vis.Network(container, fa, options);
-				currStep--;
-			}
-			
-			$('#steps').text(currStep + "/" + (stepsNumber - 1));	
-		});
-});
+	};
+	var container = document.getElementById('mynetwork2');
+	var network = new vis.Network(container, steps[currStep].fa, options);
+	$('#steps').text(currStep + "/" + (steps.length - 1));	
 }
+
+$(document).ready(function() {	
+	$("#next").click(function(e) {
+		if(currStep < steps.length - 1) {
+			currStep++;
+			displayStep(steps, currStep);
+		}
+		return false;
+	});
+	
+	$("#previous").click(function(e) {
+		if(currStep > 0) {
+			currStep--;
+			displayStep(steps, currStep);
+		}
+		return false;
+	});
+});

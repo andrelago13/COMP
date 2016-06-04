@@ -17,6 +17,10 @@
 	display:none;
 }
 
+#resultsre {
+	font-weight: bold;
+}
+
 #about {
 	display: none;
 }
@@ -63,11 +67,11 @@
 }
 
 #next{
-	display: none;
+	display: inline;
 }
 
 #previous {
-	display: none;
+	display: inline;
 }
 
 #aboutbutton1{
