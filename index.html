@@ -78,6 +78,10 @@
 						<textarea id='dsl_text' type='text' accept='text/plain' 
 						>static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);</textarea>
 						<br>
+						<button type="button" id="Heuristica1">Heurística 1</button>
+						<button type="button" id="Heuristica2">Heurística 2</button>
+						<button type="button" id="Heuristica3">Heurística 3</button>
+						<button type="button" id="Heuristica4">Heurística 4</button>
 						<button type="button"  id = 'dslButton'onclick='parseDSL(event)'>Parse DSL</button>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle3">Toggle Menu</a>
 	                 </div>
@@ -88,7 +92,7 @@
 						<br>
 						<h4> Regular Expression:<h5>
 						<br>
-						<p> Show here the RE </p>
+						<p id="resultsre"> Show here the RE </p>
 						<br>
 						<h4> Show the elimination stages </h4>
 						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle4">Toggle Menu</a>

@@ -71,8 +71,9 @@ var parseDSL = function(event) {
 var tryStartingConverter = function() {
 	if (!fa || !ast) return;
 	var converter = new Converter(fa, ast);
-	var steps = converter.convert().steps;
-	var regex = steps.slice(-1)[0].edges[0].label;
+	var result = converter.convert();
+	var steps = result.steps;
+	var regex = result.regex;
 	console.log(regex);
 	fa = steps[steps.length - 1];
 	
@@ -86,4 +87,5 @@ var tryStartingConverter = function() {
 	// create a network
 	var container = document.getElementById('mynetwork');
 	var network = new vis.Network(container, fa, options);
+	$("#resultsre").val(regex);
 }

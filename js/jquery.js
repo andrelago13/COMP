@@ -30,4 +30,24 @@ $(document).ready(function() {
       $("#grammar").toggleClass("toggled");
 	  $("#aboutbutton1").hide();
     });
+	
+	$("#Heuristica1").click(function(e) {
+		e.preventDefault();
+		document.getElementById('dsl_text').innerHTML = "static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);";
+	});
+	
+	$("#Heuristica2").click(function(e) {
+		e.preventDefault();
+		document.getElementById('dsl_text').innerHTML = "dynamic #indeg * #outdeg;";
+	});
+	
+	$("#Heuristica3").click(function(e) {
+		e.preventDefault();
+		document.getElementById('dsl_text').innerHTML = "cenas3";
+	});
+	
+	$("#Heuristica4").click(function(e) {
+		e.preventDefault();
+		document.getElementById('dsl_text').innerHTML = "cenas4";
+	});
 });
