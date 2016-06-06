@@ -21,8 +21,8 @@ $( document ).ready(function() {
 	require('js/Stack');
 });
 
-var fa;
-var ast;
+var fa = null;
+var ast = null;
 var stepsNumber;
 var currStep = 0;
 var steps;
@@ -30,6 +30,12 @@ var regex;
 var errors;
 
 var openFile = function (event) {
+	$("#results_available").css("display", "none");
+	$("#results_unavailable").css("display", "block");
+	$("#error_dot").css("display", "block");
+	
+	fa = null;
+	
 	var input = event.target;
 
 	var reader = new FileReader();
@@ -50,6 +56,13 @@ var openFile = function (event) {
 		// create a network
 		var container = document.getElementById('mynetwork');
 		var network = new vis.Network(container, fa, options);
+		
+		$("#error_dot").css("display", "none");
+		if(ast !== null) {
+			$("#error_dsl").css("display", "none");
+			$("#results_available").css("display", "block");
+			$("#results_unavailable").css("display", "none");
+		}
 	};
 	reader.readAsText(input.files[0]);
 };
@@ -62,6 +75,11 @@ var openDSL = function (event) {
 }
 
 var parseDSL = function(event) {
+	$("#results_available").css("display", "none");
+	$("#results_unavailable").css("display", "block");
+	$("#error_dsl").css("display", "block");
+	ast = null;
+	
 	errors = [];
 	console.log("PARSING " + $('<div/>').html(dslInput).text());
 	var dslLoader = new DSLLoader($('<div/>').html(dslInput).text());
@@ -92,6 +110,15 @@ var parseDSL = function(event) {
 		$("#success").css('display', 'inline-block');
 	}
 	tryStartingConverter();
+	
+	if(ast != null) {
+		$("#error_dsl").css("display", "none");
+		if(fa != null) {
+			$("#error_dot").css("display", "none");
+			$("#results_available").css("display", "block");
+			$("#results_unavailable").css("display", "none");
+		}
+	}
 }	
 
 var tryStartingConverter = function() {
@@ -160,6 +187,8 @@ $(document).ready(function() {
 		$('#dsl_text').html(dslInput);
 		parseDSL(evt);
 	});
+	
+	$("#results_available").css("display", "none");
 });
 
 function toggleState(state) {
