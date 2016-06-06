@@ -111,7 +111,8 @@ static sum(in : #ins_nl)  {
                         <button type="button" id="Heuristica2">Heuristic 2</button>
                         <button type="button" id="Heuristica3">Heuristic 3</button>
                         <button type="button" id="Heuristica4">Heuristic 4</button>
-                        <button type="button" id='dslButton' onclick='parseDSL(event)'>Parse DSL</button>
+                        <div class="errors"></div>
+                        <button type="button" id="dslButton">Parse DSL</button><img id="success" src="img/success.png" alt="Success"></img>
                         <br/>
                         <button type="button" class="btn btn-primary" onClick="toggleState(1);">Previous step</button>
                         <button type="button" class="btn btn-primary" onClick="toggleState(3);">Next step</button>

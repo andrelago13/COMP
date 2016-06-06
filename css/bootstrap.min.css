@@ -81,8 +81,9 @@
 }
 
 #dslButton {
-	display: block;
-	margin-top: 10px;
+	display: inline-block;
+	margin: 10px 0;
+	margin-right: 10px;
 }
 
 #explanation {
@@ -125,11 +126,22 @@
     width: 100%;
     min-height: 10em;
 }
-#dsl_text .error {
+#dsl_text .text-error {
 	background: url(../img/underline.gif), url(../img/error.png);
 	background-size: auto, 10px 10px;
 	background-position: 0px 1em, left bottom;
 	background-repeat: repeat-x, no-repeat;
 	margin-bottom: -10px;
 	padding-bottom: 10px;
+}
+.error {
+	padding: 1em;
+	background-color: #f99;
+	margin: 1em 0;
+	border: 2px solid #500;
+}
+#success {
+	display: none;
+	width: 20px;
+	height: 20px;
 }

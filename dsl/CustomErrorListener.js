@@ -19,10 +19,13 @@ CustomErrorListener.prototype.syntaxError = function(recognizer, offendingSymbol
 	
 	var oldVal = $("#dsl_text").html();
 	var newVal = oldVal.substr(0, offendingSymbol.start);
-	newVal += '<span class="error">' + oldVal.substr(offendingSymbol.start, offendingSymbol.stop+1 - offendingSymbol.start) + '</span>';
+	newVal += '<span class="text-error">' + oldVal.substr(offendingSymbol.start, offendingSymbol.stop+1 - offendingSymbol.start) + '</span>';
 	newVal += oldVal.substring(offendingSymbol.stop+1);
 	console.log(recognizer, offendingSymbol, line, column, msg, e);
 	$("#dsl_text").html(newVal);
+	var newEl = $('<div class="error" style="display: none;">Ln. ' + line + ' Col. ' + column + ': ' + msg + '</div>');
+	$(".errors").append(newEl);
+	newEl.show("normal");
 };
 
 exports.CustomErrorListener = CustomErrorListener;

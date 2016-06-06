@@ -66,6 +66,9 @@ var parseDSL = function(event) {
 	if(ast == null) {
 		console.error("No ast returned.");
 		return;
+	} else {
+		$("#success").show("fast");
+		$("#success").css('display', 'inline-block');
 	}
 	tryStartingConverter();
 	console.log("DSL INPUT: " + dslInput);
@@ -132,6 +135,8 @@ $(document).ready(function() {
 	}));
 	
 	$('#dslButton').click(function (evt) {
+		$(".errors").empty();
+		$("#success").hide();
 		$('#dsl_text').html(dslInput);
 		parseDSL(evt);
 	});
