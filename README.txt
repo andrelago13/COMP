@@ -26,6 +26,7 @@ Also, the functions called when walking through the ANTLR4 CST allow to implemen
 **OVERVIEW:
 The framework runs on a web browser, using JavaScript to do the conversion between the FA and the regular expression.
 The lexical and syntatic analysis is done using ANTLR4.
+The DOT file representing the finite automata is loaded using Vis.js. This library is also used for the visual display of the graph.
 
 **TESTSUITE AND TEST INFRASTRUCTURE:
 The website includes 4 different pre-defined DSLs of known heuristics and their combinations for tie breaking.
