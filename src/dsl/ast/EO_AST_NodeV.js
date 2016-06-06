@@ -46,6 +46,8 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 			var value = vars[i].getVar(major);
 			if(typeof value != 'undefined') {
 				scores[i] = value;
+			} else {
+				errors.push("Undefined variable \"" + major + "\".");
 			}
 		}
 	} else {							// MAJOR.MINOR
@@ -58,9 +60,11 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 					scores[i] = weight;
 					break;
 				default:
-					console.error("Unexpected MINOR value at: " + major + "." + minor + " .");
+					errors.push("Unexpected MINOR value at: " + major + "." + minor + " . Only \"weight\" is allowed.");
 					break;
 				}
+			} else {
+				errors.push("Undefined variable \"" + major + "\" at \"" + major + "." + minor + "\".");
 			}
 		}
 	}
