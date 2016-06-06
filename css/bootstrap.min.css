@@ -122,7 +122,8 @@
     overflow: auto;
     padding: 2px;
     resize: both;
-    width: 400px;
+    width: 100%;
+    min-height: 10em;
 }
 #dsl_text .error {
 	background: url(../img/underline.gif), url(../img/error.png);
