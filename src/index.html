@@ -112,7 +112,7 @@ static sum(in : #ins_nl)  {
                         <button type="button" id="Heuristica3">Heuristic 3</button>
                         <button type="button" id="Heuristica4">Heuristic 4</button>
                         <div class="errors"></div>
-                        <button type="button" id="dslButton">Parse DSL</button><img id="success" src="img/success.png" alt="Success"></img>
+                        <button type="button" id="dslButton">Parse DSL</button><img id="success" src="img/success.png" alt="Success">
                         <br/>
                         <button type="button" class="btn btn-primary" onClick="toggleState(1);">Previous step</button>
                         <button type="button" class="btn btn-primary" onClick="toggleState(3);">Next step</button>
@@ -124,9 +124,11 @@ static sum(in : #ins_nl)  {
                         <br>
                         <div id="results_available">
                             <h4>Regular Expression:</h4>
-                            <br>
+                            <br/>
                             <p id="resultsre"><strong></strong></p>
-                            <br>
+                            <p id="resultsNumSymbols"><strong></strong></p>
+                            <p id="resultsLength"><strong></strong></p>
+                            <br/>
                             <h4>State elimination steps</h4>
                             <div id="step-by-step-wrapper">
                                 <div id="mynetwork2"></div>
