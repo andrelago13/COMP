@@ -27,6 +27,7 @@ var stepsNumber;
 var currStep = 0;
 var steps;
 var regex;
+var errors;
 
 var openFile = function (event) {
 	var input = event.target;
@@ -61,17 +62,35 @@ var openDSL = function (event) {
 }
 
 var parseDSL = function(event) {
-	var dslLoader = new DSLLoader(dslInput);
+	errors = [];
+	console.log("PARSING " + dslInput);
+	var dslLoader = new DSLLoader($('<div/>').html(dslInput).text());
 	ast = dslLoader.load();
 	if(ast == null) {
 		console.error("No ast returned.");
+
+		// Display inline errors
+		var compensationOffset = 0;
+		for (var i = 0; i < errors.length; i++) {
+			var error = errors[i];
+			oldVal = dslInput;
+			var newVal = oldVal.substr(0, error.offendingSymbol.start + compensationOffset);
+			newVal += '<span class="text-error">' + oldVal.substr(error.offendingSymbol.start + compensationOffset, error.offendingSymbol.stop+1 - error.offendingSymbol.start) + '</span>';
+			newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
+			console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
+			$("#dsl_text").html(newVal);
+			var newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
+			$(".errors").append(newEl);
+			newEl.show("normal");
+		}
+		errors = [];
+
 		return;
 	} else {
 		$("#success").show("fast");
 		$("#success").css('display', 'inline-block');
 	}
 	tryStartingConverter();
-	console.log("DSL INPUT: " + dslInput);
 }	
 
 var tryStartingConverter = function() {
@@ -81,9 +100,9 @@ var tryStartingConverter = function() {
 	steps = result.steps;
 	regex = result.regex;
 	console.log(regex);
-	
+
 	currStep = 0;
-	
+
 	$("#resultsre").text("Regex: " + regex);
 	displayStep(steps, currStep);
 }
@@ -110,7 +129,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	$("#previous").click(function(e) {
 		if(currStep > 0) {
 			currStep--;
@@ -118,7 +137,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	$('#dsl_text').focus(function (evt) {
 		if (typeof dslInput === 'undefined') {
 			dslInput = $(this).html();
@@ -126,14 +145,14 @@ $(document).ready(function() {
 		}
 		$(this).html(dslInput);
 	});
-	
+
 	$('#dsl_text').change(function (evt) {
 		dslInput = $(this).html();
 	});
 	$('#dsl_text').on('input', (function (evt) {
 		dslInput = $(this).html();
 	}));
-	
+
 	$('#dslButton').click(function (evt) {
 		$(".errors").empty();
 		$("#success").hide();
@@ -143,27 +162,27 @@ $(document).ready(function() {
 });
 
 function toggleState(state) {
-    document.getElementById('about').style.display = 'none';
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('dotFile').style.display = 'none';
-    document.getElementById('parseDSL').style.display = 'none';
-    document.getElementById('intro').style.display = 'none';
+	document.getElementById('about').style.display = 'none';
+	document.getElementById('results').style.display = 'none';
+	document.getElementById('dotFile').style.display = 'none';
+	document.getElementById('parseDSL').style.display = 'none';
+	document.getElementById('intro').style.display = 'none';
 
-    switch (state) {
-        case 0:
-            document.getElementById('intro').style.display = 'block';
-            break;
-        case 1:
-            document.getElementById('dotFile').style.display = 'block';
-            break;
-        case 2:
-            document.getElementById('parseDSL').style.display = 'block';
-            break;
-        case 3:
-            document.getElementById('results').style.display = 'block';
-            break;
-        case 4:
-            document.getElementById('about').style.display = 'block';
-            break;
-    }
+	switch (state) {
+	case 0:
+		document.getElementById('intro').style.display = 'block';
+		break;
+	case 1:
+		document.getElementById('dotFile').style.display = 'block';
+		break;
+	case 2:
+		document.getElementById('parseDSL').style.display = 'block';
+		break;
+	case 3:
+		document.getElementById('results').style.display = 'block';
+		break;
+	case 4:
+		document.getElementById('about').style.display = 'block';
+		break;
+	}
 }

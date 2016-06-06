@@ -17,15 +17,14 @@ CustomErrorListener.prototype.syntaxError = function(recognizer, offendingSymbol
 	this.errorMessage = "Syntax error: line " + line + ":" + column + " " + msg;
 	console.error(this.errorMessage);
 	
-	var oldVal = $("#dsl_text").html();
-	var newVal = oldVal.substr(0, offendingSymbol.start);
-	newVal += '<span class="text-error">' + oldVal.substr(offendingSymbol.start, offendingSymbol.stop+1 - offendingSymbol.start) + '</span>';
-	newVal += oldVal.substring(offendingSymbol.stop+1);
-	console.log(recognizer, offendingSymbol, line, column, msg, e);
-	$("#dsl_text").html(newVal);
-	var newEl = $('<div class="error" style="display: none;">Ln. ' + line + ' Col. ' + column + ': ' + msg + '</div>');
-	$(".errors").append(newEl);
-	newEl.show("normal");
+	errors.push({
+		recognizer: recognizer,
+		offendingSymbol: offendingSymbol,
+		line: line,
+		column: column,
+		msg: msg,
+		e: e
+	});
 };
 
 exports.CustomErrorListener = CustomErrorListener;
