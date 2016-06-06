@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	
+
     <title>Compilers</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-	
-	<script src="libs/vis/vis.js"></script>
-	<script type="text/javascript" src="libs/require.js"></script>
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/FAutils.js"></script>
-	<script src="js/FALoader.js"></script>
-	<script src="js/DSLLoader.js"></script>
-	<script src="js/Converter.js"></script>
-	<link href="libs/vis/vis.css" rel="stylesheet" type="text/css" />
+
+    <script src="libs/vis/vis.js"></script>
+    <script type="text/javascript" src="libs/require.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/FAutils.js"></script>
+    <script src="js/FALoader.js"></script>
+    <script src="js/DSLLoader.js"></script>
+    <script src="js/Converter.js"></script>
+    <link href="libs/vis/vis.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">	
+        <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#intro" onclick=" document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('intro').style.display='block';">
-                        FA2RE-SE
-                    </a>
-                </li>
-                <li>
-                  <a href="#dotFile" onclick="document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('dotFile').style.display='block';">Load Dot</a>
-                </li>
-                <li>
-                    <a href="#parseDSL" onclick="document.getElementById('about').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='block';">DSL</a>
-                </li>
-                <li>
-                    <a href="#results" onclick="document.getElementById('about').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='block';">Results</a>
-                </li>
-                <li>
-                    <a href="#about" onclick="document.getElementById('about').style.display='none'; document.getElementById('dotFile').style.display='none'; document.getElementById('intro').style.display='none'; document.getElementById('parseDSL').style.display='none'; document.getElementById('results').style.display='none'; document.getElementById('about').style.display='block';">About</a>
-                </li>
+                <li class="sidebar-brand"><a href="#intro" onclick="toggleState(0);">
+                      FA2RE-SE
+                    </a></li>
+                <li><a href="#dotFile" onclick="toggleState(1);">Load Dot</a></li>
+                <li><a href="#parseDSL" onclick="toggleState(2);">DSL</a></li>
+                <li><a href="#results" onclick="toggleState(3);">Results</a></li>
+                <li><a href="#about" onclick="toggleState(4);">About</a></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -53,23 +45,55 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12" id ="intro">
+                    <div class="col-lg-12" id="intro">
                         <h1>FA2RE-SE</h1>
-                        <p><strong> Objective: </strong>Develop a framework that transforms FAs into Regular Expressions using the state elimination state.</p>
-                        <p>It is possible to Load a dot file to check his states.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle1">Toggle Menu</a>
+                        <br/>
+                        <br/>
+                        <p><strong> Objective: </strong>Develop a framework that transforms finite automatas (FA's) into Regular Expressions using the state elimination method.</p>
+                        <p>This interface allows the user to perform the operation mentioned above, presenting the results and some useful information about the process at the end.</p>
+                        <p>The main feature of this interface is the possibility to specify how nodes must be "ranked" when selecting which should be removed at each stage. To do this, the user must specify an expression indicating how the "score" of each
+                            node is to be calculated, as specified by our DSL (see the <a href="#" onClick="toggleState(4);">About</a> section)</p>
+                        <br/>
+                        <br/>
+                        <p><strong>Instructions:</strong></p>
+                        <ol class="list-group">
+                            <li class="list-group-item" onClick="toggleState(1);">
+                                <a href="#">
+                                    1 - Import ".DOT" file
+                                </a>
+                            </li>
+                            <li class="list-group-item" onClick="toggleState(2);">
+                                <a href="#">
+                                    2 - Select node ranking method
+                                </a>
+                            </li>
+                            <li class="list-group-item" onClick="toggleState(3);">
+                                <a href="#">
+                                    3 - See the results in the propper section
+                                </a>
+                            </li>
+                        </ol>
+                        <br/>
+                        <br/>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(1);">Start</button>
                     </div>
-					 <div class="col-lg-12" id ="dotFile">
+                    <div class="col-lg-12" id="dotFile">
                         <h1>FA2RE-SE</h1>
-						<br>
-						<h3> Prepare to load dot file... </h3>
-						<br>
-						<input type='file' accept='text/plain,.dot' onchange='openFile(event)'>
-						<h6> <strong> Note: </strong> Please choose a valid file! </h6>
+                        <br/>
+                        <h3> Step 1 - Load ".dot" file</h3>
+                        <br/>
+                        <p>Please specify the ".dot" file containing the information of the finite automata you wish to convert to a regular expression.</p>
+                        <br>
+                        <input type='file' accept='text/plain,.dot' onchange='openFile(event)'>
+                        <h6> <strong> Note: </strong> Please choose a valid file! </h6>
+                        <br/>
+                        <h4>Demo:</h4>
                         <div id="mynetwork"></div>
-						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle2">Toggle Menu</a>
-	                 </div>
-					  <div class="col-lg-12" id ="parseDSL">
+                        <br/>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(0);">Previous step</button>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(2);">Next step</button>
+                    </div>
+                    <div class="col-lg-12" id="parseDSL">
                         <h1>FA2RE-SE</h1>
 						<br>
 						<h3> Prepare to parse DSL... </h3>
@@ -83,81 +107,140 @@ static sum(in : #ins_nl)  {
 } + #nloops * (#indeg_nl * #outdeg_nl);
 </div>
 						<br>
-						<button type="button" id="Heuristica1">State Weight Heuristic</button>
-						<button type="button" id="Heuristica2">Heurística 2</button>
-						<button type="button" id="Heuristica3">Heurística 3</button>
-						<button type="button" id="Heuristica4">Heurística 4</button>
-						<button type="button"  id = 'dslButton'>Parse DSL</button>
-						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle3">Toggle Menu</a>
-	                 </div>
-					  <div class="col-lg-12" id ="results">
+                        <button type="button" id="Heuristica1">Heuristic 1</button>
+                        <button type="button" id="Heuristica2">Heuristic 2</button>
+                        <button type="button" id="Heuristica3">Heuristic 3</button>
+                        <button type="button" id="Heuristica4">Heuristic 4</button>
+                        <button type="button" id='dslButton' onclick='parseDSL(event)'>Parse DSL</button>
+                        <br/>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(1);">Previous step</button>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(3);">Next step</button>
+                    </div>
+                    <div class="col-lg-12" id="results">
                         <h1>FA2RE-SE</h1>
-						<br>
-						<h3>Results</h3>
-						<br>
-						<h4>Regular Expression:<h5>
-						<br>
-						<p id="resultsre"><strong></strong></p>
-						<br>
-						<h4>State elimination steps</h4>
-						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle4">Toggle Menu</a>
-						<div id="step-by-step-wrapper">
-							<div id="mynetwork2"></div>
-							<p id="explanation"> </p>
-							<div id="step-control">
-								<button type="button"  id = 'previous' >Previous</button>
-								<div id = "steps"> </div>
-								<button type="button"  id = 'next' >Next</button>
-							</div>
-						</div>
-	                 </div>
-					 <div class="col-lg-12" id="about">
-						<h1>About</h1>
-						<p>FA2RE-SE transforms finite automata into regular expressions by the state elimination method.</p>
-						<button type="button"  id = 'aboutbutton1' >Grammar</button>
-						<div id="grammar">
-							<p><strong>DSL used:</strong></p>
-								<p>s : (manual SEMICOLON) | (auto SEMICOLON s1 );</p>
-								<p>s1 : EOF|s;</p>
-								<p>manual : INT (COMMA INT)*;</p>
-								<p>auto : type e;</p>
-								<p>type : STATIC | DYNAMIC;</p>
-								<p>e : t e1;</p>
-								<p>e1 : ((PLUS | MINUS) t e1)?;</p>
-								<p>t : f t1;thi</p>
-								<p>t1 : ((ASTERISK | SLASH) f t1)?;</p>
-								<p>f : v | INT | REAL | loop | (OPEN1 e CLOSE1);</p>
-								<p>loop : (SUM | MUL) OPEN1 IDENTIFIER COLON v CLOSE1 OPEN2 e CLOSE2;</p>
-								<p>v : IDENTIFIER (DOT IDENTIFIER)?;</p>
+                        <br>
+                        <h3>Results</h3>
+                        <br>
+                        <div id="results_available">
+                            <h4>Regular Expression:</h4>
+                            <br>
+                            <p id="resultsre"><strong></strong></p>
+                            <br>
+                            <h4>State elimination steps</h4>
+                            <div id="step-by-step-wrapper">
+                                <div id="mynetwork2"></div>
+                                <p id="explanation"> </p>
+                                <div id="step-control">
+                                    <button type="button" id='previous'>Previous</button>
+                                    <div id="steps"> </div>
+                                    <button type="button" id='next'>Next</button>
+                                </div>
+                            </div>
+                            <br/>
+                        </div>
+                        <div id="results_unavailable">
+                            <h4>Error: ".dot" file missing. Please see <a href="#" onclick="toggleState(1);">"Step 1"</a></h4>
+                            <br/>
+                            <h4>Error: ranking expression missing. Please see <a href="#" onclick="toggleState(2);">"Step 2"</a></h4>
+                            <br/>
+                        </div>
 
-								<p>WHITESPACE  : [ \t\r\n]+ -> skip ;</p>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(2);">Restart</button>
+                        <button type="button" class="btn btn-primary" onClick="toggleState(4);">About</button>
+                    </div>
+                    <div class="col-lg-12" id="about">
+                        <h1>About</h1>
+                        <p>FA2RE-SE was a project developed for the "Compilers" course of the Integrated Master's in Informatics and Computer Engineering of the Faculty of Engineering of the University of Porto.</p>
+                        <p>Check out the project on <a href="https://github.com/andrelago13/COMP">GitHub</a>.</p>
+                        <strong>Developers:</strong>
+                        <br/>
+                        <div style="padding-left: 4rem;">
+                            André Lago <a href="https://github.com/andrelago13">(GitHub profile)</a>
+                            <br/> Carolina Moreira <a href="https://github.com/Miridinia">(GitHub profile)</a>
+                            <br/> Gustavo Silva <a href="https://github.com/gtugablue">(GitHub profile)</a>
+                            <br/> Leonardo Ferreira <a href="https://github.com/leonardo95">(GitHub profile)</a>
+                            <br/>
+                        </div>
 
-								<p>STATIC 		: 'static';</p>
-								<p>DYNAMIC 	: 'dynamic';</p>
-								<p>SUM 		: 'sum';</p>
-								<p>MUL 		: 'mul';</p>
-								<p>OPEN1 		: '(';</p>
-								<p>CLOSE1 		: ')';</p>
-								<p>OPEN2 		: '{';</p>
-								<p>CLOSE2 		: '}';</p>
-								<p>COMMA 		: ',';</p>
-								<p>COLON 		: ':';</p>
-								<p>SEMICOLON 	: ';';</p>
-								<p>DOT			: '.';</p>
-								<p>PLUS		: '+';</p>
-								<p>MINUS		: '-';</p>
-								<p>ASTERISK	: '*';</p>
-								<p>SLASH		: '/';</p>
-								<p>INT			: [0-9]+;</p>
-								<p>REAL		: [0-9]* '.' [0-9]+;</p>
-								<p>IDENTIFIER 	: '#'? [a-zA-Z_]+ [a-zA-Z_0-9]*;</p>
-								<br>
-						</div>
-						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle5">Toggle Menu</a>
-					 </div>
-		
+                        <br/>
+                        <div>
+                            <p><strong>DSL used:</strong></p>
+                            <div style="padding-left: 4rem;">
+                                <p>
+                                    <strong>s</strong> : (manual SEMICOLON) | (auto SEMICOLON s1 );
+                                    <br/>
+                                    <strong>s1</strong> : EOF|s; manual : INT (COMMA INT)*;
+                                    <br/>
+                                    <strong>auto</strong> : type e;
+                                    <br/>
+                                    <strong>type</strong> : STATIC | DYNAMIC;
+                                    <br/>
+                                    <strong>e</strong> : t e1;
+                                    <br/>
+                                    <strong>e1</strong> : ((PLUS | MINUS) t e1)?;
+                                    <br/>
+                                    <strong>t</strong> : f t1;
+                                    <br/>
+                                    <strong>t1</strong> : ((ASTERISK | SLASH) f t1)?;
+                                    <br/>
+                                    <strong>f</strong> : v | RESERVED | INT | REAL | loop | (OPEN1 e CLOSE1);
+                                    <br/>
+                                    <strong>loop</strong> : (SUM | MUL) OPEN1 IDENTIFIER COLON RESERVED CLOSE1 OPEN2 e CLOSE2;
+                                    <br/>
+                                    <strong>v</strong> : IDENTIFIER (DOT IDENTIFIER)?;
+                                    <br/>
+                                </p>
+                                <p>
+                                    <strong>WHITESPACE</strong> : [ \t\r\n]+ -> skip;
+                                </p>
+                                <p>
+                                    <strong>STATIC</strong> : 'static';
+                                    <br/>
+                                    <strong>DYNAMIC</strong> : 'dynamic';
+                                    <br/>
+                                    <strong>SUM</strong> : 'sum';
+                                    <br/>
+                                    <strong>MUL</strong> : 'mul';
+                                    <br/>
+                                    <strong>OPEN1</strong> : '(';
+                                    <br/>
+                                    <strong>CLOSE1</strong> : ')';
+                                    <br/>
+                                    <strong>OPEN2</strong> : '{';
+                                    <br/>
+                                    <strong>CLOSE2</strong> : '}';
+                                    <br/>
+                                    <strong>COMMA</strong> : ',';
+                                    <br/>
+                                    <strong>COLON</strong> : ':';
+                                    <br/>
+                                    <strong>SEMICOLON</strong> : ';';
+                                    <br/>
+                                    <strong>DOT</strong> : '.';
+                                    <br/>
+                                    <strong>PLUS</strong> : '+';
+                                    <br/>
+                                    <strong>MINUS</strong> : '-';
+                                    <br/>
+                                    <strong>ASTERISK</strong> : '*';
+                                    <br/>
+                                    <strong>SLASH</strong> : '/';
+                                    <br/>
+                                    <strong>INT</strong> : [0-9]+;
+                                    <br/>
+                                    <strong>REAL</strong> : [0-9]* '.' [0-9]+;
+                                    <br/>
+                                    <strong>IDENTIFIER</strong> : [a-zA-Z_]+ [a-zA-Z_0-9]*;
+                                    <br/>
+                                    <strong>RESERVED</strong> : '#' ('ins' | 'outs' | 'indeg' | 'outdeg' | 'ins_nl' | 'outs_nl' | 'indeg_nl' | 'outdeg_nl' | 'nloops');
+                                </p>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>	
+            </div>
         </div>
         <!-- /#page-content-wrapper -->
     </div>
@@ -169,4 +252,5 @@ static sum(in : #ins_nl)  {
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>

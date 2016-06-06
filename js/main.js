@@ -136,3 +136,29 @@ $(document).ready(function() {
 		parseDSL(evt);
 	});
 });
+
+function toggleState(state) {
+    document.getElementById('about').style.display = 'none';
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('dotFile').style.display = 'none';
+    document.getElementById('parseDSL').style.display = 'none';
+    document.getElementById('intro').style.display = 'none';
+
+    switch (state) {
+        case 0:
+            document.getElementById('intro').style.display = 'block';
+            break;
+        case 1:
+            document.getElementById('dotFile').style.display = 'block';
+            break;
+        case 2:
+            document.getElementById('parseDSL').style.display = 'block';
+            break;
+        case 3:
+            document.getElementById('results').style.display = 'block';
+            break;
+        case 4:
+            document.getElementById('about').style.display = 'block';
+            break;
+    }
+}
