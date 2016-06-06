@@ -301,7 +301,10 @@ CustomListener.prototype.enterV = function(ctx) {
 		node = new EO_AST_NodeV(this.stack.top(), major, minor);
 		console.log(this.getTabbing() + '\t' + "Parsing V \"" + major + "." + minor + "\".");
 		if(minor != "weight") {
-			errors.push("Unexpected MINOR atribute \"" + minor + "\ at \"" + major + "." + minor + "\". Must be \"weight\".");
+			errors.push({
+				offendingSymbol: minor,
+				msg: "Unexpected MINOR atribute \"" + minor + "\ at \"" + major + "." + minor + "\". Must be \"weight\".",
+			});
 		}
 	} else {
 		// MAJOR
