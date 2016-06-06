@@ -194,6 +194,7 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 	for (var i = 0; i < edgesToAdd.length; i++)
 		addEdge(edgesToAdd[i][0], edgesToAdd[i][1], edgesToAdd[i][2], edgesToAdd[i][3]);
 	removeNode(fa, stateID);
+	addHelpfulInfoToNodesAndEdges(fa);
 	return fa;
 }
 

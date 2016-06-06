@@ -26,6 +26,7 @@ function CustomListener(symbolicNames, ruleNames) {
 	
 	this.stack = new Stack();
 	this.stack.push(root);
+	this.declarations = new Stack();
 	
 	return this;
 }
@@ -273,6 +274,8 @@ CustomListener.prototype.enterLoop = function(ctx) {
 	node.addChild(loopIdentifier);
 	console.log(this.getTabbing() + "Parsing loop identifier \"" + loopIdentifier + "\".");	
 	
+	this.declarations.push(loopIdentifier);
+	
 	// RESERVED
 	var reserved_name = ctx.children[4].getText();
 	node.addChild(new EO_AST_NodeReserved(node, reserved_name));
@@ -283,6 +286,7 @@ CustomListener.prototype.enterLoop = function(ctx) {
 // Exit a parse tree produced by EliminationOrderParser#loop.
 CustomListener.prototype.exitLoop = function(ctx) {
 	this.stack.pop();
+	this.declarations.pop();
 	
 	console.log(this.getTabbing() + "Exiting Loop");
 };
@@ -295,6 +299,21 @@ CustomListener.prototype.enterV = function(ctx) {
 	var node;
 	
 	var major = ctx.children[0].getText();
+	
+	var found = false;
+	for(var i = 0; i < this.declarations.array.length; ++i) {
+		if(this.declarations.array[i] == major) {
+			found = true;
+			break;
+		}
+	}
+	if(!found) {
+		errors.push({
+			offendingSymbol: major,
+			msg: "Undeclared variable \"" + major + "\".",
+		});
+	}
+	
 	if(ctx.children.length > 1) {
 		// MAJOR.MINOR
 		var minor = ctx.children[2].getText();

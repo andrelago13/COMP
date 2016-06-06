@@ -89,30 +89,7 @@ var parseDSL = function(event) {
 		console.error("No ast returned.");
 		
 		// Display errors
-		var compensationOffset = 0;
-		for (var i = 0; i < errors.length; i++) {
-			var error = errors[i];
-
-			// Display inline error for the first one only
-			if (i == 0) {
-				oldVal = dslInput;
-				var newVal = oldVal.substr(0, error.offendingSymbol.start + compensationOffset);
-				var erroredText = oldVal.substr(error.offendingSymbol.start + compensationOffset, error.offendingSymbol.stop+1 - error.offendingSymbol.start);
-				newVal += '<span class="text-error">' + erroredText + '</span>';
-				newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
-				compensationOffset += newVal.length - erroredText.length;
-				console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
-				$("#dsl_text").html(newVal);
-			}
-			
-			var newEl;
-			if (typeof error.line !== 'undefined' && typeof error.column !== 'undefined')
-				newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
-			else
-				newEl = $('<div class="error" style="display: none;">' + error.msg + '</div>');
-			$(".errors").append(newEl);
-			newEl.show("normal");
-		}
+		displayErrors();
 		errors = [];
 
 		return;
@@ -120,9 +97,11 @@ var parseDSL = function(event) {
 		$("#success").show("fast");
 		$("#success").css('display', 'inline-block');
 	}
+	errors = [];
 	tryStartingConverter();
+	displayErrors();
 
-	if(ast != null) {
+	if(errors.length == 0 && ast != null) {
 		$("#error_dsl").css("display", "none");
 		if(fa != null) {
 			$("#error_dot").css("display", "none");
@@ -130,7 +109,36 @@ var parseDSL = function(event) {
 			$("#results_unavailable").css("display", "none");
 		}
 	}
+
+	errors = [];
 }	
+
+var displayErrors = function() {
+	var compensationOffset = 0;
+	for (var i = 0; i < errors.length; i++) {
+		var error = errors[i];
+
+		// Display inline error for the first one only
+		if (i == 0) {
+			oldVal = dslInput;
+			var newVal = oldVal.substr(0, error.offendingSymbol.start + compensationOffset);
+			var erroredText = oldVal.substr(error.offendingSymbol.start + compensationOffset, error.offendingSymbol.stop+1 - error.offendingSymbol.start);
+			newVal += '<span class="text-error">' + erroredText + '</span>';
+			newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
+			compensationOffset += newVal.length - erroredText.length;
+			console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
+			$("#dsl_text").html(newVal);
+		}
+		
+		var newEl;
+		if (typeof error.line !== 'undefined' && typeof error.column !== 'undefined')
+			newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
+		else
+			newEl = $('<div class="error" style="display: none;">' + error.msg + '</div>');
+		$(".errors").append(newEl);
+		newEl.show("normal");
+	}
+}
 
 var tryStartingConverter = function() {
 	if (!fa || !ast) return;
