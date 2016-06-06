@@ -21,13 +21,19 @@ Converter.prototype.convert = function() {
 		fa: this.fixFinalState(faHistory.slice(-1)[0].fa),
 		explanation: "Inserted auxiliary final state."
 	});
-	var result = this.ast.eval(faHistory.slice(-1)[0].fa);
+	var cutFa = FAClone(faHistory.slice(-1)[0].fa);
+	cutFa.nodes.pop();
+	cutFa.nodes.pop();
+	var result = this.ast.eval(cutFa);
 	var order = result.getOrder();
 	var type = result.getType();
 	while (faHistory.slice(-1)[0].fa.nodes.length > 2)
 	{
 		if (result.getType() == EvalResult.Type.DYNAMIC) {
-			order = this.ast.eval(faHistory.slice(-1)[0].fa).getOrder();
+			var cutFa = FAClone(faHistory.slice(-1)[0].fa);
+			cutFa.nodes.pop();
+			cutFa.nodes.pop();
+			order = this.ast.eval(cutFa).getOrder();
 		} else {
 		}
 		var stateID;

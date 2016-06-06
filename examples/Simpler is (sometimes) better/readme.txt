@@ -3,6 +3,9 @@ This example proves that a good heuristic may sometimes give considerably worse 
 State Weight Heuristic:
 ((ac*b+b)(ac*b)*ac*c+ac*c)ac+(ac*b+b)(ac*b)*ca+(ac*b+b)(ac*b)*(ac*a+b)+ac*a
 
+Ins * Outs - Ins - Outs:
+((ac*b+b)(ac*b)*ac*c+ac*c)ac+(ac*b+b)(ac*b)*ca+(ac*b+b)(ac*b)*(ac*a+b)+ac*a
+
 Ins + Outs:
 ((ac*b+b)(ac*b)*ac*c+ac*c)ac+(ac*b+b)(ac*b)*ca+(ac*b+b)(ac*b)*(ac*a+b)+ac*a
 
