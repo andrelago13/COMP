@@ -39,19 +39,19 @@ $(document).ready(function() {
 	
 	$("#Heuristica2").click(function(e) {
 		e.preventDefault();
-		document.getElementById('dsl_text').innerHTML = "dynamic #indeg + #outdeg; dynamic #indeg;";
+		document.getElementById('dsl_text').innerHTML = "static #indeg * #outdeg - #indeg - #outdeg;";
 		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica3").click(function(e) {
 		e.preventDefault();
-		document.getElementById('dsl_text').innerHTML = "cenas3";
+		document.getElementById('dsl_text').innerHTML = "dynamic #indeg + #outdeg; dynamic #indeg * #outdeg; dynamic #indeg;";
 		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica4").click(function(e) {
 		e.preventDefault();
-		document.getElementById('dsl_text').innerHTML = "cenas4";
+		document.getElementById('dsl_text').innerHTML = "dynamic sum(in : #ins_nl) { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl); dynamic #indeg * #outdeg - #indeg - #outdeg; dynamic #indeg + #outdeg; dynamic #indeg * #outdeg; static #indeg;";
 		$("#dsl_text").trigger("change");
 	});
 });

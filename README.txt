@@ -2,11 +2,11 @@
 **GROUP: 1FA2RE-SE
 NAME: Andre Lago, NR: 201303313, GRADE: 20, CONTRIBUTION: 35%
 NAME: Carolina Moreira, NR: 201303494, GRADE: 10, CONTRIBUTION: 10%
-NAME: Gustavo Silva, NR: 201304143, GRADE2: 20, CONTRIBUTION: 35%
+NAME: Gustavo Silva, NR: 201304143, GRADE: 20, CONTRIBUTION: 35%
 NAME: Leonardo Ferreira, NR: 201305980, GRADE: 15, CONTRIBUTION: 20%
 
 
-** SUMMARY: (Describe what your tool does and its main features.)
+** SUMMARY:
 Framework to transform finite automata to regular expressions using the state elimination method. The main feature of this interface is the possibility to specify how states must be "ranked" when selecting which one should be removed at each stage.
 The input of the framework is a graph representing the automata and a DSL defining the order of elimination of the states, which will affect the final regular expression.
 The graph should be in DOT format and it must contain a node with ID "START" (the start state) and it must contain one or more final states. A state is considered final if it has "doublecircle" as the shape or 2 peripheries.
@@ -31,7 +31,7 @@ The lexical and syntatic analysis is done using ANTLR4.
 
 
 **TASK DISTRIBUTION: (Identify the set of tasks done by each member of the project.)
-AndrÃ© Lago:
+André Lago:
 - Conversion of the CST to the AST.
 - Syntatic and semantic analysis
 - Calculation of the state elimination order for apn iteration using the rules defined in the AST.
