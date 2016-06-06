@@ -27,11 +27,11 @@ Also, the functions called when walking through the ANTLR4 CST allow to implemen
 The framework runs on a web browser, using JavaScript to do the conversion between the FA and the regular expression.
 The lexical and syntatic analysis is done using ANTLR4.
 
-**TESTSUITE AND TEST INFRASTRUCTURE: (Describe the content of your testsuite regarding the number of examples, the approach to automate the test, etc.)
+**TESTSUITE AND TEST INFRASTRUCTURE:
 The website includes 4 different pre-defined DSLs of known heuristics and their combinations for tie breaking.
 In the /testsuite/ folder, 5 FA input examples are available to use for testing.
 
-**TASK DISTRIBUTION: (Identify the set of tasks done by each member of the project.)
+**TASK DISTRIBUTION:
 André Lago:
 - Conversion of the CST to the AST.
 - Syntatic and semantic analysis
@@ -52,8 +52,10 @@ Leonardo Ferreira:
 - Vis.js integration
 
 
-**PROS: (Identify the most positive aspects of your tool)
+**PROS:
 - Allows a lot of freedom in the specification of the ordering. Instead of allowing the user to choose from some heuristics, our DSL allows the specification of a "score" for each state, therefore giving the user much more freedom in the definition of the order in which to eliminate the states.
 - User-friendly display of errors in the graphical interface. The errors are shown inline (underlined) and in a separate error message.
+- Displays some metrics that rate the regular expression in terms of simplicity.
 
-**CONS: (Identify the most negative aspects of your tool)
+**CONS:
+- DSL not fully documented in the website.
