@@ -26,7 +26,6 @@ Converter.prototype.convert = function() {
 	var type = result.getType();
 	while (faHistory.slice(-1)[0].fa.nodes.length > 2)
 	{
-		console.log(order.slice(0));
 		if (result.getType() == EvalResult.Type.DYNAMIC) {
 			order = this.ast.eval(faHistory.slice(-1)[0].fa).getOrder();
 		} else {
@@ -42,14 +41,10 @@ Converter.prototype.convert = function() {
 		});
 	
 		// Fix IDs
-		console.log("a", order.slice(0));
 		for (var i = 0; i < order.length; i++) {
 			if (order[i] > stateID) order[i]--;
 		}
-		console.log("b", order.slice(0));
 	}
-	
-	console.log(faHistory);
 	return { steps: faHistory, regex: faHistory.slice(-1)[0].fa.edges[0].label };
 }
 
@@ -150,7 +145,6 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 }
 
 Converter.prototype.eliminateState = function(fa, stateID) {
-	console.log(fa, stateID);
 	fa = FAClone(fa);
 	var edgesToAdd = [];
 	for (var i = 0; i < fa.nodes[stateID].inEdges.length; i++) {
@@ -176,12 +170,13 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 					label += beforeLabel;
 			}
 			if (typeof loopLabel != 'undefined') {
-				if (loopLabel.length > 1)
+				if (loopLabel.length > 1 && ((beforeLabel || afterLabel) && (beforeLabel !== EPSILON || afterLabel !== EPSILON)))
 					label += "(" + loopLabel + ")*";
 				else
 					label += loopLabel + "*";
 			}
 			if (typeof afterLabel != 'undefined') {
+				console.log(this.needsParenthesis(afterLabel), afterLabel);
 				if (this.needsParenthesis(afterLabel))
 					label += "(" + afterLabel + ")";
 				else
@@ -222,20 +217,21 @@ Converter.prototype.removeUnnecessaryStuff = function(s) {
 }
 
 Converter.prototype.removeUnnecessaryParenthesis = function(str) {
-	return str;
-	console.log("a", str.slice(0));
-	var i=0;
-	var str = (function recur(s, b) {
-		var c = str.charAt(i++);      // Get next char    
-		if(!c || c == ')') return s;  // End of string or end of inner part
-		if(c == '(') {
-			var s1 = recur('', true), // Get inner part
-			s2 = recur('');       // Get following part
-			return s + (!b || s2 ? '('+s1+')' : s1) + s2;
+	if (str[0] != '(') return str;
+	var closePos = 0;
+	var counter = 1;
+	while (counter > 0) {
+		var c = str[++closePos];
+		if (c == '(') {
+			counter++;
 		}
-		return recur(s+c);            // Continue to next char
-	})('');
-	console.log("b", str.slice(0));
+		else if (c == ')') {
+			counter--;
+		}
+	}
+	if (closePos != str.length - 1) return str;
+	str = str.substring(1);
+	str = str.slice(0, -1);
 	return str;
 }
 
