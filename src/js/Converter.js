@@ -83,6 +83,7 @@ Converter.prototype.fixStartingState = function(fa) {
 	})
 	newFa.nodes[oldStartID].inEdges.push(newFa.edges.length - 1);
 	newFa.startID = newFa.nodes.length - 1;
+	addHelpfulInfoToNodesAndEdges(newFa);
 	return newFa;
 }
 
@@ -125,6 +126,7 @@ Converter.prototype.fixFinalState = function(fa) {
 		node.outEdges.push(edgeID);
 		newFa.nodes[newID].inEdges.push(edgeID);
 	}
+	addHelpfulInfoToNodesAndEdges(newFa);
 	return newFa;
 }
 
