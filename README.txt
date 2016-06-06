@@ -1,6 +1,6 @@
 **PROJECT TITLE: FA2RE-SE
 **GROUP: 1FA2RE-SE
-NAME: André Lago, NR: 201303313, GRADE: 20, CONTRIBUTION: 35%
+NAME: Andrï¿½ Lago, NR: 201303313, GRADE: 20, CONTRIBUTION: 35%
 NAME: Carolina Moreira, NR: 201303494, GRADE: 10, CONTRIBUTION: 10%
 NAME: Gustavo Silva, NR: 201304143, GRADE2: 20, CONTRIBUTION: 35%
 NAME: Leonardo Ferreira, NR: 201305980, GRADE: 15, CONTRIBUTION: 20%
@@ -33,7 +33,8 @@ The lexical and syntatic analysis is done using ANTLR4.
 **TASK DISTRIBUTION: (Identify the set of tasks done by each member of the project.)
 AndrÃ© Lago:
 - Conversion of the CST to the AST.
-- Calculation of the state order for an iteration using the rules defined in the AST.
+- Syntatic and semantic analysis
+- Calculation of the state elimination order for an iteration using the rules defined in the AST.
 
 Carolina Moreira:
 - About page;
@@ -47,7 +48,7 @@ Gustavo Silva:
 
 Leonardo Ferreira:
 - Output visualization (HTML, CSS and Javascript)
-- Vis.js integration 
+- Vis.js integration
 
 
 **PROS: (Identify the most positive aspects of your tool)
