@@ -1,0 +1,11 @@
+digraph {
+  rankdir=LR;
+  node [shape = doublecircle,
+  		peripheries = 2]; C;
+  node [shape = circle];
+  START[label=A];
+  START -> B [label=x];
+  B -> C [label=y];
+  B -> B [label=z];
+  START -> C [label=w];
+}
