@@ -63,9 +63,10 @@ var openDSL = function (event) {
 
 var parseDSL = function(event) {
 	errors = [];
-	console.log("PARSING " + dslInput);
+	console.log("PARSING " + $('<div/>').html(dslInput).text());
 	var dslLoader = new DSLLoader($('<div/>').html(dslInput).text());
 	ast = dslLoader.load();
+	if (errors.length > 0) ast = null;
 	if(ast == null) {
 		console.error("No ast returned.");
 
