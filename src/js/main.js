@@ -87,7 +87,7 @@ var parseDSL = function(event) {
 	if (errors.length > 0) ast = null;
 	if(ast == null) {
 		console.error("No ast returned.");
-
+		
 		// Display errors
 		var compensationOffset = 0;
 		for (var i = 0; i < errors.length; i++) {
