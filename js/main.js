@@ -61,15 +61,14 @@ var openDSL = function (event) {
 }
 
 var parseDSL = function(event) {
-	var input = $('#dsl_text')[0].value;
-	var dslLoader = new DSLLoader(input);
+	var dslLoader = new DSLLoader(dslInput);
 	ast = dslLoader.load();
 	if(ast == null) {
 		console.error("No ast returned.");
 		return;
 	}
 	tryStartingConverter();
-	console.log(ast.eval(fa));
+	console.log("DSL INPUT: " + dslInput);
 }	
 
 var tryStartingConverter = function() {
@@ -100,6 +99,7 @@ function displayStep(steps, currStep) {
 }
 
 $(document).ready(function() {	
+	dslInput = $('#dsl_text').html();
 	$("#next").click(function(e) {
 		if(currStep < steps.length - 1) {
 			currStep++;
@@ -114,5 +114,25 @@ $(document).ready(function() {
 			displayStep(steps, currStep);
 		}
 		return false;
+	});
+	
+	$('#dsl_text').focus(function (evt) {
+		if (typeof dslInput === 'undefined') {
+			dslInput = $(this).html();
+			return;
+		}
+		$(this).html(dslInput);
+	});
+	
+	$('#dsl_text').change(function (evt) {
+		dslInput = $(this).html();
+	});
+	$('#dsl_text').on('input', (function (evt) {
+		dslInput = $(this).html();
+	}));
+	
+	$('#dslButton').click(function (evt) {
+		$('#dsl_text').html(dslInput);
+		parseDSL(evt);
 	});
 });

@@ -34,20 +34,24 @@ $(document).ready(function() {
 	$("#Heuristica1").click(function(e) {
 		e.preventDefault();
 		document.getElementById('dsl_text').innerHTML = "static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);";
+		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica2").click(function(e) {
 		e.preventDefault();
 		document.getElementById('dsl_text').innerHTML = "dynamic #indeg * #outdeg;";
+		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica3").click(function(e) {
 		e.preventDefault();
 		document.getElementById('dsl_text').innerHTML = "cenas3";
+		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica4").click(function(e) {
 		e.preventDefault();
 		document.getElementById('dsl_text').innerHTML = "cenas4";
+		$("#dsl_text").trigger("change");
 	});
 });

@@ -108,3 +108,27 @@
     border: 1px solid lightgray;
 	position: static;
 }
+
+#dsl_text {
+	text-decoration: none;
+	padding: 1em;
+	
+	-moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 28px;
+    overflow: auto;
+    padding: 2px;
+    resize: both;
+    width: 400px;
+}
+#dsl_text .error {
+	background: url(../img/underline.gif), url(../img/error.png);
+	background-size: auto, 10px 10px;
+	background-position: 0px 1em, left bottom;
+	background-repeat: repeat-x, no-repeat;
+	margin-bottom: -10px;
+	padding-bottom: 10px;
+}
