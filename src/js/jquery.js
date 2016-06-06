@@ -33,13 +33,13 @@ $(document).ready(function() {
 	
 	$("#Heuristica1").click(function(e) {
 		e.preventDefault();
-		document.getElementById('dsl_text').innerHTML = "static sum(in : #ins_nl)  { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);";
+		document.getElementById('dsl_text').innerHTML = "static sum(in : #ins_nl) { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl);";
 		$("#dsl_text").trigger("change");
 	});
 	
 	$("#Heuristica2").click(function(e) {
 		e.preventDefault();
-		document.getElementById('dsl_text').innerHTML = "dynamic #indeg * #outdeg;";
+		document.getElementById('dsl_text').innerHTML = "dynamic #indeg + #outdeg; dynamic #indeg;";
 		$("#dsl_text").trigger("change");
 	});
 	

@@ -40,6 +40,7 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	var minor = this.children[1];
 
 	var scores = result.getScores();
+	console.log(vars);
 	
 	if(typeof minor == 'undefined') {	// MAJOR
 		for(var i = 0; i < vars.length; ++i) {

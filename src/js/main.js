@@ -33,9 +33,9 @@ var openFile = function (event) {
 	$("#results_available").css("display", "none");
 	$("#results_unavailable").css("display", "block");
 	$("#error_dot").css("display", "block");
-	
+
 	fa = null;
-	
+
 	var input = event.target;
 
 	var reader = new FileReader();
@@ -56,7 +56,7 @@ var openFile = function (event) {
 		// create a network
 		var container = document.getElementById('mynetwork');
 		var network = new vis.Network(container, fa, options);
-		
+
 		$("#error_dot").css("display", "none");
 		if(ast !== null) {
 			$("#error_dsl").css("display", "none");
@@ -79,7 +79,7 @@ var parseDSL = function(event) {
 	$("#results_unavailable").css("display", "block");
 	$("#error_dsl").css("display", "block");
 	ast = null;
-	
+
 	errors = [];
 	console.log("PARSING " + $('<div/>').html(dslInput).text());
 	var dslLoader = new DSLLoader($('<div/>').html(dslInput).text());
@@ -87,8 +87,8 @@ var parseDSL = function(event) {
 	if (errors.length > 0) ast = null;
 	if(ast == null) {
 		console.error("No ast returned.");
-
-		// Display inline errors
+		
+		// Display errors
 		displayErrors();
 		errors = [];
 
@@ -100,7 +100,7 @@ var parseDSL = function(event) {
 	errors = [];
 	tryStartingConverter();
 	displayErrors();
-	
+
 	if(errors.length == 0 && ast != null) {
 		$("#error_dsl").css("display", "none");
 		if(fa != null) {
@@ -117,12 +117,19 @@ var displayErrors = function() {
 	var compensationOffset = 0;
 	for (var i = 0; i < errors.length; i++) {
 		var error = errors[i];
-		oldVal = dslInput;
-		var newVal = oldVal.substr(0, error.offendingSymbol.start + compensationOffset);
-		newVal += '<span class="text-error">' + oldVal.substr(error.offendingSymbol.start + compensationOffset, error.offendingSymbol.stop+1 - error.offendingSymbol.start) + '</span>';
-		newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
-		console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
-		$("#dsl_text").html(newVal);
+
+		// Display inline error for the first one only
+		if (i == 0) {
+			oldVal = dslInput;
+			var newVal = oldVal.substr(0, error.offendingSymbol.start + compensationOffset);
+			var erroredText = oldVal.substr(error.offendingSymbol.start + compensationOffset, error.offendingSymbol.stop+1 - error.offendingSymbol.start);
+			newVal += '<span class="text-error">' + erroredText + '</span>';
+			newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
+			compensationOffset += newVal.length - erroredText.length;
+			console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
+			$("#dsl_text").html(newVal);
+		}
+		
 		var newEl;
 		if (typeof error.line !== 'undefined' && typeof error.column !== 'undefined')
 			newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
@@ -199,7 +206,7 @@ $(document).ready(function() {
 		$('#dsl_text').html(dslInput);
 		parseDSL(evt);
 	});
-	
+
 	$("#results_available").css("display", "none");
 });
 
