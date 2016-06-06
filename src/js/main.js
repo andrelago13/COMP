@@ -80,7 +80,11 @@ var parseDSL = function(event) {
 			newVal += oldVal.substring(error.offendingSymbol.stop+1 + compensationOffset);
 			console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
 			$("#dsl_text").html(newVal);
-			var newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
+			var newEl;
+			if (typeof error.line !== 'undefined' && typeof error.column !== 'undefined')
+				newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
+			else
+				newEl = $('<div class="error" style="display: none;">' + error.msg + '</div>');
 			$(".errors").append(newEl);
 			newEl.show("normal");
 		}
