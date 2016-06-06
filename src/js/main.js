@@ -87,7 +87,7 @@ var parseDSL = function(event) {
 	if (errors.length > 0) ast = null;
 	if(ast == null) {
 		console.error("No ast returned.");
-		
+
 		// Display errors
 		displayErrors();
 		errors = [];
@@ -111,7 +111,7 @@ var parseDSL = function(event) {
 	}
 
 	errors = [];
-}	
+}
 
 var displayErrors = function() {
 	var compensationOffset = 0;
@@ -129,7 +129,7 @@ var displayErrors = function() {
 			console.log(error.recognizer, error.offendingSymbol, error.line, error.column, error.msg, error.e);
 			$("#dsl_text").html(newVal);
 		}
-		
+
 		var newEl;
 		if (typeof error.line !== 'undefined' && typeof error.column !== 'undefined')
 			newEl = $('<div class="error" style="display: none;">Ln. ' + error.line + ' Col. ' + error.column + ': ' + error.msg + '</div>');
@@ -151,6 +151,8 @@ var tryStartingConverter = function() {
 	currStep = 0;
 
 	$("#resultsre").text("Regex: " + regex);
+	$("#resultsNumSymbols").text("Number of Symbols: " + calculateWeight(regex, Metrics.numSymbols));
+	$("#resultsLength").text("Length: " + calculateWeight(regex, Metrics.length));
 	displayStep(steps, currStep);
 }
 
@@ -163,11 +165,11 @@ function displayStep(steps, currStep) {
 	};
 	var container = document.getElementById('mynetwork2');
 	var network = new vis.Network(container, steps[currStep].fa, options);
-	$('#steps').text(currStep + "/" + (steps.length - 1));	
+	$('#steps').text(currStep + "/" + (steps.length - 1));
 	$('#explanation').text(steps[currStep].explanation);
 }
 
-$(document).ready(function() {	
+$(document).ready(function() {
 	dslInput = $('#dsl_text').html();
 	$("#next").click(function(e) {
 		if(currStep < steps.length - 1) {
