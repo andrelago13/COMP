@@ -40,7 +40,6 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 	var minor = this.children[1];
 
 	var scores = result.getScores();
-	console.log(vars);
 	
 	if(typeof minor == 'undefined') {	// MAJOR
 		for(var i = 0; i < vars.length; ++i) {
@@ -48,10 +47,10 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 			if(typeof value != 'undefined') {
 				scores[i] = value;
 			} else {
-				errors.push({
+				/*errors.push({
 					offendingSymbol: major,
 					msg: "Undefined variable \"" + major + "\".",
-				});
+				});*/
 			}
 		}
 	} else {							// MAJOR.MINOR
@@ -71,10 +70,10 @@ EO_AST_NodeV.prototype.eval = function(graph, result, vars) {
 					break;
 				}
 			} else {
-				errors.push({
+				/*errors.push({
 					offendingSymbol: major,
 					msg: "Undefined variable \"" + major + "\" at \"" + major + "." + minor + "\".",
-				});
+				});*/
 			}
 		}
 	}
