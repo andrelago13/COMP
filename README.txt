@@ -1,10 +1,10 @@
 **PROJECT TITLE: FA2RE-SE
 **GROUP: 1FA2RE-SE
 (Names, numbers, self assessment, and contribution of the members of the group according to:)
-NAME: André Lago, NR: <number>, GRADE1: <0 to 20 value>, CONTRIBUTION: <0 to 100 %)
-NAME: Carolina Moreira, NR: <number>, GRADE: <0 to 20 value>, CONTRIBUTION: <0 to 100 %)
-NAME: Gustavo Silva, NR: 201304143, GRADE2: <0 to 20 value>, CONTRIBUTION: <0 to 100 %)
-NAME: Leonardo Ferreira, NR: 201305980, GRADE: <0 to 20 value>, CONTRIBUTION: <0 to 100 %)
+NAME: André Lago, NR: <number>, GRADE1: <0 to 20 value>, CONTRIBUTION: 35%
+NAME: Carolina Moreira, NR: <number>, GRADE: <0 to 20 value>, CONTRIBUTION: 10%
+NAME: Gustavo Silva, NR: 201304143, GRADE2: 20, CONTRIBUTION: 35%
+NAME: Leonardo Ferreira, NR: 201305980, GRADE: 15, CONTRIBUTION: 20%
 (Note: consider that the sum of the individual contributions of the members should not exceed 100%)
 
 
@@ -50,6 +50,7 @@ Gustavo Silva:
 
 Leonardo Ferreira:
 - Output visualization (HTML, CSS and Javascript)
+- Vis.js integration 
 
 
 **PROS: (Identify the most positive aspects of your tool)
