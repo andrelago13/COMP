@@ -1,0 +1,1 @@
+Expected result: (ac*b+b)(ac*b)*(ac*a+b)+ac*a

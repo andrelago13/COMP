@@ -39,7 +39,7 @@ Converter.prototype.convert = function() {
 			fa: this.eliminateState(lastFa, stateID),
 			explanation: "Eliminated state '" + lastFa.nodes[stateID].label + "' (ID: '" + lastFa.nodes[stateID].id + "')."
 		});
-	
+		
 		// Fix IDs
 		for (var i = 0; i < order.length; i++) {
 			if (order[i] > stateID) order[i]--;
@@ -178,7 +178,6 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 					label += loopLabel + "*";
 			}
 			if (typeof afterLabel != 'undefined') {
-				console.log(this.needsParenthesis(afterLabel), afterLabel);
 				if (this.needsParenthesis(afterLabel))
 					label += "(" + afterLabel + ")";
 				else
