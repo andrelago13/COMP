@@ -15,6 +15,13 @@ var EO_AST_NodeTerminal = require('dsl/ast/EO_AST_NodeTerminal').EO_AST_NodeTerm
 var EO_AST_NodeReserved = require('dsl/ast/EO_AST_NodeReserved').EO_AST_NodeReserved;
 var Stack = require('js/Stack').Stack;
 
+/*
+ * CustomListener is an extension of an Antlr4 generated class. As you can see in the official Antlr documentation, 
+ * listeners are used to visit the CST as it is constructed. In the example of our application, the listener is used
+ * to build the AST as we visit the CST, extracting only the information required for the evaluation of the automata,
+ * and simplifying the structure of the tree itself so that evaluation is more intuitive.
+ */
+
 function CustomListener(symbolicNames, ruleNames) {
 	EliminationOrderListener.call(this);
 	this.ast = new EO_AST();

@@ -1,6 +1,10 @@
 DSLLoader.prototype = Object.create(DSLLoader.prototype);
 DSLLoader.prototype.constructor = DSLLoader;
 
+/*
+ * This class uses Antlr4 as well as our own custom classes to read and validate an expression according to the DSL we defined in the "About" page
+ */
+
 function DSLLoader(dslString) {
 	this.dslString = dslString;
 }

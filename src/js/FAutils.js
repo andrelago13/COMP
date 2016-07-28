@@ -1,5 +1,9 @@
 var EPSILON = '\u03B5';
 
+/*
+ * This file as some useful tools used for finite automata manipulation
+ */
+
 Metrics = {
 	numSymbols : 0,
 	length : 1
@@ -64,6 +68,9 @@ function removeNode(fa, nodeID) {
 	addHelpfulInfoToNodesAndEdges(fa);
 }
 
+/*
+ * Helpful information is all sorts of node data that can be used for node evaluation, such as ins, outs, ins_nl, outs_nl, ...
+ */
 function addHelpfulInfoToNodesAndEdges(data) {
 	for (var i = 0; i < data.nodes.length; i++) {
 		var id = data.nodes[i].id;

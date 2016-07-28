@@ -5,6 +5,12 @@ function VarMap() {
 	return this;
 }
 
+/*
+ * This class represents a mapping of names and variables. This is essential because the DSL we defined allows the definition of variables.
+ * Therefore, the node classes use VarMap objects to store variable values and pass them onto each other, also allowing the use of variable
+ * scopes.
+ */
+
 VarMap.prototype.constructor = VarMap;
 
 VarMap.prototype.getVar = function(name) {

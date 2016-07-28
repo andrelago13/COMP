@@ -1,6 +1,22 @@
 var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 var VarMap = require('dsl/ast/VarMap').VarMap;
 
+/*
+ * This is the basic class to represent a generic AST node, for instance the root node.
+ * 
+ * All other Node classes represent nodes equivalent to portions of the grammar.
+ * 
+ * AST nodes are also used to evaluate a certain graph according to the grammar they specify.
+ * The main functionality implemented by nodes is:
+ * 	- eval - the function that evaluates the Node's symbolic value within the AST
+ *  - solveTies - because this specific class represents the root node of the AST, it's eval function must return the final order at which nodes must be removed.
+ *  	Node evaluation may result in ties at the first attempt, so it is necessary to solve those ties, moving to the following expressions specified. The purpose 
+ *  	of solveTies is to reevaluate nodes that have the same score with one sub-expression, calculating their values with following sub-expression. The algorithm
+ *  	itself is complex, so please see the documentation of that function to better understand how it works
+ *  
+ * Read the rest of the documentation to understand how it works and which algorithms are used.
+ */
+
 function EO_AST_Node(father) {
 	this.children = [];
 	this.father = father;
@@ -46,6 +62,15 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 }
 
 // MUST BE OVERRIDEN BY EVERY NODE
+/*
+ * Eval is the main function of every Node class. The result is returned via the passed parameter 'result', which is an instance of
+ * 		EvalResult which represents a result of evaluation, as explained in it's specific documentation.
+ * In the case of this class, eval calculates the value of the graph nodes given the first sub-expression, solving any ties with the
+ * following sub-expressions if necessary.
+ * 
+ * This function MUST BE OVERRIDEN by any subclass so that it behaves correctly. Please see the implementation of this function in all 
+ * subclasses because the behavior of this function depends on the part of the AST the instance represents.
+ */
 EO_AST_Node.prototype.eval = function(graph, result) {
 	var var_maps = [];
 	var n_nodes = graph.nodes.length;
@@ -86,6 +111,12 @@ EO_AST_Node.prototype.swap = function(array, index1, index2) {
 	array[index2] = temp;
 }
 
+/*
+ * solveTies is used to break ties of score in the nodes. To do that, the main line of logic is as follows:
+ * 		- Check the current score of all nodes
+ * 		- For all sets of tied nodes, solve the tie by recalculating and reordering those nodes and their scores
+ * 		- Return the new order and new calculated scores of each node in 'new_scores' and 'new_orders'
+ */
 EO_AST_Node.prototype.solveTies = function(scores, orders, new_scores, new_orders) {
 	var tie_value = null;
 	var first_tie = -1;
@@ -129,6 +160,9 @@ EO_AST_Node.prototype.solveTies = function(scores, orders, new_scores, new_order
 	}
 }
 
+/*
+ * Set score of un-tied nodes to null, so that specific tie-intervals are well defined
+ */
 EO_AST_Node.prototype.createTempTies = function(scores, orders, first_tie, last_tie, current_tie) {
 	var tie_on_previous = false;
 	for(var i = first_tie; i < last_tie; ++i) {
@@ -155,6 +189,9 @@ EO_AST_Node.prototype.createTempTies = function(scores, orders, first_tie, last_
 	return current_tie;
 }
 
+/*
+ * Recalculate the score of tied nodes and reorder them
+ */
 EO_AST_Node.prototype.solveTie = function(scores, orders, new_scores, new_orders, first_tie, last_tie) {
 	var temp_scores = [];
 	var temp_orders = [];
@@ -177,6 +214,9 @@ EO_AST_Node.prototype.solveTie = function(scores, orders, new_scores, new_orders
 	}
 }
 
+/*
+ * Check if a set of scores has at least one set of tied nodes
+ */
 EO_AST_Node.prototype.hasTie = function(scores) {
 	var found_tie = false;
 	var tie_on_previous = false;

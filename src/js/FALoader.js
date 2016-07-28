@@ -1,6 +1,12 @@
 FALoader.prototype = Object.create(FALoader.prototype);
 FALoader.prototype.constructor = FALoader;
 
+/*
+ * This class creates a simple interface for external applications to load and validate finite automatas.
+ * 
+ * It includes all sort of validations to ensure the ".dot" file given is a valid file and represents a valid FA
+ */
+
 function FALoader(dotString) {
 	this.dotString = dotString;
 	this.startNodeID = -1;

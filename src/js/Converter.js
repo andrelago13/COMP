@@ -2,6 +2,12 @@ var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 Converter.prototype = Object.create(Converter.prototype);
 Converter.prototype.constructor = Converter;
 
+/*
+ * This class performs the actual convertion of the finite automata.
+ * The order of elimination is given by the results of evaluating the AST, and some
+ * simplifications are made to avoid getting redundant regular expressions.
+ */
+
 function Converter(fa, ast) {
 	this.fa = fa;
 	this.ast = ast;

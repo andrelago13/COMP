@@ -29,6 +29,9 @@ var steps;
 var regex;
 var errors;
 
+/*
+ * Open the dot file, performing required validations
+ */
 var openFile = function (event) {
 	$("#results_available").css("display", "none");
 	$("#results_unavailable").css("display", "block");
@@ -67,6 +70,9 @@ var openFile = function (event) {
 	reader.readAsText(input.files[0]);
 };
 
+/*
+ * Read the DSL specified in its area
+ */
 var openDSL = function (event) {
 	var input = event.srcElement.value;
 	var dslLoader = new DSLLoader(input);
@@ -74,6 +80,9 @@ var openDSL = function (event) {
 	tryStartingConverter();
 }
 
+/*
+ * Parse the given DSL to check for all sorts of errors
+ */
 var parseDSL = function(event) {
 	$("#results_available").css("display", "none");
 	$("#results_unavailable").css("display", "block");
@@ -113,6 +122,9 @@ var parseDSL = function(event) {
 	errors = [];
 }
 
+/*
+ * Display errors found in the DSL in a user-friendly and understandable way
+ */
 var displayErrors = function() {
 	var compensationOffset = 0;
 	for (var i = 0; i < errors.length; i++) {
@@ -156,6 +168,9 @@ var tryStartingConverter = function() {
 	displayStep(steps, currStep);
 }
 
+/*
+ * Display a specific step of the elimination steps of removing states from the automata
+ */
 function displayStep(steps, currStep) {
 	var options = {
 			nodes:{
@@ -212,6 +227,9 @@ $(document).ready(function() {
 	$("#results_available").css("display", "none");
 });
 
+/*
+ * Switch to a state (section) of the page
+ */
 function toggleState(state) {
 	document.getElementById('about').style.display = 'none';
 	document.getElementById('results').style.display = 'none';
