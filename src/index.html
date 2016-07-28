@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Compilers</title>
+    <title>FA2RE-SE</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -33,9 +33,9 @@
                 <li class="sidebar-brand"><a href="#intro" onclick="toggleState(0);">
                       FA2RE-SE
                     </a></li>
-                <li><a href="#dotFile" onclick="toggleState(1);">Load Dot</a></li>
-                <li><a href="#parseDSL" onclick="toggleState(2);">DSL</a></li>
-                <li><a href="#results" onclick="toggleState(3);">Results</a></li>
+                <li><a href="#dotFile" onclick="toggleState(1);">1 - Load Dot</a></li>
+                <li><a href="#parseDSL" onclick="toggleState(2);">2 - DSL</a></li>
+                <li><a href="#results" onclick="toggleState(3);">3 - Results</a></li>
                 <li><a href="#about" onclick="toggleState(4);">About</a></li>
             </ul>
         </div>
@@ -49,7 +49,7 @@
                         <h1>FA2RE-SE</h1>
                         <br/>
                         <br/>
-                        <p><strong> Objective: </strong>Develop a framework that transforms finite automatas (FA's) into Regular Expressions using the state elimination method.</p>
+                        <p><strong> Objective of the project: </strong>Develop a framework that transforms finite automatas (FA's) into Regular Expressions using the state elimination method.</p>
                         <p>This interface allows the user to perform the operation mentioned above, presenting the results and some useful information about the process at the end.</p>
                         <p>The main feature of this interface is the possibility to specify how nodes must be "ranked" when selecting which should be removed at each stage. To do this, the user must specify an expression indicating how the "score" of each
                             node is to be calculated, as specified by our DSL (see the <a href="#" onClick="toggleState(4);">About</a> section)</p>
@@ -83,7 +83,10 @@
                         <h3> Step 1 - Load ".dot" file</h3>
                         <br/>
                         <p>Please specify the ".dot" file containing the information of the finite automata you wish to convert to a regular expression.</p>
-                        <br>
+                        <br/>
+                        <p>"DOT" is a graph description language, implementing rules that allow it to fully define all sorts of graphs. In this case, we will use a subset of the language 
+                        to represent finite automatas, which are in fact a specific sort of graphs with some rules. For more information on the ".dot" format and to see some examples, click <a href="https://en.wikipedia.org/wiki/DOT_(graph_description_language)">here</a>.</p>
+                        <br/>
                         <input type='file' accept='text/plain,.dot' onchange='openFile(event)'>
                         <h6> <strong> Note: </strong> Please choose a valid file! </h6>
                         <br/>
@@ -97,7 +100,12 @@
                         <h1>FA2RE-SE</h1>
 						<br>
 						<h3> Step 2 - Specify node ranking method </h3>
-						<br>
+						<br/>
+						<p>Below, you can specify an expression that determines how the node ranking should be calculated. Node ranking is used to choose the order in which 
+						nodes are removed from the automata, and it has a huge impact on the resulting regular expression.</p>
+						<p>Feel free to use one of the examples we have created using the buttons directly below the box, or use "Parse DSL" to validate your own expression and 
+						find if it has any errors. Don't forget that the grammar must follow <a href="#about" onclick="toggleState(4);">this</a>specific format.</p>
+						<br/>
 						<h6> <strong> Note: </strong> Please choose a valid dsl!! </h6>
 						<div spellcheck="false" contenteditable="true" id='dsl_text' type='text' accept='text/plain'>
 static sum(in : #ins_nl)  {
