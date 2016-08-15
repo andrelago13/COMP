@@ -4,10 +4,6 @@
     "version": "0.8",
     "url": "https://github.com/andrelago13/COMP",
     "options": {
-        "outdir": "docs/api",
-        "paths": [
-      		"../src/js",
-      		"../src/dsl"
-    		]
+        "outdir": "docs/api"
     }
 }
