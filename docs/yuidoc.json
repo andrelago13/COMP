@@ -1,0 +1,13 @@
+{
+    "name": "FA2RE - SE",
+    "description": "Finite Automata to Regular Expression converter (using the state elimination method)",
+    "version": "0.8",
+    "url": "https://github.com/andrelago13/COMP",
+    "options": {
+        "outdir": "docs/api",
+        "paths": [
+      		"../src/js",
+      		"../src/dsl"
+    		]
+    }
+}
