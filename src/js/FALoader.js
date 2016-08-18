@@ -1,17 +1,30 @@
 FALoader.prototype = Object.create(FALoader.prototype);
 FALoader.prototype.constructor = FALoader;
 
-/*
+/**
  * This class creates a simple interface for external applications to load and validate finite automatas.
  * 
  * It includes all sort of validations to ensure the ".dot" file given is a valid file and represents a valid FA
+ *  @class FALoader
+ *  @module FiniteAutomata
  */
 
+/**
+ * @class FALoader
+ * @constructor
+ * @param dotString String with the dot files's content, which must yet be parsed
+ */
 function FALoader(dotString) {
 	this.dotString = dotString;
 	this.startNodeID = -1;
 }
 
+/**
+ * Parses the dot file content using "vis".
+ * After parsing, adds the usefult information to the nodes and edges (see FAutils.js)
+ * 
+ * @method load
+ */
 FALoader.prototype.load = function() {
 	var parsedData = vis.network.convertDot(this.dotString);
 
@@ -27,6 +40,13 @@ FALoader.prototype.load = function() {
 	return data;
 }
 
+/**
+ * Assign the EPSILON label to all non-labeled edges
+ * 
+ * @method fixEmptyTransitions
+ * @param fa input finite automata
+ * @return the processed automata
+ */
 FALoader.prototype.fixEmptyTransitions = function(fa) {
 	for (var i = 0; i < fa.edges.length; i++) {
 		if (typeof fa.edges[i].label == 'undefined')
@@ -35,6 +55,17 @@ FALoader.prototype.fixEmptyTransitions = function(fa) {
 	return fa;
 }
 
+/**
+ * Validates a finite automata, see:
+ *  - validateSingleStart
+ *  - validateFinalExistence
+ *  - validateNoUnreachable
+ *  - validateTransitions
+ *  
+ *  @method validate
+ *  @param fa input finite automata
+ *  @return true if the automata is valid, false otherwise
+ */
 FALoader.prototype.validate = function(fa) {
 	return this.validateSingleStart(fa)
 	&& this.validateFinalExistence(fa)
@@ -42,6 +73,13 @@ FALoader.prototype.validate = function(fa) {
 	&& this.validateTransitions(fa);
 }
 
+/**
+ * Ensures the finite automata has only one start node
+ * 
+ * @method validateSingleStart
+ * @param fa input finite automata
+ * @return true if the automata has only one start node, false otherwise
+ */
 FALoader.prototype.validateSingleStart = function(fa) {
 	var count = 0;
 	for (var i = 0; i < fa.nodes.length; i++) {
@@ -57,6 +95,14 @@ FALoader.prototype.validateSingleStart = function(fa) {
 	return false;
 }
 
+
+/**
+ * Ensures the finite automata has at least one final node
+ * 
+ * @method validateFinalExistence
+ * @param fa input finite automata
+ * @return true if the automata has at least one final node, false otherwise
+ */
 FALoader.prototype.validateFinalExistence = function(fa) {
 	for (var i = 0; i < fa.nodes.length; i++) {
 		if (isNodeFinal(fa.nodes[i]))
@@ -66,6 +112,13 @@ FALoader.prototype.validateFinalExistence = function(fa) {
 	return false;
 }
 
+/**
+ * Ensures the finite automata has no unreachable nodes
+ * 
+ * @method validateNoUnreachable
+ * @param fa input finite automata
+ * @return true if the automata has no unreachable nodes, false otherwise
+ */
 FALoader.prototype.validateNoUnreachable = function(fa) {
 	var visited = [];
 	for (var i = 0; i < fa.nodes.length; i++) {
@@ -93,6 +146,13 @@ FALoader.prototype.validateNoUnreachable = function(fa) {
 	return true;
 }
 
+/**
+ * Ensures all edges in the finite automata have a valid label (single character)
+ * 
+ * @method validateTransitions
+ * @param fa input finite automata
+ * @return true if the automata labels all are a single character, false otherwise
+ */
 FALoader.prototype.validateTransitions = function(fa) {
 	for (var i = 0; i < fa.edges.length; i++) {
 		if (typeof fa.edges[i].label == 'undefined')
