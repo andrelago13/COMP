@@ -21,18 +21,77 @@ $( document ).ready(function() {
 	require('js/Stack');
 });
 
+/**
+ * This module initializes the page and performs the on-page actions,
+ * then calling the rest of the API to perform the intended actions.
+ * Please consult the documentation of the methods in this file for more details
+ * 
+ * @module Main
+ */
+
 var fa = null;
 var ast = null;
 var stepsNumber;
 var currStep = 0;
 var steps;
 var regex;
+/*
+ * This global variable is used by the API to place errors. It makes them easier to reach and track.
+ */
 var errors;
 
 /*
- * Open the dot file, performing required validations
+ * Initializes the page, setting the click listeners for the buttons,
+ * and the listeners for changes in the DSL input text
  */
-var openFile = function (event) {
+var initPage = function() {
+	
+	dslInput = $('#dsl_text').html();
+	$("#next").click(function(e) {
+		if(currStep < steps.length - 1) {
+			currStep++;
+			displayStep(steps, currStep);
+		}
+		return false;
+	});
+
+	$("#previous").click(function(e) {
+		if(currStep > 0) {
+			currStep--;
+			displayStep(steps, currStep);
+		}
+		return false;
+	});
+
+	$('#dsl_text').focus(function (evt) {
+		if (typeof dslInput === 'undefined') {
+			dslInput = $(this).html();
+			return;
+		}
+		$(this).html(dslInput);
+	});
+
+	$('#dsl_text').change(function (evt) {
+		dslInput = $(this).html();
+	});
+	$('#dsl_text').on('input', (function (evt) {
+		dslInput = $(this).html();
+	}));
+
+	$('#dslButton').click(function (evt) {
+		$(".errors").empty();
+		$("#success").hide();
+		$('#dsl_text').html(dslInput);
+		parseDSL(evt);
+	});
+
+	$("#results_available").css("display", "none");
+}
+
+/*
+ * Open the automata's dot file, performing required validations
+ */
+var openAutomata(event) = function (event) {
 	$("#results_available").css("display", "none");
 	$("#results_unavailable").css("display", "block");
 	$("#error_dot").css("display", "block");
@@ -42,21 +101,22 @@ var openFile = function (event) {
 	var input = event.target;
 
 	var reader = new FileReader();
+	// Action performed when the automata loads
 	reader.onload = function(){
 		var text = reader.result;
 
+		// Use FALoader to load the automata
 		var faLoader = new FALoader(text);
 		fa = faLoader.load();
 		tryStartingConverter();
 
-		// you can extend the options like a normal JSON variable:
 		var options = {
 				nodes:{
 					color: 'grey',
 					shadow: true
 				}
 		}
-		// create a network
+		// create a network to visualize in the page with "vis"
 		var container = document.getElementById('mynetwork');
 		var network = new vis.Network(container, fa, options);
 
@@ -71,17 +131,7 @@ var openFile = function (event) {
 };
 
 /*
- * Read the DSL specified in its area
- */
-var openDSL = function (event) {
-	var input = event.srcElement.value;
-	var dslLoader = new DSLLoader(input);
-	ast = dslLoader.load();
-	tryStartingConverter();
-}
-
-/*
- * Parse the given DSL to check for all sorts of errors
+ * Read and validate the DSL expression
  */
 var parseDSL = function(event) {
 	$("#results_available").css("display", "none");
@@ -92,12 +142,15 @@ var parseDSL = function(event) {
 	errors = [];
 	console.log("PARSING " + $('<div/>').html(dslInput).text());
 	var dslLoader = new DSLLoader($('<div/>').html(dslInput).text());
+	
+	// Load the DSL expression using DSLLoader, returning the ast
 	ast = dslLoader.load();
+	// If parsing the DSL expression resulted in errors, they will be in the "errors" array
 	if (errors.length > 0) ast = null;
 	if(ast == null) {
 		console.error("No ast returned.");
 
-		// Display errors
+		// Display errors in a user friendly way
 		displayErrors();
 		errors = [];
 
@@ -152,9 +205,14 @@ var displayErrors = function() {
 	}
 }
 
+/*
+ * Tries to start the FA to RE converter. This is only done if there is a parsed AST and an automata, and if there are no errors.
+ * If both conditions check, then everything is ready to start the conversion
+ */
 var tryStartingConverter = function() {
 	if (!fa || !ast) return;
 	var converter = new Converter(fa, ast);
+	// The converter returns all the steps of the conversion, so that we can understand how states were eliminated from the automata
 	var result = converter.convert();
 	steps = result.steps;
 	regex = result.regex;
@@ -184,49 +242,6 @@ function displayStep(steps, currStep) {
 	$('#explanation').text(steps[currStep].explanation);
 }
 
-$(document).ready(function() {
-	dslInput = $('#dsl_text').html();
-	$("#next").click(function(e) {
-		if(currStep < steps.length - 1) {
-			currStep++;
-			displayStep(steps, currStep);
-		}
-		return false;
-	});
-
-	$("#previous").click(function(e) {
-		if(currStep > 0) {
-			currStep--;
-			displayStep(steps, currStep);
-		}
-		return false;
-	});
-
-	$('#dsl_text').focus(function (evt) {
-		if (typeof dslInput === 'undefined') {
-			dslInput = $(this).html();
-			return;
-		}
-		$(this).html(dslInput);
-	});
-
-	$('#dsl_text').change(function (evt) {
-		dslInput = $(this).html();
-	});
-	$('#dsl_text').on('input', (function (evt) {
-		dslInput = $(this).html();
-	}));
-
-	$('#dslButton').click(function (evt) {
-		$(".errors").empty();
-		$("#success").hide();
-		$('#dsl_text').html(dslInput);
-		parseDSL(evt);
-	});
-
-	$("#results_available").css("display", "none");
-});
-
 /*
  * Switch to a state (section) of the page
  */
@@ -255,3 +270,5 @@ function toggleState(state) {
 		break;
 	}
 }
+
+$(document).ready(initPage);
