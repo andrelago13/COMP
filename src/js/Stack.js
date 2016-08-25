@@ -1,7 +1,13 @@
 /**
- * Provides a simple "stack" class, useful for AST creation
+ * Utilities for the application
  * 
  * @module Utils
+ * @class Stack
+ */
+
+/**
+ * Provides a simple "stack" class, useful for AST creation
+ * 
  * @class Stack
  * @constructor
  */
