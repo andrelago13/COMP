@@ -1,14 +1,30 @@
 DSLLoader.prototype = Object.create(DSLLoader.prototype);
 DSLLoader.prototype.constructor = DSLLoader;
 
-/*
- * This class uses Antlr4 as well as our own custom classes to read and validate an expression according to the DSL we defined in the "About" page
+/**
+ * Classes to help parsing, validating and evaluating expressions under the DSL we defined in the "About" page
+ * 
+ *  @class DSLLoader
+ *  @module Grammar
  */
 
+/**
+ * This class uses Antlr4 as well as our own custom classes to read and validate an expression according to the DSL we defined in the "About" page
+ * 
+ * @class DSLLoader
+ * @constructor
+ * @param dslString String with the string to analyze
+ */
 function DSLLoader(dslString) {
 	this.dslString = dslString;
 }
 
+/**
+ * Loads the expression into an AST, performing lexical, syntatic and some semantic validation. If errors are found, they are placed in the global "errors" array
+ * 
+ * @method load
+ * @return {EO_AST} generated AST, null if errors occurred
+ */
 DSLLoader.prototype.load = function() {
 	var antlr4 = require('antlr4/index');
 	var EliminationOrderLexer = require('dsl/EliminationOrderLexer');

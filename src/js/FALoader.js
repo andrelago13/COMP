@@ -2,14 +2,17 @@ FALoader.prototype = Object.create(FALoader.prototype);
 FALoader.prototype.constructor = FALoader;
 
 /**
- * This class creates a simple interface for external applications to load and validate finite automatas.
+ * Module containing utilities for manipulating finite automatas
  * 
- * It includes all sort of validations to ensure the ".dot" file given is a valid file and represents a valid FA
  *  @class FALoader
  *  @module FiniteAutomata
  */
 
 /**
+ * This class creates a simple interface for external applications to load and validate finite automatas.
+ * 
+ * It includes all sort of validations to ensure the ".dot" file given is a valid file and represents a valid FA
+ * 
  * @class FALoader
  * @constructor
  * @param dotString String with the dot files's content, which must yet be parsed
