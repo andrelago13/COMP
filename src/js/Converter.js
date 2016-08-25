@@ -2,17 +2,28 @@ var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 Converter.prototype = Object.create(Converter.prototype);
 Converter.prototype.constructor = Converter;
 
-/*
+/**
  * This class performs the actual convertion of the finite automata.
  * The order of elimination is given by the results of evaluating the AST, and some
  * simplifications are made to avoid getting redundant regular expressions.
+ * 
+ * @class Converter
+ * @module FiniteAutomata
+ * @param fa automata to convert
+ * @param ast AST resulting from loading the DSL expression
+ * @constructor
  */
-
 function Converter(fa, ast) {
 	this.fa = fa;
 	this.ast = ast;
 }
 
+/**
+ * Converts the given FA into a regular expression, eliminating the states in the order given by the evaluation of the DSL expression
+ * 
+ * @method convert
+ * @return an array with two members: "steps" (intermediate steps of the conversion, FAs), "regex" (resulting regular expression). Each member of "steps" is an object with the FA ("fa") and an explanation ("explanation") of what happenned in that step.
+ */
 Converter.prototype.convert = function() {
 	var faHistory = [{
 		fa: FAClone(this.fa),
@@ -60,6 +71,12 @@ Converter.prototype.convert = function() {
 	return { steps: faHistory, regex: faHistory.slice(-1)[0].fa.edges[0].label };
 }
 
+/**
+ * Retrieves an array with the id's of all nodes in the FA
+ * 
+ * @method convertNodeIDArrayToNodeArrayIndex
+ * @return the converted array
+ */
 Converter.prototype.convertNodeIDArrayToNodeArrayIndex = function(oldArray) {
 	var newArray = [];
 	for (var i = 0; i < array1.length; i++) {
@@ -68,6 +85,13 @@ Converter.prototype.convertNodeIDArrayToNodeArrayIndex = function(oldArray) {
 	return newArray;
 }
 
+/**
+ * Fixes an FA, formatting the start node
+ * 
+ * @method fixStartingState
+ * @param fa FA to fix
+ * @return the converted FA
+ */
 Converter.prototype.fixStartingState = function(fa) {
 	var newFa = FAClone(fa);
 	var oldStartID = findNodeByID(newFa, "START");
@@ -99,6 +123,13 @@ Converter.prototype.fixStartingState = function(fa) {
 	return newFa;
 }
 
+/**
+ * Fixes an FA, formatting the final node
+ * 
+ * @method fixFinalState
+ * @param fa FA to fix
+ * @return the converted FA
+ */
 Converter.prototype.fixFinalState = function(fa) {
 	var newFa = FAClone(fa);
 	
@@ -142,6 +173,15 @@ Converter.prototype.fixFinalState = function(fa) {
 	return newFa;
 }
 
+/**
+ * Merges the transition label in an FA, between the given nodes
+ * 
+ * @method getMergedTransitionsLabel
+ * @param fa FA to merge
+ * @param srcID id of the source node
+ * @param dstID id of the destination node
+ * @return the converted label
+ */
 Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 	var label = "";
 	for (var i = 0; i < fa.nodes[srcID].outEdges.length; i++) {
@@ -158,6 +198,14 @@ Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
 	return this.removeUnnecessaryStuff(label).replace(/\s+/g, '');
 }
 
+/**
+ * Eliminates a state from the FA
+ * 
+ * @method eliminateState
+ * @param fa FA to merge
+ * @param stateID id of the node to remove
+ * @return the new FA
+ */
 Converter.prototype.eliminateState = function(fa, stateID) {
 	fa = FAClone(fa);
 	var edgesToAdd = [];
@@ -210,6 +258,13 @@ Converter.prototype.eliminateState = function(fa, stateID) {
 	return fa;
 }
 
+/**
+ * Checks if a given label needs parenthesis around it for the regex to be valid
+ * 
+ * @method needsParenthesis
+ * @param s expression to validate
+ * @return true if it needs parenthesis, false otherwise
+ */
 Converter.prototype.needsParenthesis = function(s) {
 	for (var i = 0; i < s.length; i++) {
 		if (s[i] === '+')
