@@ -1,13 +1,18 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var FAutils = require('js/FAutils');
-
-/*
+/**
+ * Represents node "V" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["MAJOR" (, "MINOR") ]
  * 
  * 	As identifier is either MAJOR or MAJOR.MINOR
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeV
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var FAutils = require('js/FAutils');
 
 EO_AST_NodeV.MinorType = {
 	WEIGHT : "weight"

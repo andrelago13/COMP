@@ -1,16 +1,21 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EO_AST_NodeReserved = require('dsl/ast/EO_AST_NodeReserved').EO_AST_NodeReserved;
-var EvalResult = require('dsl/ast/EvalResult').EvalResult;
-var VarMap = require('dsl/ast/VarMap').VarMap;
-
-/*
+/**
+ * Represents node "Loop" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["TYPE", "IDENTIFIER", EO_AST_NodeReserved, EO_AST_NodeE]
  * 
  * 	"TYPE" - one of EO_AST_NodeLoop.SUM, EO_AST_NodeLoop.MUL
  * 	"IDENTIFIER" - actual string with identifier's name
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeLoop
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EO_AST_NodeReserved = require('dsl/ast/EO_AST_NodeReserved').EO_AST_NodeReserved;
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
+var VarMap = require('dsl/ast/VarMap').VarMap;
 
 EO_AST_NodeLoop.SUM = 'sum';
 EO_AST_NodeLoop.MUL = 'mul';

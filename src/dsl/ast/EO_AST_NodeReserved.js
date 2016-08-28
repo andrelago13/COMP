@@ -1,13 +1,17 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-
-/*
+/**
+ * Represents node "Reserved" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["NAME"]
  * 
  * See EO_AST_NodeReserved.Type
  * 
+ * @module Grammar
+ * @class EO_AST_NodeReserved
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
 EO_AST_NodeReserved.Type = {
 		// Values

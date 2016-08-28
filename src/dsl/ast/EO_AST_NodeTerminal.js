@@ -1,10 +1,15 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-
-/*
+/**
+ * Represents node "Terminal" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["NAME"]
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeTerminal
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
 
 function EO_AST_NodeTerminal(father, name, value) {
 	EO_AST_Node.EO_AST_Node.call(this, father);

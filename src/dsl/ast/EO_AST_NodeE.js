@@ -1,15 +1,20 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EvalResult = require('dsl/ast/EvalResult').EvalResult;
-var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1').EO_AST_NodeE1;
-var VarMap = require('dsl/ast/VarMap').VarMap;
-
-/*
+/**
+ * Represents node "E" of the grammar.
+ * 
  * Usage example:
  * 
  * 		[ EO_AST_NodeT ( , EO_AST_NodeE1 ) ]
  * 
- * 	If EO_AST_NodeE1 does not exist, replaces itself by EO_AST_NodeT
+ * If EO_AST_NodeE1 does not exist, the node replaces itself by EO_AST_NodeT
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeE
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
+var EO_AST_NodeE1 = require('dsl/ast/EO_AST_NodeE1').EO_AST_NodeE1;
+var VarMap = require('dsl/ast/VarMap').VarMap;
 
 function EO_AST_NodeE(father) {
 	EO_AST_Node.EO_AST_Node.call(this, father);

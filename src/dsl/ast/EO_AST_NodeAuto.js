@@ -1,13 +1,18 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EvalResult = require('dsl/ast/EvalResult').EvalResult;
-
-/*
+/**
+ * Represents node "Auto" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["TYPE", EO_AST_NodeE]
  * 
  * 	"TYPE" - one of EO_AST_NodeAuto.Type
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeAuto
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 
 EO_AST_NodeAuto.Type = {
 	STATIC : 'static',

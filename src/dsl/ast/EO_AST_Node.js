@@ -1,7 +1,7 @@
 var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 var VarMap = require('dsl/ast/VarMap').VarMap;
 
-/*
+/**
  * This is the basic class to represent a generic AST node, for instance the root node.
  * 
  * All other Node classes represent nodes equivalent to portions of the grammar.
@@ -15,6 +15,9 @@ var VarMap = require('dsl/ast/VarMap').VarMap;
  *  	itself is complex, so please see the documentation of that function to better understand how it works
  *  
  * Read the rest of the documentation to understand how it works and which algorithms are used.
+ * 
+ * @module Grammar
+ * @class EO_AST_Node
  */
 
 function EO_AST_Node(father) {
@@ -61,8 +64,7 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
 	}
 }
 
-// MUST BE OVERRIDEN BY EVERY NODE
-/*
+/**
  * Eval is the main function of every Node class. The result is returned via the passed parameter 'result', which is an instance of
  * 		EvalResult which represents a result of evaluation, as explained in it's specific documentation.
  * In the case of this class, eval calculates the value of the graph nodes given the first sub-expression, solving any ties with the
@@ -70,6 +72,10 @@ EO_AST_Node.prototype.removeChildIfExists = function(child) {
  * 
  * This function MUST BE OVERRIDEN by any subclass so that it behaves correctly. Please see the implementation of this function in all 
  * subclasses because the behavior of this function depends on the part of the AST the instance represents.
+ * 
+ * @param graph finite automata
+ * @param result where the result should be placed
+ * @method eval
  */
 EO_AST_Node.prototype.eval = function(graph, result) {
 	var var_maps = [];
@@ -111,11 +117,13 @@ EO_AST_Node.prototype.swap = function(array, index1, index2) {
 	array[index2] = temp;
 }
 
-/*
- * solveTies is used to break ties of score in the nodes. To do that, the main line of logic is as follows:
+/**
+ * Used to break ties of score in the nodes. To do that, the main line of logic is as follows:
  * 		- Check the current score of all nodes
  * 		- For all sets of tied nodes, solve the tie by recalculating and reordering those nodes and their scores
  * 		- Return the new order and new calculated scores of each node in 'new_scores' and 'new_orders'
+ * 
+ * @method solveTies
  */
 EO_AST_Node.prototype.solveTies = function(scores, orders, new_scores, new_orders) {
 	var tie_value = null;
@@ -160,8 +168,10 @@ EO_AST_Node.prototype.solveTies = function(scores, orders, new_scores, new_order
 	}
 }
 
-/*
+/**
  * Set score of un-tied nodes to null, so that specific tie-intervals are well defined
+ * 
+ * @method createTempTies
  */
 EO_AST_Node.prototype.createTempTies = function(scores, orders, first_tie, last_tie, current_tie) {
 	var tie_on_previous = false;
@@ -189,8 +199,10 @@ EO_AST_Node.prototype.createTempTies = function(scores, orders, first_tie, last_
 	return current_tie;
 }
 
-/*
+/**
  * Recalculate the score of tied nodes and reorder them
+ * 
+ * @method solveTie
  */
 EO_AST_Node.prototype.solveTie = function(scores, orders, new_scores, new_orders, first_tie, last_tie) {
 	var temp_scores = [];
@@ -214,8 +226,10 @@ EO_AST_Node.prototype.solveTie = function(scores, orders, new_scores, new_orders
 	}
 }
 
-/*
+/**
  * Check if a set of scores has at least one set of tied nodes
+ * 
+ * @method hasTie
  */
 EO_AST_Node.prototype.hasTie = function(scores) {
 	var found_tie = false;

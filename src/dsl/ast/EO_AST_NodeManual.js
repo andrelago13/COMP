@@ -1,13 +1,18 @@
-var EO_AST_Node = require('dsl/ast/EO_AST_Node');
-var EvalResult = require('dsl/ast/EvalResult').EvalResult;
-
-/*
+/**
+ * Represents node "Manual" of the grammar.
+ * 
  * Usage example:
  * 
  * 		["INT", "INT", ...]
  * 
  * 	"INT" - number with the node's id
+ * 
+ * @module Grammar
+ * @class EO_AST_NodeManual
  */
+
+var EO_AST_Node = require('dsl/ast/EO_AST_Node');
+var EvalResult = require('dsl/ast/EvalResult').EvalResult;
 
 function EO_AST_NodeManual(father) {
 	EO_AST_Node.EO_AST_Node.call(this, father);
