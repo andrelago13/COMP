@@ -14,7 +14,12 @@ To specify the order in which to eliminate the states, the user must specify an 
 
 
 **USING THE API:
-TODO
+The easiest way to learn how to use the API is to read the code examples in "js/main.js" in the following way:
+- Parsing the automata file into a graph structure -> method "openAutomata"
+- Parsing the DSL expression, watching for all sorts of errors -> method "parseDSL"
+ - this might require running antlr4 first to generate the antlr class files
+- Understand how to read errors generate by vis or our DSL parser -> method "displayErrors"
+- Execute the conversion and display the steps of elimination -> method "tryStartingConverter"
 
 **DEALING WITH SYNTACTIC ERRORS:
 Syntatic analysis is performed when our program visits the ANTLR4 CST to build our custom AST. This analysis doesn't stop at the first error, it simply adds a error message to a list of errors, displayed at the end.
