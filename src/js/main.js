@@ -103,32 +103,49 @@ var openAutomata = function (event) {
 	var reader = new FileReader();
 	// Action performed when the automata loads
 	reader.onload = function(){
-		var text = reader.result;
-
-		// Use FALoader to load the automata
-		var faLoader = new FALoader(text);
-		fa = faLoader.load();
-		tryStartingConverter();
-
-		var options = {
-				nodes:{
-					color: 'grey',
-					shadow: true
-				}
-		}
-		// create a network to visualize in the page with "vis"
-		var container = document.getElementById('mynetwork');
-		var network = new vis.Network(container, fa, options);
-
-		$("#error_dot").css("display", "none");
-		if(ast !== null) {
-			$("#error_dsl").css("display", "none");
-			$("#results_available").css("display", "block");
-			$("#results_unavailable").css("display", "none");
-		}
+		loadAutomataFromText(reader.result);
 	};
 	reader.readAsText(input.files[0]);
 };
+
+/*
+ * Actually parses the text containing a doc-style automata, validates and displays it.
+ */
+var loadAutomataFromText = function (text) {
+	// Use FALoader to load the automata
+	var faLoader = new FALoader(text);
+	fa = faLoader.load();
+	tryStartingConverter();
+
+	var options = {
+			nodes:{
+				color: 'grey',
+				shadow: true
+			}
+	}
+	// create a network to visualize in the page with "vis"
+	var container = document.getElementById('mynetwork');
+	var network = new vis.Network(container, fa, options);
+
+	$("#error_dot").css("display", "none");
+	if(ast !== null) {
+		$("#error_dsl").css("display", "none");
+		$("#results_available").css("display", "block");
+		$("#results_unavailable").css("display", "none");
+	}
+}
+
+/*
+ * Loads one of the sample automatas. Currently, only numbers 1-5 are supported
+ */
+var loadSampleAutomata = function (number) {
+	if(number < 1 || number > 5)
+		return;
+	
+	$.get('res/samples/fa' + number + '.dot', function(result) {
+		loadAutomataFromText(result);
+	});
+}
 
 /*
  * Read and validate the DSL expression

@@ -1,0 +1,20 @@
+digraph {
+  rankdir=LR;
+  node [shape = doublecircle,
+  		peripheries = 2]; q3;
+  node [shape = circle];
+  START[label=q0];
+  START -> q1 [label=a];
+  START -> q2 [label=b];
+  q1 -> q2 [label=b];
+  q1 -> q3 [label=a];
+  q2 -> q1 [label=a];
+  q2 -> q3 [label=b];
+  q1 -> q1 [label=c];
+  q5 -> q7 [label=a];
+  q4 -> q6 [label=a];
+  q1 -> q5 [label=c];
+  q2 -> q4 [label=c];
+  q7 -> q6 [label=c];
+  q6 -> q3;
+}
