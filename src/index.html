@@ -95,11 +95,17 @@
                         <button type="button" class="btn btn-primary" onClick="loadSampleAutomata(4);">Example 4</button>
                         <button type="button" class="btn btn-primary" onClick="loadSampleAutomata(5);">Example 5</button>
                         <br/>
-                        <h4>Demo of the automata:</h4>
+                        <h4>Demo of the automata (see the .dot content of the automata below):</h4>
                         <div id="mynetwork"></div>
                         <br/>
                         <button type="button" class="btn btn-primary" onClick="toggleState(0);">Previous step</button>
                         <button type="button" class="btn btn-primary" onClick="toggleState(2);">Next step</button>
+                        <br/>
+                        <div class="form-group" id="dottextareadiv">
+                        	<br/>
+  							<label for="comment">Dot content of the automata:</label>
+  							<textarea class="form-control" rows="10" id="dottextarea"></textarea>
+						</div>
                     </div>
                     <div class="col-lg-12" id="parseDSL">
                         <h1>FA2RE-SE</h1>

@@ -19,6 +19,8 @@ $( document ).ready(function() {
 	require('dsl/ast/EvalResult');
 	require('dsl/CustomErrorListener');
 	require('js/Stack');
+
+	document.getElementById("dottextareadiv").style.visibility='hidden';
 });
 
 /**
@@ -104,6 +106,8 @@ var openAutomata = function (event) {
 	// Action performed when the automata loads
 	reader.onload = function(){
 		loadAutomataFromText(reader.result);
+		document.getElementById("dottextareadiv").style.visibility='visible';
+		document.getElementById("dottextareadiv").value = reader.result;
 	};
 	reader.readAsText(input.files[0]);
 };
@@ -144,6 +148,8 @@ var loadSampleAutomata = function (number) {
 	
 	$.get('res/samples/fa' + number + '.dot', function(result) {
 		loadAutomataFromText(result);
+		document.getElementById("dottextareadiv").style.visibility='visible';
+		document.getElementById("dottextareadiv").value = result;
 	});
 }
 
