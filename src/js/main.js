@@ -91,7 +91,7 @@ var initPage = function() {
 /*
  * Open the automata's dot file, performing required validations
  */
-var openAutomata(event) = function (event) {
+var openAutomata = function (event) {
 	$("#results_available").css("display", "none");
 	$("#results_unavailable").css("display", "block");
 	$("#error_dot").css("display", "block");
