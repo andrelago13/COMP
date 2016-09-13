@@ -240,6 +240,8 @@ var tryStartingConverter = function() {
 	steps = result.steps;
 	regex = result.regex;
 	console.log(regex);
+	
+	showNodesRemoved();
 
 	currStep = 0;
 
@@ -263,6 +265,27 @@ function displayStep(steps, currStep) {
 	var network = new vis.Network(container, steps[currStep].fa, options);
 	$('#steps').text(currStep + "/" + (steps.length - 1));
 	$('#explanation').text(steps[currStep].explanation);
+}
+
+var showNodesRemoved = function () {
+	var removed_ids = [];
+	
+	for(var i = 0; i < steps.length; ++i) {
+		if(typeof steps[i].nodeRemoved != 'undefined') {
+			removed_ids.push(steps[i].nodeRemoved);
+		}
+	}
+	
+	var text = "Nodes removed in this order: ";
+	
+	for(var i = 0; i < removed_ids.length; ++i) {
+		text += "'" + removed_ids[i] + "' ";
+		if(i < removed_ids.length - 1) {
+			text += " - ";
+		}
+	}
+
+	document.getElementById("nodedRemovedOrder").innerText = text;
 }
 
 /*

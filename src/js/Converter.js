@@ -60,7 +60,8 @@ Converter.prototype.convert = function() {
 		} while (stateID == lastFa.startID || isNodeFinal(lastFa.nodes[stateID]));
 		faHistory.push({
 			fa: this.eliminateState(lastFa, stateID),
-			explanation: "Eliminated state '" + lastFa.nodes[stateID].label + "' (ID: '" + lastFa.nodes[stateID].id + "')."
+			explanation: "Eliminated state '" + lastFa.nodes[stateID].label + "' (ID: '" + lastFa.nodes[stateID].id + "').",
+			nodeRemoved: lastFa.nodes[stateID].id
 		});
 		
 		// Fix IDs
