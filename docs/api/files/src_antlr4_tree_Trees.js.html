@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\antlr4\tree\Trees.js - FA2RE - SE</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="FA2RE - SE" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.8</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Converter.html">Converter</a></li>
+                                <li><a href="../classes/CustomErrorListener.html">CustomErrorListener</a></li>
+                                <li><a href="../classes/DSLLoader.html">DSLLoader</a></li>
+                                <li><a href="../classes/EO_AST.html">EO_AST</a></li>
+                                <li><a href="../classes/EO_AST_Node.html">EO_AST_Node</a></li>
+                                <li><a href="../classes/EO_AST_NodeAuto.html">EO_AST_NodeAuto</a></li>
+                                <li><a href="../classes/EO_AST_NodeE.html">EO_AST_NodeE</a></li>
+                                <li><a href="../classes/EO_AST_NodeE1.html">EO_AST_NodeE1</a></li>
+                                <li><a href="../classes/EO_AST_NodeF.html">EO_AST_NodeF</a></li>
+                                <li><a href="../classes/EO_AST_NodeLoop.html">EO_AST_NodeLoop</a></li>
+                                <li><a href="../classes/EO_AST_NodeManual.html">EO_AST_NodeManual</a></li>
+                                <li><a href="../classes/EO_AST_NodeReserved.html">EO_AST_NodeReserved</a></li>
+                                <li><a href="../classes/EO_AST_NodeT.html">EO_AST_NodeT</a></li>
+                                <li><a href="../classes/EO_AST_NodeT1.html">EO_AST_NodeT1</a></li>
+                                <li><a href="../classes/EO_AST_NodeTerminal.html">EO_AST_NodeTerminal</a></li>
+                                <li><a href="../classes/EO_AST_NodeV.html">EO_AST_NodeV</a></li>
+                                <li><a href="../classes/EvalResult.html">EvalResult</a></li>
+                                <li><a href="../classes/FALoader.html">FALoader</a></li>
+                                <li><a href="../classes/Stack.html">Stack</a></li>
+                                <li><a href="../classes/VarMap.html">VarMap</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/FAutils.html">FAutils</a></li>
+                                <li><a href="../modules/FiniteAutomata.html">FiniteAutomata</a></li>
+                                <li><a href="../modules/Grammar.html">Grammar</a></li>
+                                <li><a href="../modules/Main.html">Main</a></li>
+                                <li><a href="../modules/Utils.html">Utils</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: src\antlr4\tree\Trees.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * [The &quot;BSD license&quot;]
+ *  Copyright (c) 2012 Terence Parr
+ *  Copyright (c) 2012 Sam Harwell
+ *  All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions
+ *  are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *  2. Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *  3. The name of the author may not be used to endorse or promote products
+ *     derived from this software without specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE AUTHOR &#x60;&#x60;AS IS&#x27;&#x27; AND ANY EXPRESS OR
+ *  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ *  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var Utils = require(&#x27;./../Utils&#x27;);
+var Token = require(&#x27;./../Token&#x27;).Token;
+var RuleNode = require(&#x27;./Tree&#x27;).RuleNode;
+var ErrorNode = require(&#x27;./Tree&#x27;).ErrorNode;
+var TerminalNode = require(&#x27;./Tree&#x27;).TerminalNode;
+var ParserRuleContext = require(&#x27;./../ParserRuleContext&#x27;).ParserRuleContext;
+
+
+/** A set of utility routines useful for all kinds of ANTLR trees. */
+function Trees() {
+}
+
+// Print out a whole tree in LISP form. {@link //getNodeText} is used on the
+//  node payloads to get the text for the nodes.  Detect
+//  parse trees and extract data appropriately.
+Trees.toStringTree = function(tree, ruleNames, recog) {
+	ruleNames = ruleNames || null;
+	recog = recog || null;
+    if(recog!==null) {
+       ruleNames = recog.ruleNames;
+    }
+    var s = Trees.getNodeText(tree, ruleNames);
+    s = Utils.escapeWhitespace(s, false);
+    var c = tree.getChildCount();
+    if(c===0) {
+        return s;
+    }
+    var res = &quot;(&quot; + s + &#x27; &#x27;;
+    if(c&gt;0) {
+        s = Trees.toStringTree(tree.getChild(0), ruleNames);
+        res = res.concat(s);
+    }
+    for(var i=1;i&lt;c;i++) {
+        s = Trees.toStringTree(tree.getChild(i), ruleNames);
+        res = res.concat(&#x27; &#x27; + s);
+    }
+    res = res.concat(&quot;)&quot;);
+    return res;
+};
+
+Trees.getNodeText = function(t, ruleNames, recog) {
+	ruleNames = ruleNames || null;
+	recog = recog || null;
+    if(recog!==null) {
+        ruleNames = recog.ruleNames;
+    }
+    if(ruleNames!==null) {
+       if (t instanceof RuleNode) {
+           return ruleNames[t.getRuleContext().ruleIndex];
+       } else if ( t instanceof ErrorNode) {
+           return t.toString();
+       } else if(t instanceof TerminalNode) {
+           if(t.symbol!==null) {
+               return t.symbol.text;
+           }
+       }
+    }
+    // no recog for rule names
+    var payload = t.getPayload();
+    if (payload instanceof Token ) {
+       return payload.text;
+    }
+    return t.getPayload().toString();
+};
+
+
+// Return ordered list of all children of this node
+Trees.getChildren = function(t) {
+	var list = [];
+	for(var i=0;i&lt;t.getChildCount();i++) {
+		list.push(t.getChild(i));
+	}
+	return list;
+};
+
+// Return a list of all ancestors of this node.  The first node of
+//  list is the root and the last is the parent of this node.
+//
+Trees.getAncestors = function(t) {
+    var ancestors = [];
+    t = t.getParent();
+    while(t!==null) {
+        ancestors = [t].concat(ancestors);
+        t = t.getParent();
+    }
+    return ancestors;
+};
+   
+Trees.findAllTokenNodes = function(t, ttype) {
+    return Trees.findAllNodes(t, ttype, true);
+};
+
+Trees.findAllRuleNodes = function(t, ruleIndex) {
+	return Trees.findAllNodes(t, ruleIndex, false);
+};
+
+Trees.findAllNodes = function(t, index, findTokens) {
+	var nodes = [];
+	Trees._findAllNodes(t, index, findTokens, nodes);
+	return nodes;
+};
+
+Trees._findAllNodes = function(t, index, findTokens, nodes) {
+	// check this node (the root) first
+	if(findTokens &amp;&amp; (t instanceof TerminalNode)) {
+		if(t.symbol.type===index) {
+			nodes.push(t);
+		}
+	} else if(!findTokens &amp;&amp; (t instanceof ParserRuleContext)) {
+		if(t.ruleIndex===index) {
+			nodes.push(t);
+		}
+	}
+	// check children
+	for(var i=0;i&lt;t.getChildCount();i++) {
+		Trees._findAllNodes(t.getChild(i), index, findTokens, nodes);
+	}
+};
+
+Trees.descendants = function(t) {
+	var nodes = [t];
+    for(var i=0;i&lt;t.getChildCount();i++) {
+        nodes = nodes.concat(Trees.descendants(t.getChild(i)));
+    }
+    return nodes;
+};
+
+
+exports.Trees = Trees;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\js\Converter.js - FA2RE - SE</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="FA2RE - SE" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.8</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Converter.html">Converter</a></li>
+                                <li><a href="../classes/CustomErrorListener.html">CustomErrorListener</a></li>
+                                <li><a href="../classes/DSLLoader.html">DSLLoader</a></li>
+                                <li><a href="../classes/EO_AST.html">EO_AST</a></li>
+                                <li><a href="../classes/EO_AST_Node.html">EO_AST_Node</a></li>
+                                <li><a href="../classes/EO_AST_NodeAuto.html">EO_AST_NodeAuto</a></li>
+                                <li><a href="../classes/EO_AST_NodeE.html">EO_AST_NodeE</a></li>
+                                <li><a href="../classes/EO_AST_NodeE1.html">EO_AST_NodeE1</a></li>
+                                <li><a href="../classes/EO_AST_NodeF.html">EO_AST_NodeF</a></li>
+                                <li><a href="../classes/EO_AST_NodeLoop.html">EO_AST_NodeLoop</a></li>
+                                <li><a href="../classes/EO_AST_NodeManual.html">EO_AST_NodeManual</a></li>
+                                <li><a href="../classes/EO_AST_NodeReserved.html">EO_AST_NodeReserved</a></li>
+                                <li><a href="../classes/EO_AST_NodeT.html">EO_AST_NodeT</a></li>
+                                <li><a href="../classes/EO_AST_NodeT1.html">EO_AST_NodeT1</a></li>
+                                <li><a href="../classes/EO_AST_NodeTerminal.html">EO_AST_NodeTerminal</a></li>
+                                <li><a href="../classes/EO_AST_NodeV.html">EO_AST_NodeV</a></li>
+                                <li><a href="../classes/EvalResult.html">EvalResult</a></li>
+                                <li><a href="../classes/FALoader.html">FALoader</a></li>
+                                <li><a href="../classes/Stack.html">Stack</a></li>
+                                <li><a href="../classes/VarMap.html">VarMap</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/FAutils.html">FAutils</a></li>
+                                <li><a href="../modules/FiniteAutomata.html">FiniteAutomata</a></li>
+                                <li><a href="../modules/Grammar.html">Grammar</a></li>
+                                <li><a href="../modules/Main.html">Main</a></li>
+                                <li><a href="../modules/Utils.html">Utils</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: src\js\Converter.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var EvalResult = require(&#x27;dsl/ast/EvalResult&#x27;).EvalResult;
+Converter.prototype = Object.create(Converter.prototype);
+Converter.prototype.constructor = Converter;
+
+/**
+ * This class performs the actual convertion of the finite automata.
+ * The order of elimination is given by the results of evaluating the AST, and some
+ * simplifications are made to avoid getting redundant regular expressions.
+ * 
+ * @class Converter
+ * @module FiniteAutomata
+ * @param fa automata to convert
+ * @param ast AST resulting from loading the DSL expression
+ * @constructor
+ */
+function Converter(fa, ast) {
+	this.fa = fa;
+	this.ast = ast;
+}
+
+/**
+ * Converts the given FA into a regular expression, eliminating the states in the order given by the evaluation of the DSL expression
+ * 
+ * @method convert
+ * @return an array with two members: &quot;steps&quot; (intermediate steps of the conversion, FAs), &quot;regex&quot; (resulting regular expression). Each member of &quot;steps&quot; is an object with the FA (&quot;fa&quot;) and an explanation (&quot;explanation&quot;) of what happenned in that step.
+ */
+Converter.prototype.convert = function() {
+	var faHistory = [{
+		fa: FAClone(this.fa),
+		explanation: &quot;Initial FA.&quot;
+	}];
+	
+	faHistory.push({
+		fa: this.fixStartingState(faHistory.slice(-1)[0].fa),
+		explanation: &quot;Inserted auxiliary starting state.&quot;
+	});
+	faHistory.push({
+		fa: this.fixFinalState(faHistory.slice(-1)[0].fa),
+		explanation: &quot;Inserted auxiliary final state.&quot;
+	});
+	var cutFa = FAClone(faHistory.slice(-1)[0].fa);
+	cutFa.nodes.pop();
+	cutFa.nodes.pop();
+	var result = this.ast.eval(cutFa);
+	var order = result.getOrder();
+	var type = result.getType();
+	while (faHistory.slice(-1)[0].fa.nodes.length &gt; 2)
+	{
+		if (result.getType() == EvalResult.Type.DYNAMIC) {
+			var cutFa = FAClone(faHistory.slice(-1)[0].fa);
+			cutFa.nodes.pop();
+			cutFa.nodes.pop();
+			order = this.ast.eval(cutFa).getOrder();
+		} else {
+		}
+		var stateID;
+		var lastFa = faHistory.slice(-1)[0].fa;
+		do {
+			stateID = order.pop();
+		} while (stateID == lastFa.startID || isNodeFinal(lastFa.nodes[stateID]));
+		faHistory.push({
+			fa: this.eliminateState(lastFa, stateID),
+			explanation: &quot;Eliminated state &#x27;&quot; + lastFa.nodes[stateID].label + &quot;&#x27; (ID: &#x27;&quot; + lastFa.nodes[stateID].id + &quot;&#x27;).&quot;,
+			nodeRemoved: lastFa.nodes[stateID].id
+		});
+		
+		// Fix IDs
+		for (var i = 0; i &lt; order.length; i++) {
+			if (order[i] &gt; stateID) order[i]--;
+		}
+	}
+	return { steps: faHistory, regex: faHistory.slice(-1)[0].fa.edges[0].label };
+}
+
+/**
+ * Retrieves an array with the id&#x27;s of all nodes in the FA
+ * 
+ * @method convertNodeIDArrayToNodeArrayIndex
+ * @return the converted array
+ */
+Converter.prototype.convertNodeIDArrayToNodeArrayIndex = function(oldArray) {
+	var newArray = [];
+	for (var i = 0; i &lt; array1.length; i++) {
+		newArray.push(this.fa.nodes[i].id);
+	}
+	return newArray;
+}
+
+/**
+ * Fixes an FA, formatting the start node
+ * 
+ * @method fixStartingState
+ * @param fa FA to fix
+ * @return the converted FA
+ */
+Converter.prototype.fixStartingState = function(fa) {
+	var newFa = FAClone(fa);
+	var oldStartID = findNodeByID(newFa, &quot;START&quot;);
+	for (var i = 0; i &lt; newFa.edges.length; i++) {
+		if (newFa.edges[i].from === &quot;START&quot;)
+			newFa.edges[i].from = newFa.nodes[oldStartID].id;
+		if (newFa.edges[i].to === &quot;START&quot;)
+			newFa.edges[i].to = newFa.nodes[oldStartID].id;
+	}
+	newFa.nodes.push({
+		id: randomString(32),
+		inEdges: [],
+		label: &quot;START&quot;,
+		outEdges: [newFa.edges.length],
+		shape: &quot;circle&quot;
+	});
+	newFa.edges.push({
+		arrows: &quot;to&quot;,
+		from: newFa.nodes[newFa.nodes.length - 1].id,
+		fromID: newFa.nodes.length - 1,
+		id: randomString(32),
+		label: EPSILON,
+		to: newFa.nodes[oldStartID].id,
+		toID: oldStartID
+	})
+	newFa.nodes[oldStartID].inEdges.push(newFa.edges.length - 1);
+	newFa.startID = newFa.nodes.length - 1;
+	addHelpfulInfoToNodesAndEdges(newFa);
+	return newFa;
+}
+
+/**
+ * Fixes an FA, formatting the final node
+ * 
+ * @method fixFinalState
+ * @param fa FA to fix
+ * @return the converted FA
+ */
+Converter.prototype.fixFinalState = function(fa) {
+	var newFa = FAClone(fa);
+	
+	// Push final states and make them non-final
+	var finalIDs = [];
+	for (var i = 0; i &lt; newFa.nodes.length; i++) {
+		if (isNodeFinal(newFa.nodes[i])) {
+			finalIDs.push(i);
+			makeNodeNotFinal(newFa.nodes[i]);
+		}
+	}
+
+	// Create new final state
+	var newID = newFa.nodes.length;
+	newFa.nodes.push({
+		id: newID,
+		inEdges: [],
+		label: &quot;FINAL&quot;,
+		outEdges: [],
+		shape: &quot;doublecircle&quot;,
+		peripheries: 2
+	});
+
+	// Create new edges
+	for (var i = 0; i &lt; finalIDs.length; i++) {
+		var node = newFa.nodes[finalIDs[i]];
+		var edgeID = newFa.edges.length;
+		newFa.edges.push({
+			arrows: &quot;to&quot;,
+			from: node.id,
+			fromID: finalIDs[i],
+			id: randomString(32),
+			label: EPSILON,
+			to: newID,
+			toID: newID
+		});
+		node.outEdges.push(edgeID);
+		newFa.nodes[newID].inEdges.push(edgeID);
+	}
+	addHelpfulInfoToNodesAndEdges(newFa);
+	return newFa;
+}
+
+/**
+ * Merges the transition label in an FA, between the given nodes
+ * 
+ * @method getMergedTransitionsLabel
+ * @param fa FA to merge
+ * @param srcID id of the source node
+ * @param dstID id of the destination node
+ * @return the converted label
+ */
+Converter.prototype.getMergedTransitionsLabel = function(fa, srcID, dstID) {
+	var label = &quot;&quot;;
+	for (var i = 0; i &lt; fa.nodes[srcID].outEdges.length; i++) {
+		var edgeID = fa.nodes[srcID].outEdges[i];
+		if (fa.edges[edgeID].toID !== dstID)
+			continue;
+		if (label === &quot;&quot;)
+			label = fa.edges[edgeID].label;
+		else
+			label += &quot;+&quot; + fa.edges[edgeID].label;
+	}
+	if (label === &quot;&quot;)
+		return undefined;
+	return this.removeUnnecessaryStuff(label).replace(/\s+/g, &#x27;&#x27;);
+}
+
+/**
+ * Eliminates a state from the FA
+ * 
+ * @method eliminateState
+ * @param fa FA to merge
+ * @param stateID id of the node to remove
+ * @return the new FA
+ */
+Converter.prototype.eliminateState = function(fa, stateID) {
+	fa = FAClone(fa);
+	var edgesToAdd = [];
+	for (var i = 0; i &lt; fa.nodes[stateID].inEdges.length; i++) {
+		var inEdgeID = fa.nodes[stateID].inEdges[i];
+		if (fa.edges[inEdgeID].fromID === stateID)
+			continue;
+
+		var beforeLabel = this.getMergedTransitionsLabel(fa, fa.edges[inEdgeID].fromID, stateID);
+
+		var loopLabel = this.getMergedTransitionsLabel(fa, stateID, stateID);
+
+		for (var j = 0; j &lt; fa.nodes[stateID].outEdges.length; j++) {
+			var outEdgeID = fa.nodes[stateID].outEdges[j];
+			if (fa.edges[outEdgeID].toID === stateID)
+				continue;
+			var afterLabel = this.getMergedTransitionsLabel(fa, stateID, fa.edges[outEdgeID].toID);
+			
+			var label = &quot;&quot;;
+			if (typeof beforeLabel != &#x27;undefined&#x27;) {
+				if (this.needsParenthesis(beforeLabel))
+					label += &quot;(&quot; + beforeLabel + &quot;)&quot;;
+				else
+					label += beforeLabel;
+			}
+			if (typeof loopLabel != &#x27;undefined&#x27;) {
+				if (loopLabel.length &gt; 1 &amp;&amp; ((beforeLabel || afterLabel) &amp;&amp; (beforeLabel !== EPSILON || afterLabel !== EPSILON)))
+					label += &quot;(&quot; + loopLabel + &quot;)*&quot;;
+				else
+					label += loopLabel + &quot;*&quot;;
+			}
+			if (typeof afterLabel != &#x27;undefined&#x27;) {
+				if (this.needsParenthesis(afterLabel))
+					label += &quot;(&quot; + afterLabel + &quot;)&quot;;
+				else
+					label += afterLabel;
+			}
+			label = this.removeUnnecessaryStuff(label);
+
+			if (label === &quot;&quot;) label = undefined;
+
+			if (typeof label != &#x27;undefined&#x27; || fa.edges[inEdgeID].fromID !== fa.edges[outEdgeID].toID)
+				edgesToAdd.push([fa, fa.edges[inEdgeID].fromID, fa.edges[outEdgeID].toID, label.length &gt; 0 ? this.removeUnnecessaryStuff(label) : undefined]);
+		}
+	}
+	for (var i = 0; i &lt; edgesToAdd.length; i++)
+		addEdge(edgesToAdd[i][0], edgesToAdd[i][1], edgesToAdd[i][2], edgesToAdd[i][3]);
+	removeNode(fa, stateID);
+	addHelpfulInfoToNodesAndEdges(fa);
+	return fa;
+}
+
+/**
+ * Checks if a given label needs parenthesis around it for the regex to be valid
+ * 
+ * @method needsParenthesis
+ * @param s expression to validate
+ * @return true if it needs parenthesis, false otherwise
+ */
+Converter.prototype.needsParenthesis = function(s) {
+	for (var i = 0; i &lt; s.length; i++) {
+		if (s[i] === &#x27;+&#x27;)
+			return true;
+		if (s[i] === &#x27;(&#x27;)
+			break;
+	}
+	for (var i = s.length - 1; i &gt;= 0; i--) {
+		if (s[i] === &#x27;+&#x27;)
+			return true;
+		if (s[i] === &#x27;)&#x27;)
+			break;
+	}
+	return false;
+}
+
+Converter.prototype.removeUnnecessaryStuff = function(s) {
+	return this.removeUnnecessaryEpsilons(this.removeUnnecessaryParenthesis(s));
+}
+
+Converter.prototype.removeUnnecessaryParenthesis = function(str) {
+	if (str[0] != &#x27;(&#x27;) return str;
+	var closePos = 0;
+	var counter = 1;
+	while (counter &gt; 0) {
+		var c = str[++closePos];
+		if (c == &#x27;(&#x27;) {
+			counter++;
+		}
+		else if (c == &#x27;)&#x27;) {
+			counter--;
+		}
+	}
+	if (closePos != str.length - 1) return str;
+	str = str.substring(1);
+	str = str.slice(0, -1);
+	return str;
+}
+
+Converter.prototype.removeUnnecessaryEpsilons = function(s) {
+	if (s.length &lt;= 1)
+		return s;
+	if (s[0] === EPSILON &amp;&amp; s[1] !== &#x27;+&#x27;)
+		s = s.substring(1);
+	if (s.length &lt;= 1)
+		return s;
+	if (s[s.length - 1] === EPSILON &amp;&amp; s[s.length - 2] !== &#x27;+&#x27;)
+		s = s.substring(0, s.length - 1);
+	return s;
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
