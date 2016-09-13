@@ -43,7 +43,7 @@ DSLLoader.prototype.load = function() {
 	parser._listeners.push(err_listener);
 	
 	// if the next line gives errors, antlr was not executed
-	// run "java -jar antlr-4.5.3-complete.jar dsl/EliminationOrder.g4 -o dsl -listener -Dlanguage=JavaScript" on root folder
+	// run "java -jar antlr-4.5.3-complete.jar src/dsl/EliminationOrder.g4 -o src/dsl -listener -Dlanguage=JavaScript" on root folder
 	var tree = parser.s();
 
 	if(err_listener.hasError) {
