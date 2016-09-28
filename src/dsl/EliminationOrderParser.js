@@ -5,58 +5,59 @@ var EliminationOrderListener = require('./EliminationOrderListener').Elimination
 var grammarFileName = "EliminationOrder.g4";
 
 var serializedATN = ["\u0003\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd",
-    "\u0003\u0017a\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0003\u0018b\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007\u0004",
     "\b\t\b\u0004\t\t\t\u0004\n\t\n\u0004\u000b\t\u000b\u0004\f\t\f\u0004",
     "\r\t\r\u0003\u0002\u0003\u0002\u0003\u0002\u0003\u0002\u0003\u0002\u0003",
-    "\u0002\u0003\u0002\u0005\u0002\"\n\u0002\u0003\u0003\u0003\u0003\u0005",
-    "\u0003&\n\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0007\u0004+\n\u0004",
-    "\f\u0004\u000e\u0004.\u000b\u0004\u0003\u0005\u0003\u0005\u0003\u0005",
-    "\u0003\u0006\u0003\u0006\u0003\u0007\u0003\u0007\u0003\u0007\u0003\b",
-    "\u0003\b\u0003\b\u0003\b\u0005\b<\n\b\u0003\t\u0003\t\u0003\t\u0003",
-    "\n\u0003\n\u0003\n\u0003\n\u0005\nE\n\n\u0003\u000b\u0003\u000b\u0003",
-    "\u000b\u0003\u000b\u0003\u000b\u0003\u000b\u0003\u000b\u0003\u000b\u0003",
-    "\u000b\u0005\u000bP\n\u000b\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f",
-    "\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\r\u0003\r\u0003\r\u0005",
-    "\r_\n\r\u0003\r\u0002\u0002\u000e\u0002\u0004\u0006\b\n\f\u000e\u0010",
-    "\u0012\u0014\u0016\u0018\u0002\u0006\u0003\u0002\u0004\u0005\u0003\u0002",
-    "\u0010\u0011\u0003\u0002\u0012\u0013\u0003\u0002\u0006\u0007_\u0002",
-    "!\u0003\u0002\u0002\u0002\u0004%\u0003\u0002\u0002\u0002\u0006\'\u0003",
-    "\u0002\u0002\u0002\b/\u0003\u0002\u0002\u0002\n2\u0003\u0002\u0002\u0002",
-    "\f4\u0003\u0002\u0002\u0002\u000e;\u0003\u0002\u0002\u0002\u0010=\u0003",
-    "\u0002\u0002\u0002\u0012D\u0003\u0002\u0002\u0002\u0014O\u0003\u0002",
-    "\u0002\u0002\u0016Q\u0003\u0002\u0002\u0002\u0018[\u0003\u0002\u0002",
-    "\u0002\u001a\u001b\u0005\u0006\u0004\u0002\u001b\u001c\u0007\u000e\u0002",
-    "\u0002\u001c\"\u0003\u0002\u0002\u0002\u001d\u001e\u0005\b\u0005\u0002",
-    "\u001e\u001f\u0007\u000e\u0002\u0002\u001f \u0005\u0004\u0003\u0002",
-    " \"\u0003\u0002\u0002\u0002!\u001a\u0003\u0002\u0002\u0002!\u001d\u0003",
-    "\u0002\u0002\u0002\"\u0003\u0003\u0002\u0002\u0002#&\u0007\u0002\u0002",
-    "\u0003$&\u0005\u0002\u0002\u0002%#\u0003\u0002\u0002\u0002%$\u0003\u0002",
-    "\u0002\u0002&\u0005\u0003\u0002\u0002\u0002\',\u0007\u0014\u0002\u0002",
-    "()\u0007\f\u0002\u0002)+\u0007\u0014\u0002\u0002*(\u0003\u0002\u0002",
-    "\u0002+.\u0003\u0002\u0002\u0002,*\u0003\u0002\u0002\u0002,-\u0003\u0002",
-    "\u0002\u0002-\u0007\u0003\u0002\u0002\u0002.,\u0003\u0002\u0002\u0002",
-    "/0\u0005\n\u0006\u000201\u0005\f\u0007\u00021\t\u0003\u0002\u0002\u0002",
-    "23\t\u0002\u0002\u00023\u000b\u0003\u0002\u0002\u000245\u0005\u0010",
-    "\t\u000256\u0005\u000e\b\u00026\r\u0003\u0002\u0002\u000278\t\u0003",
-    "\u0002\u000289\u0005\u0010\t\u00029:\u0005\u000e\b\u0002:<\u0003\u0002",
-    "\u0002\u0002;7\u0003\u0002\u0002\u0002;<\u0003\u0002\u0002\u0002<\u000f",
-    "\u0003\u0002\u0002\u0002=>\u0005\u0014\u000b\u0002>?\u0005\u0012\n\u0002",
-    "?\u0011\u0003\u0002\u0002\u0002@A\t\u0004\u0002\u0002AB\u0005\u0014",
-    "\u000b\u0002BC\u0005\u0012\n\u0002CE\u0003\u0002\u0002\u0002D@\u0003",
-    "\u0002\u0002\u0002DE\u0003\u0002\u0002\u0002E\u0013\u0003\u0002\u0002",
-    "\u0002FP\u0005\u0018\r\u0002GP\u0007\u0017\u0002\u0002HP\u0007\u0014",
-    "\u0002\u0002IP\u0007\u0015\u0002\u0002JP\u0005\u0016\f\u0002KL\u0007",
-    "\b\u0002\u0002LM\u0005\f\u0007\u0002MN\u0007\t\u0002\u0002NP\u0003\u0002",
-    "\u0002\u0002OF\u0003\u0002\u0002\u0002OG\u0003\u0002\u0002\u0002OH\u0003",
-    "\u0002\u0002\u0002OI\u0003\u0002\u0002\u0002OJ\u0003\u0002\u0002\u0002",
-    "OK\u0003\u0002\u0002\u0002P\u0015\u0003\u0002\u0002\u0002QR\t\u0005",
-    "\u0002\u0002RS\u0007\b\u0002\u0002ST\u0007\u0016\u0002\u0002TU\u0007",
-    "\r\u0002\u0002UV\u0007\u0017\u0002\u0002VW\u0007\t\u0002\u0002WX\u0007",
-    "\n\u0002\u0002XY\u0005\f\u0007\u0002YZ\u0007\u000b\u0002\u0002Z\u0017",
-    "\u0003\u0002\u0002\u0002[^\u0007\u0016\u0002\u0002\\]\u0007\u000f\u0002",
-    "\u0002]_\u0007\u0016\u0002\u0002^\\\u0003\u0002\u0002\u0002^_\u0003",
-    "\u0002\u0002\u0002_\u0019\u0003\u0002\u0002\u0002\t!%,;DO^"].join("");
+    "\u0002\u0003\u0002\u0003\u0002\u0005\u0002#\n\u0002\u0003\u0003\u0003",
+    "\u0003\u0005\u0003\'\n\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0007",
+    "\u0004,\n\u0004\f\u0004\u000e\u0004/\u000b\u0004\u0003\u0005\u0003\u0005",
+    "\u0003\u0005\u0003\u0006\u0003\u0006\u0003\u0007\u0003\u0007\u0003\u0007",
+    "\u0003\b\u0003\b\u0003\b\u0003\b\u0005\b=\n\b\u0003\t\u0003\t\u0003",
+    "\t\u0003\n\u0003\n\u0003\n\u0003\n\u0005\nF\n\n\u0003\u000b\u0003\u000b",
+    "\u0003\u000b\u0003\u000b\u0003\u000b\u0003\u000b\u0003\u000b\u0003\u000b",
+    "\u0003\u000b\u0005\u000bQ\n\u000b\u0003\f\u0003\f\u0003\f\u0003\f\u0003",
+    "\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\r\u0003\r\u0003\r\u0005",
+    "\r`\n\r\u0003\r\u0002\u0002\u000e\u0002\u0004\u0006\b\n\f\u000e\u0010",
+    "\u0012\u0014\u0016\u0018\u0002\u0006\u0003\u0002\u0005\u0006\u0003\u0002",
+    "\u0011\u0012\u0003\u0002\u0013\u0014\u0003\u0002\u0007\ba\u0002\"\u0003",
+    "\u0002\u0002\u0002\u0004&\u0003\u0002\u0002\u0002\u0006(\u0003\u0002",
+    "\u0002\u0002\b0\u0003\u0002\u0002\u0002\n3\u0003\u0002\u0002\u0002\f",
+    "5\u0003\u0002\u0002\u0002\u000e<\u0003\u0002\u0002\u0002\u0010>\u0003",
+    "\u0002\u0002\u0002\u0012E\u0003\u0002\u0002\u0002\u0014P\u0003\u0002",
+    "\u0002\u0002\u0016R\u0003\u0002\u0002\u0002\u0018\\\u0003\u0002\u0002",
+    "\u0002\u001a\u001b\u0005\u0006\u0004\u0002\u001b\u001c\u0007\u000f\u0002",
+    "\u0002\u001c#\u0003\u0002\u0002\u0002\u001d\u001e\u0005\b\u0005\u0002",
+    "\u001e\u001f\u0007\u000f\u0002\u0002\u001f \u0005\u0004\u0003\u0002",
+    " #\u0003\u0002\u0002\u0002!#\u0007\u0004\u0002\u0002\"\u001a\u0003\u0002",
+    "\u0002\u0002\"\u001d\u0003\u0002\u0002\u0002\"!\u0003\u0002\u0002\u0002",
+    "#\u0003\u0003\u0002\u0002\u0002$\'\u0007\u0002\u0002\u0003%\'\u0005",
+    "\u0002\u0002\u0002&$\u0003\u0002\u0002\u0002&%\u0003\u0002\u0002\u0002",
+    "\'\u0005\u0003\u0002\u0002\u0002(-\u0007\u0015\u0002\u0002)*\u0007\r",
+    "\u0002\u0002*,\u0007\u0015\u0002\u0002+)\u0003\u0002\u0002\u0002,/\u0003",
+    "\u0002\u0002\u0002-+\u0003\u0002\u0002\u0002-.\u0003\u0002\u0002\u0002",
+    ".\u0007\u0003\u0002\u0002\u0002/-\u0003\u0002\u0002\u000201\u0005\n",
+    "\u0006\u000212\u0005\f\u0007\u00022\t\u0003\u0002\u0002\u000234\t\u0002",
+    "\u0002\u00024\u000b\u0003\u0002\u0002\u000256\u0005\u0010\t\u000267",
+    "\u0005\u000e\b\u00027\r\u0003\u0002\u0002\u000289\t\u0003\u0002\u0002",
+    "9:\u0005\u0010\t\u0002:;\u0005\u000e\b\u0002;=\u0003\u0002\u0002\u0002",
+    "<8\u0003\u0002\u0002\u0002<=\u0003\u0002\u0002\u0002=\u000f\u0003\u0002",
+    "\u0002\u0002>?\u0005\u0014\u000b\u0002?@\u0005\u0012\n\u0002@\u0011",
+    "\u0003\u0002\u0002\u0002AB\t\u0004\u0002\u0002BC\u0005\u0014\u000b\u0002",
+    "CD\u0005\u0012\n\u0002DF\u0003\u0002\u0002\u0002EA\u0003\u0002\u0002",
+    "\u0002EF\u0003\u0002\u0002\u0002F\u0013\u0003\u0002\u0002\u0002GQ\u0005",
+    "\u0018\r\u0002HQ\u0007\u0018\u0002\u0002IQ\u0007\u0015\u0002\u0002J",
+    "Q\u0007\u0016\u0002\u0002KQ\u0005\u0016\f\u0002LM\u0007\t\u0002\u0002",
+    "MN\u0005\f\u0007\u0002NO\u0007\n\u0002\u0002OQ\u0003\u0002\u0002\u0002",
+    "PG\u0003\u0002\u0002\u0002PH\u0003\u0002\u0002\u0002PI\u0003\u0002\u0002",
+    "\u0002PJ\u0003\u0002\u0002\u0002PK\u0003\u0002\u0002\u0002PL\u0003\u0002",
+    "\u0002\u0002Q\u0015\u0003\u0002\u0002\u0002RS\t\u0005\u0002\u0002ST",
+    "\u0007\t\u0002\u0002TU\u0007\u0017\u0002\u0002UV\u0007\u000e\u0002\u0002",
+    "VW\u0007\u0018\u0002\u0002WX\u0007\n\u0002\u0002XY\u0007\u000b\u0002",
+    "\u0002YZ\u0005\f\u0007\u0002Z[\u0007\f\u0002\u0002[\u0017\u0003\u0002",
+    "\u0002\u0002\\_\u0007\u0017\u0002\u0002]^\u0007\u0010\u0002\u0002^`",
+    "\u0007\u0017\u0002\u0002_]\u0003\u0002\u0002\u0002_`\u0003\u0002\u0002",
+    "\u0002`\u0019\u0003\u0002\u0002\u0002\t\"&-<EP_"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -65,14 +66,15 @@ var decisionsToDFA = atn.decisionToState.map( function(ds, index) { return new a
 
 var sharedContextCache = new antlr4.PredictionContextCache();
 
-var literalNames = [ null, null, "'static'", "'dynamic'", "'sum'", "'mul'", 
-                     "'('", "')'", "'{'", "'}'", "','", "':'", "';'", "'.'", 
-                     "'+'", "'-'", "'*'", "'/'" ];
+var literalNames = [ null, null, "'random'", "'static'", "'dynamic'", "'sum'", 
+                     "'mul'", "'('", "')'", "'{'", "'}'", "','", "':'", 
+                     "';'", "'.'", "'+'", "'-'", "'*'", "'/'" ];
 
-var symbolicNames = [ null, "WHITESPACE", "STATIC", "DYNAMIC", "SUM", "MUL", 
-                      "OPEN1", "CLOSE1", "OPEN2", "CLOSE2", "COMMA", "COLON", 
-                      "SEMICOLON", "DOT", "PLUS", "MINUS", "ASTERISK", "SLASH", 
-                      "INT", "REAL", "IDENTIFIER", "RESERVED" ];
+var symbolicNames = [ null, "WHITESPACE", "RANDOM", "STATIC", "DYNAMIC", 
+                      "SUM", "MUL", "OPEN1", "CLOSE1", "OPEN2", "CLOSE2", 
+                      "COMMA", "COLON", "SEMICOLON", "DOT", "PLUS", "MINUS", 
+                      "ASTERISK", "SLASH", "INT", "REAL", "IDENTIFIER", 
+                      "RESERVED" ];
 
 var ruleNames =  [ "s", "s1", "manual", "auto", "type", "e", "e1", "t", 
                    "t1", "f", "loop", "v" ];
@@ -97,26 +99,27 @@ Object.defineProperty(EliminationOrderParser.prototype, "atn", {
 
 EliminationOrderParser.EOF = antlr4.Token.EOF;
 EliminationOrderParser.WHITESPACE = 1;
-EliminationOrderParser.STATIC = 2;
-EliminationOrderParser.DYNAMIC = 3;
-EliminationOrderParser.SUM = 4;
-EliminationOrderParser.MUL = 5;
-EliminationOrderParser.OPEN1 = 6;
-EliminationOrderParser.CLOSE1 = 7;
-EliminationOrderParser.OPEN2 = 8;
-EliminationOrderParser.CLOSE2 = 9;
-EliminationOrderParser.COMMA = 10;
-EliminationOrderParser.COLON = 11;
-EliminationOrderParser.SEMICOLON = 12;
-EliminationOrderParser.DOT = 13;
-EliminationOrderParser.PLUS = 14;
-EliminationOrderParser.MINUS = 15;
-EliminationOrderParser.ASTERISK = 16;
-EliminationOrderParser.SLASH = 17;
-EliminationOrderParser.INT = 18;
-EliminationOrderParser.REAL = 19;
-EliminationOrderParser.IDENTIFIER = 20;
-EliminationOrderParser.RESERVED = 21;
+EliminationOrderParser.RANDOM = 2;
+EliminationOrderParser.STATIC = 3;
+EliminationOrderParser.DYNAMIC = 4;
+EliminationOrderParser.SUM = 5;
+EliminationOrderParser.MUL = 6;
+EliminationOrderParser.OPEN1 = 7;
+EliminationOrderParser.CLOSE1 = 8;
+EliminationOrderParser.OPEN2 = 9;
+EliminationOrderParser.CLOSE2 = 10;
+EliminationOrderParser.COMMA = 11;
+EliminationOrderParser.COLON = 12;
+EliminationOrderParser.SEMICOLON = 13;
+EliminationOrderParser.DOT = 14;
+EliminationOrderParser.PLUS = 15;
+EliminationOrderParser.MINUS = 16;
+EliminationOrderParser.ASTERISK = 17;
+EliminationOrderParser.SLASH = 18;
+EliminationOrderParser.INT = 19;
+EliminationOrderParser.REAL = 20;
+EliminationOrderParser.IDENTIFIER = 21;
+EliminationOrderParser.RESERVED = 22;
 
 EliminationOrderParser.RULE_s = 0;
 EliminationOrderParser.RULE_s1 = 1;
@@ -163,6 +166,10 @@ SContext.prototype.s1 = function() {
     return this.getTypedRuleContext(S1Context,0);
 };
 
+SContext.prototype.RANDOM = function() {
+    return this.getToken(EliminationOrderParser.RANDOM, 0);
+};
+
 SContext.prototype.enterRule = function(listener) {
     if(listener instanceof EliminationOrderListener ) {
         listener.enterS(this);
@@ -185,7 +192,7 @@ EliminationOrderParser.prototype.s = function() {
     var localctx = new SContext(this, this._ctx, this.state);
     this.enterRule(localctx, 0, EliminationOrderParser.RULE_s);
     try {
-        this.state = 31;
+        this.state = 32;
         switch(this._input.LA(1)) {
         case EliminationOrderParser.INT:
             this.enterOuterAlt(localctx, 1);
@@ -203,6 +210,11 @@ EliminationOrderParser.prototype.s = function() {
             this.match(EliminationOrderParser.SEMICOLON);
             this.state = 29;
             this.s1();
+            break;
+        case EliminationOrderParser.RANDOM:
+            this.enterOuterAlt(localctx, 3);
+            this.state = 31;
+            this.match(EliminationOrderParser.RANDOM);
             break;
         default:
             throw new antlr4.error.NoViableAltException(this);
@@ -267,18 +279,19 @@ EliminationOrderParser.prototype.s1 = function() {
     var localctx = new S1Context(this, this._ctx, this.state);
     this.enterRule(localctx, 2, EliminationOrderParser.RULE_s1);
     try {
-        this.state = 35;
+        this.state = 36;
         switch(this._input.LA(1)) {
         case EliminationOrderParser.EOF:
             this.enterOuterAlt(localctx, 1);
-            this.state = 33;
+            this.state = 34;
             this.match(EliminationOrderParser.EOF);
             break;
+        case EliminationOrderParser.RANDOM:
         case EliminationOrderParser.STATIC:
         case EliminationOrderParser.DYNAMIC:
         case EliminationOrderParser.INT:
             this.enterOuterAlt(localctx, 2);
-            this.state = 34;
+            this.state = 35;
             this.s();
             break;
         default:
@@ -362,17 +375,17 @@ EliminationOrderParser.prototype.manual = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 37;
+        this.state = 38;
         this.match(EliminationOrderParser.INT);
-        this.state = 42;
+        this.state = 43;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while(_la===EliminationOrderParser.COMMA) {
-            this.state = 38;
-            this.match(EliminationOrderParser.COMMA);
             this.state = 39;
+            this.match(EliminationOrderParser.COMMA);
+            this.state = 40;
             this.match(EliminationOrderParser.INT);
-            this.state = 44;
+            this.state = 45;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
         }
@@ -437,9 +450,9 @@ EliminationOrderParser.prototype.auto = function() {
     this.enterRule(localctx, 6, EliminationOrderParser.RULE_auto);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 45;
-        this.type();
         this.state = 46;
+        this.type();
+        this.state = 47;
         this.e();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -503,7 +516,7 @@ EliminationOrderParser.prototype.type = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 48;
+        this.state = 49;
         _la = this._input.LA(1);
         if(!(_la===EliminationOrderParser.STATIC || _la===EliminationOrderParser.DYNAMIC)) {
         this._errHandler.recoverInline(this);
@@ -572,9 +585,9 @@ EliminationOrderParser.prototype.e = function() {
     this.enterRule(localctx, 10, EliminationOrderParser.RULE_e);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 50;
-        this.t();
         this.state = 51;
+        this.t();
+        this.state = 52;
         this.e1();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -646,10 +659,10 @@ EliminationOrderParser.prototype.e1 = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 57;
+        this.state = 58;
         _la = this._input.LA(1);
         if(_la===EliminationOrderParser.PLUS || _la===EliminationOrderParser.MINUS) {
-            this.state = 53;
+            this.state = 54;
             _la = this._input.LA(1);
             if(!(_la===EliminationOrderParser.PLUS || _la===EliminationOrderParser.MINUS)) {
             this._errHandler.recoverInline(this);
@@ -657,9 +670,9 @@ EliminationOrderParser.prototype.e1 = function() {
             else {
                 this.consume();
             }
-            this.state = 54;
-            this.t();
             this.state = 55;
+            this.t();
+            this.state = 56;
             this.e1();
         }
 
@@ -724,9 +737,9 @@ EliminationOrderParser.prototype.t = function() {
     this.enterRule(localctx, 14, EliminationOrderParser.RULE_t);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 59;
-        this.f();
         this.state = 60;
+        this.f();
+        this.state = 61;
         this.t1();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -798,10 +811,10 @@ EliminationOrderParser.prototype.t1 = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 66;
+        this.state = 67;
         _la = this._input.LA(1);
         if(_la===EliminationOrderParser.ASTERISK || _la===EliminationOrderParser.SLASH) {
-            this.state = 62;
+            this.state = 63;
             _la = this._input.LA(1);
             if(!(_la===EliminationOrderParser.ASTERISK || _la===EliminationOrderParser.SLASH)) {
             this._errHandler.recoverInline(this);
@@ -809,9 +822,9 @@ EliminationOrderParser.prototype.t1 = function() {
             else {
                 this.consume();
             }
-            this.state = 63;
-            this.f();
             this.state = 64;
+            this.f();
+            this.state = 65;
             this.t1();
         }
 
@@ -899,41 +912,41 @@ EliminationOrderParser.prototype.f = function() {
     var localctx = new FContext(this, this._ctx, this.state);
     this.enterRule(localctx, 18, EliminationOrderParser.RULE_f);
     try {
-        this.state = 77;
+        this.state = 78;
         switch(this._input.LA(1)) {
         case EliminationOrderParser.IDENTIFIER:
             this.enterOuterAlt(localctx, 1);
-            this.state = 68;
+            this.state = 69;
             this.v();
             break;
         case EliminationOrderParser.RESERVED:
             this.enterOuterAlt(localctx, 2);
-            this.state = 69;
+            this.state = 70;
             this.match(EliminationOrderParser.RESERVED);
             break;
         case EliminationOrderParser.INT:
             this.enterOuterAlt(localctx, 3);
-            this.state = 70;
+            this.state = 71;
             this.match(EliminationOrderParser.INT);
             break;
         case EliminationOrderParser.REAL:
             this.enterOuterAlt(localctx, 4);
-            this.state = 71;
+            this.state = 72;
             this.match(EliminationOrderParser.REAL);
             break;
         case EliminationOrderParser.SUM:
         case EliminationOrderParser.MUL:
             this.enterOuterAlt(localctx, 5);
-            this.state = 72;
+            this.state = 73;
             this.loop();
             break;
         case EliminationOrderParser.OPEN1:
             this.enterOuterAlt(localctx, 6);
-            this.state = 73;
-            this.match(EliminationOrderParser.OPEN1);
             this.state = 74;
-            this.e();
+            this.match(EliminationOrderParser.OPEN1);
             this.state = 75;
+            this.e();
+            this.state = 76;
             this.match(EliminationOrderParser.CLOSE1);
             break;
         default:
@@ -1033,7 +1046,7 @@ EliminationOrderParser.prototype.loop = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 79;
+        this.state = 80;
         _la = this._input.LA(1);
         if(!(_la===EliminationOrderParser.SUM || _la===EliminationOrderParser.MUL)) {
         this._errHandler.recoverInline(this);
@@ -1041,21 +1054,21 @@ EliminationOrderParser.prototype.loop = function() {
         else {
             this.consume();
         }
-        this.state = 80;
-        this.match(EliminationOrderParser.OPEN1);
         this.state = 81;
-        this.match(EliminationOrderParser.IDENTIFIER);
+        this.match(EliminationOrderParser.OPEN1);
         this.state = 82;
-        this.match(EliminationOrderParser.COLON);
+        this.match(EliminationOrderParser.IDENTIFIER);
         this.state = 83;
-        this.match(EliminationOrderParser.RESERVED);
+        this.match(EliminationOrderParser.COLON);
         this.state = 84;
-        this.match(EliminationOrderParser.CLOSE1);
+        this.match(EliminationOrderParser.RESERVED);
         this.state = 85;
-        this.match(EliminationOrderParser.OPEN2);
+        this.match(EliminationOrderParser.CLOSE1);
         this.state = 86;
-        this.e();
+        this.match(EliminationOrderParser.OPEN2);
         this.state = 87;
+        this.e();
+        this.state = 88;
         this.match(EliminationOrderParser.CLOSE2);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -1127,14 +1140,14 @@ EliminationOrderParser.prototype.v = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 89;
+        this.state = 90;
         this.match(EliminationOrderParser.IDENTIFIER);
-        this.state = 92;
+        this.state = 93;
         _la = this._input.LA(1);
         if(_la===EliminationOrderParser.DOT) {
-            this.state = 90;
-            this.match(EliminationOrderParser.DOT);
             this.state = 91;
+            this.match(EliminationOrderParser.DOT);
+            this.state = 92;
             this.match(EliminationOrderParser.IDENTIFIER);
         }
 

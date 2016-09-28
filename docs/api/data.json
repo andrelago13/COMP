@@ -85,6 +85,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src\\dsl\\ast\\EO_AST_NodeRandom.js": {
+            "name": "src\\dsl\\ast\\EO_AST_NodeRandom.js",
+            "modules": {},
+            "classes": {
+                "EO_AST_NodeRandom": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\dsl\\ast\\EO_AST_NodeReserved.js": {
             "name": "src\\dsl\\ast\\EO_AST_NodeReserved.js",
             "modules": {},
@@ -247,6 +256,7 @@
                 "EO_AST_NodeF": 1,
                 "EO_AST_NodeLoop": 1,
                 "EO_AST_NodeManual": 1,
+                "EO_AST_NodeRandom": 1,
                 "EO_AST_NodeReserved": 1,
                 "EO_AST_NodeT": 1,
                 "EO_AST_NodeT1": 1,
@@ -432,6 +442,20 @@
             "file": "src\\dsl\\ast\\EO_AST_NodeManual.js",
             "line": 1,
             "description": "Represents node \"Manual\" of the grammar.\n\nUsage example:\n\n\t\t[\"INT\", \"INT\", ...]\n\n\t\"INT\" - number with the node's id"
+        },
+        "EO_AST_NodeRandom": {
+            "name": "EO_AST_NodeRandom",
+            "shortname": "EO_AST_NodeRandom",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Grammar",
+            "namespace": "",
+            "file": "src\\dsl\\ast\\EO_AST_NodeRandom.js",
+            "line": 1,
+            "description": "Represents node \"Random\" of the grammar.\n\nUsage:\n\n\t\t\"random\""
         },
         "EO_AST_NodeReserved": {
             "name": "EO_AST_NodeReserved",
@@ -890,7 +914,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 75,
+            "line": 76,
             "description": "Retrieves an array with the id's of all nodes in the FA",
             "itemtype": "method",
             "name": "convertNodeIDArrayToNodeArrayIndex",
@@ -902,7 +926,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 89,
+            "line": 90,
             "description": "Fixes an FA, formatting the start node",
             "itemtype": "method",
             "name": "fixStartingState",
@@ -920,7 +944,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 127,
+            "line": 128,
             "description": "Fixes an FA, formatting the final node",
             "itemtype": "method",
             "name": "fixFinalState",
@@ -938,7 +962,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 177,
+            "line": 178,
             "description": "Merges the transition label in an FA, between the given nodes",
             "itemtype": "method",
             "name": "getMergedTransitionsLabel",
@@ -964,7 +988,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 202,
+            "line": 203,
             "description": "Eliminates a state from the FA",
             "itemtype": "method",
             "name": "eliminateState",
@@ -986,7 +1010,7 @@
         },
         {
             "file": "src\\js\\Converter.js",
-            "line": 262,
+            "line": 263,
             "description": "Checks if a given label needs parenthesis around it for the regex to be valid",
             "itemtype": "method",
             "name": "needsParenthesis",

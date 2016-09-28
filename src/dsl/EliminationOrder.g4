@@ -1,6 +1,6 @@
 grammar EliminationOrder;
 
-s : (manual SEMICOLON) | (auto SEMICOLON s1 );
+s : (manual SEMICOLON) | (auto SEMICOLON s1 ) | RANDOM;
 s1 : EOF|s;
 manual : INT (COMMA INT)*;
 auto : type e;
@@ -15,6 +15,7 @@ v : IDENTIFIER (DOT IDENTIFIER)?;
 
 WHITESPACE  : [ \t\r\n]+ -> skip;
 
+RANDOM 		: 'random';
 STATIC 		: 'static';
 DYNAMIC 	: 'dynamic';
 SUM 		: 'sum';

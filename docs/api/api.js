@@ -12,6 +12,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "EO_AST_NodeF",
         "EO_AST_NodeLoop",
         "EO_AST_NodeManual",
+        "EO_AST_NodeRandom",
         "EO_AST_NodeReserved",
         "EO_AST_NodeT",
         "EO_AST_NodeT1",

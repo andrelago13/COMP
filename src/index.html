@@ -130,6 +130,7 @@ static sum(in : #ins_nl)  {
                         <button type="button" id="Heuristica2">Ins * Outs - Ins - Outs</button>
                         <button type="button" id="Heuristica3">Ins + Outs</button>
                         <button type="button" id="Heuristica4">Combination</button>
+                        <button type="button" id="Heuristica5">Random</button>
                         <div class="errors"></div>
                         <button type="button" id="dslButton">Parse DSL</button><img id="success" src="img/success.png" alt="Success">
                         <br/>
@@ -191,7 +192,7 @@ static sum(in : #ins_nl)  {
                             <p><strong>DSL used:</strong></p>
                             <div style="padding-left: 4rem;">
                                 <p>
-                                    <strong>s</strong> : (manual SEMICOLON) | (auto SEMICOLON s1 );
+                                    <strong>s</strong> : (manual SEMICOLON) | (auto SEMICOLON s1 ) | RANDOM;
                                     <br/>
                                     <strong>s1</strong> : EOF|s; manual : INT (COMMA INT)*;
                                     <br/>
@@ -218,6 +219,8 @@ static sum(in : #ins_nl)  {
                                     <strong>WHITESPACE</strong> : [ \t\r\n]+ -> skip;
                                 </p>
                                 <p>
+                                    <strong>RANDOM</strong> : 'random';
+                                    <br/>
                                     <strong>STATIC</strong> : 'static';
                                     <br/>
                                     <strong>DYNAMIC</strong> : 'dynamic';

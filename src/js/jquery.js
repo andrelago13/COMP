@@ -54,4 +54,10 @@ $(document).ready(function() {
 		document.getElementById('dsl_text').innerHTML = "dynamic sum(in : #ins_nl) { in.weight * #outdeg_nl } + sum(out : #outs_nl) { out.weight * #indeg_nl } + #nloops * (#indeg_nl * #outdeg_nl); dynamic #indeg * #outdeg - #indeg - #outdeg; dynamic #indeg + #outdeg; dynamic #indeg * #outdeg; static #indeg;";
 		$("#dsl_text").trigger("change");
 	});
+	
+	$("#Heuristica5").click(function(e) {
+		e.preventDefault();
+		document.getElementById('dsl_text').innerHTML = "random";
+		$("#dsl_text").trigger("change");
+	});
 });

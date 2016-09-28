@@ -1,6 +1,7 @@
 var EliminationOrderListener = require('dsl/EliminationOrderListener').EliminationOrderListener;
 var EO_AST = require('dsl/ast/EO_AST').EO_AST;
 var EO_AST_Node = require('dsl/ast/EO_AST_Node').EO_AST_Node;
+var EO_AST_NodeRandom = require('dsl/ast/EO_AST_NodeRandom').EO_AST_NodeRandom;
 var EO_AST_NodeManual = require('dsl/ast/EO_AST_NodeManual').EO_AST_NodeManual;
 var EO_AST_NodeAuto = require('dsl/ast/EO_AST_NodeAuto').EO_AST_NodeAuto;
 var EO_AST_NodeE = require('dsl/ast/EO_AST_NodeE').EO_AST_NodeE;
@@ -43,10 +44,16 @@ CustomListener.prototype.constructor = CustomListener;
 
 // Enter a parse tree produced by EliminationOrderParser#s.
 CustomListener.prototype.enterS = function(ctx) {
+	if((typeof ctx.children[0] != 'undefined') && (ctx.children[0].getText() === "random")) {
+		this.stack.push(new EO_AST_NodeRandom(this.stack.top()));
+	}
 };
 
 // Exit a parse tree produced by EliminationOrderParser#s.
 CustomListener.prototype.exitS = function(ctx) {
+	if((typeof ctx.children[0] != 'undefined') && (ctx.children[0].getText() === "random")) {
+		this.stack.pop();
+	}
 };
 
 

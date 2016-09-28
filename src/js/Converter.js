@@ -42,6 +42,7 @@ Converter.prototype.convert = function() {
 	cutFa.nodes.pop();
 	cutFa.nodes.pop();
 	var result = this.ast.eval(cutFa);
+	console.log(result);
 	var order = result.getOrder();
 	var type = result.getType();
 	while (faHistory.slice(-1)[0].fa.nodes.length > 2)
