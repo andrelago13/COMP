@@ -44,7 +44,7 @@ In the /testsuite/ folder, 5 FA input examples are available to use for testing.
 André Lago:
 - Conversion of the CST to the AST.
 - Syntatic and semantic analysis
-- Calculation of the state elimination order for apn iteration using the rules defined in the AST.
+- Calculation of the state elimination order for an iteration using the rules defined in the AST.
 
 Carolina Moreira:
 - About page;
