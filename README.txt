@@ -9,7 +9,7 @@ NAME: Leonardo Ferreira, NR: 201305980, GRADE: 16, CONTRIBUTION: 20%
 ** SUMMARY:
 Framework to transform finite automata to regular expressions using the state elimination method. The main feature of this interface is the possibility to specify how states must be "ranked" when selecting which one should be removed at each stage.
 The input of the framework is a graph representing the automata and a DSL defining the order of elimination of the states, which will affect the final regular expression.
-The graph should be in DOT format and it must contain a node with ID "START" (the start state) and it must contain one or more final states. A state is considered final if it has "doublecircle" as the shape or 2 peripheries.
+The graph should be in DOT format and it must contain a node with ID "START" (the start state) and one or more final states. A state is considered final if it has "doublecircle" as the shape or 2 peripheries.
 To specify the order in which to eliminate the states, the user must specify an expression (using our DSL) indicating how the "score" of each node is going to be calculated. The nodes will then be removed in decreasing order of "score". In addition to that, the user may also specify tie breakers or even a manual ordering by specifying the node IDs directly.
 
 
